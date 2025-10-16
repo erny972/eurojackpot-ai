@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EuroJackpot AI</title>
+  <style>
+    body {
+      background: linear-gradient(135deg,#0f2027 0%,#2c5364 100%);
+      font-family: 'Arial', sans-serif;
+      margin:0; padding:0;
+      color:#fff;
+      min-height:100vh;
+    }
+    .container {
+      max-width:700px;
+      margin:30px auto;
+      padding:24px;
+      background:rgba(20,22,34,0.93);
+      border-radius:18px;
+      box-shadow:0 0 24px #0984e3,0 0 44px #fd79a8;
+      border:1px solid #00d2ff25;
+    }
+    .title {font-size:2.2rem; letter-spacing:1px; background:linear-gradient(90deg,#00d2ff,#fd79a8,#00d2ff); background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent; animation:gradientFlow 5s ease infinite;}
+    @keyframes gradientFlow { 0%,100%{background-position:0% 60%;} 50%{background-position:100% 60%;} }
+    .section{margin:32px 0;}
+    .input-row{display:grid; grid-template-columns:repeat(5,1fr); gap:10px;}
+    .stars-row{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+    input,button{font-size:1rem;font-family:'Arial',sans-serif;}
+    input[type="number"],input[type="date"]{width:100%;padding:8px;border-radius:9px;border:1.5px solid #00d2ff;margin-bottom:4px;}
+    button{padding:11px 18px; border:none; border-radius:9px; background:linear-gradient(90deg,#00d2ff,#fd79a8,#00d2ff); color:#fff; font-weight:600; margin: 0 7px 0 0; cursor:pointer;}
+    button:active{filter:brightness(0.8);}
+    .msg{margin:7px 0; padding:9px 12px; border-radius:8px;}
+    .msg.error{background:#ff336677;color:#fff;}
+    .msg.success{background:#00ff8822;color:#00ff88;}
+    .storage-label{margin-top:5px;font-size:0.9em;color:#00ff99;}
+    table{width:100%;border-collapse:collapse;border-radius:8px;overflow:hidden;background:#101728cc;}
+    th,td{padding:8px 0;text-align:center;}
+    th{background:#0a2940;color:#00d2ff;}
+    tr:nth-child(even){background:rgba(27,27,40,0.7);}
+    tr:hover{background:rgba(0,210,255,0.06);}
+    @media (max-width:600px){
+      .container{padding:5vw;}
+      .input-row{grid-template-columns:1fr 1fr;}
+      .stars-row{grid-template-columns:1fr;}
+      .section{margin:18px 0;}
+      th,.input-row input{font-size:0.94rem;}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="title">EuroJackpot AI</div>
+    <div id="debug" class="msg info" style="margin-top:24px"></div>
+    <div class="section">
+      <b>Aggiungi Estrazione</b>
+      <form id="addForm" autocomplete="off" onsubmit="return false;">
+        <input type="date" id="fdate" required>
+        <div class="input-row">
+          <input type="number" min="1" max="50" id="n1" placeholder="N1" required>
+          <input type="number" min="1" max="50" id="n2" placeholder="N2" required>
+          <input type="number" min="1" max="50" id="n3" placeholder="N3" required>
+          <input type="number" min="1" max="50" id="n4" placeholder="N4" required>
+          <input type="number" min="1" max="50" id="n5" placeholder="N5" required>
+        </div>
+        <div class="stars-row" style="margin:9px 0;">
+          <input type="number" min="1" max="12" id="s1" placeholder="S1" required>
+          <input type="number" min="1" max="12" id="s2" placeholder="S2" required>
+        </div>
+        <button id="addBtn">Aggiungi</button>
+      </form>
+      <div id="fmsg"></div>
+    </div>
+    <div class="section">
+      <b>Storico Estrazioni</b>
+      <div class="storage-label" id="storagelbl"></div>
+      <table>
+        <thead>
+          <tr>
+            <th>Data</th><th>N1</th><th>N2</th><th>N3</th><th>N4</th><th>N5</th><th>S1</th><th>S2</th>
+          </tr>
+        </thead>
+        <tbody id="histbody"></tbody>
+      </table>
+    </div>
+  </div>
+<script>
+const STORAGE="eurojackpot_ai_data"
+let data=[]
+function showMsg(el,msg,type="success"){el.innerHTML='<div class="msg '+type+'">'+msg+"</div>"}
+function save(){localStorage.setItem(STORAGE,JSON.stringify(data));updStoreLbl()}
+function load(){try{data=JSON.parse(localStorage.getItem(STORAGE)||"[]")||[]}catch{data=[]}}
+function rendertable(){let b=document.getElementById("histbody");
+  if(!b)return;if(!data.length){b.innerHTML='<tr><td colspan="8">Nessun dato</td></tr>';return;}
+  b.innerHTML = data.slice().reverse().map(e=>`<tr>
+    <td>${e.d}</td><td>${e.ns[0]}</td><td>${e.ns[1]}</td>
+    <td>${e.ns[2]}</td><td>${e.ns[3]}</td><td>${e.ns[4]}</td>
+    <td>${e.ss[0]}</td><td>${e.ss[1]}</td>
+    </tr>`).join("");
+}
+function updStoreLbl(){let sz=(JSON.stringify(data).length/1024).toFixed(1);
+  document.getElementById("storagelbl").textContent=`Estrazioni totali: ${data.length} - ${sz}KB usati`;}
+function debug(txt){document.getElementById("debug").innerHTML="<b>DEBUG:</b> "+txt}
+function addDraw(v){
+  if(!v.d||v.ns.length!=5||v.ss.length!=2) return false;
+  if(data.find(e=>e.d==v.d))return false;
+  data.push(v); save();rendertable(); return true;}
+function validDraw(date,ns,ss){
+  if(!date||ns.length!=5||ss.length!=2)return "Dati incompleti";
+  let numsUnq = new Set(ns).size == 5;
+  let starsUnq = ss[0]!=ss[1];
+  if(ns.some(x=>x<1||x>50)||ss.some(x=>x<1||x>12))return "Valori fuori range";
+  if(!numsUnq)return "Numeri principali doppi!";
+  if(!starsUnq)return "Le stelle devono essere diverse";
+  if(data.find(e=>e.d==date))return "Data già esistente";
+  return true;
+}
+document.addEventListener("DOMContentLoaded",()=>{
+  debug("Inizializzazione...");
+  load();rendertable();updStoreLbl();
+  document.getElementById("fdate").value = (new Date()).toISOString().slice(0,10);
+  document.getElementById("addBtn").onclick = ()=>{
+      let date = document.getElementById("fdate").value;
+      let ns = [1,2,3,4,5].map(i=>parseInt(document.getElementById("n"+i).value,10));
+      let ss = [1,2].map(i=>parseInt(document.getElementById("s"+i).value,10));
+      let check = validDraw(date,ns,ss);
+      if(check===true){
+        addDraw({d:date, ns, ss});
+        showMsg(fmsg,"✅ Estrazione aggiunta!","success");
+        document.getElementById("addForm").reset();
+        document.getElementById("fdate").value = (new Date()).toISOString().slice(0,10);
+        debug("Estrazione aggiunta e salvata.");
+      }else{
+        showMsg(fmsg,"❌ "+check,"error"); debug("Errore inserimento: "+check);}
+  };
+});
+</script>
+</body>
+</html>
