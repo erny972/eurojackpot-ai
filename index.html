@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EuroJackpot AI - 13 Algoritmi ML Simultanei</title>
+    <title>EuroJackpot AI Advanced - Sistema Predittivo Evolutivo</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&display=swap');
         
@@ -108,6 +108,63 @@
             z-index: 1;
         }
 
+        /* Dashboard Analytics */
+        .analytics-dashboard {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .analytics-main {
+            background: linear-gradient(135deg, rgba(0, 150, 255, 0.15) 0%, rgba(255, 0, 150, 0.15) 100%);
+            border-radius: 25px;
+            padding: 30px;
+            border: 1px solid rgba(0, 150, 255, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(15px);
+        }
+
+        .analytics-side {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .chart-container {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+
+        .frequency-chart {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 8px;
+            margin: 15px 0;
+        }
+
+        .freq-bar {
+            background: linear-gradient(to top, #ff0096, #00d4ff);
+            border-radius: 4px;
+            min-height: 20px;
+            display: flex;
+            align-items: end;
+            justify-content: center;
+            font-size: 0.7em;
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .freq-bar:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(255, 0, 150, 0.5);
+        }
+
         /* Status Algoritmi */
         .algorithm-status-panel {
             background: linear-gradient(135deg, rgba(0, 150, 255, 0.15) 0%, rgba(255, 0, 150, 0.15) 100%);
@@ -190,6 +247,17 @@
         .algo-live-card.inactive {
             opacity: 0.4;
             border-color: #ff4444;
+        }
+
+        .algo-live-card.learning {
+            border-color: #ffaa00;
+            box-shadow: 0 8px 25px rgba(255, 170, 0, 0.3);
+            animation: learningPulse 2s infinite;
+        }
+
+        @keyframes learningPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
         }
 
         .algo-header {
@@ -287,6 +355,13 @@
             font-style: italic;
         }
 
+        .algo-learning-indicator {
+            font-size: 0.8em;
+            color: #ffaa00;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
         /* Metriche Ensemble */
         .ensemble-metrics {
             background: linear-gradient(135deg, rgba(255, 0, 150, 0.15) 0%, rgba(255, 150, 0, 0.15) 100%);
@@ -345,19 +420,20 @@
             opacity: 0.9;
         }
 
-        /* Timer per predizione */
+        /* Countdown timer migliorato */
         .prediction-timer {
-            background: rgba(0, 0, 0, 0.4);
-            padding: 20px;
+            background: linear-gradient(135deg, rgba(255, 170, 0, 0.2), rgba(255, 0, 150, 0.2));
+            padding: 25px;
             border-radius: 20px;
             margin: 20px 0;
             text-align: center;
             border: 2px solid #ffaa00;
+            box-shadow: 0 10px 30px rgba(255, 170, 0, 0.3);
         }
 
         .timer-display {
             font-family: 'Orbitron', monospace;
-            font-size: 2.5em;
+            font-size: 3em;
             color: #ffaa00;
             font-weight: 900;
             text-shadow: 0 0 20px rgba(255, 170, 0, 0.8);
@@ -368,6 +444,23 @@
             color: #ffffff;
             font-size: 1.2em;
             opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .timer-progress {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 15px;
+        }
+
+        .timer-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #ffaa00, #ff0096);
+            border-radius: 4px;
+            transition: width 0.1s linear;
         }
 
         /* Sezioni principali */
@@ -595,7 +688,22 @@
             border: 3px solid #ffff00;
         }
 
-        /* Storico predizioni */
+        .number.matched {
+            background: linear-gradient(135deg, #00ff88, #00cc44);
+            border: 3px solid #00ff88;
+            animation: matchedGlow 2s infinite;
+        }
+
+        @keyframes matchedGlow {
+            0%, 100% { 
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 255, 136, 0.8);
+            }
+            50% { 
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 255, 136, 1);
+            }
+        }
+
+        /* Storico predizioni migliorato */
         .predictions-history {
             background: rgba(0, 0, 0, 0.3);
             padding: 25px;
@@ -610,11 +718,17 @@
             margin: 15px 0;
             border-left: 4px solid #00d4ff;
             transition: all 0.3s ease;
+            position: relative;
         }
 
         .prediction-item:hover {
             background: rgba(255, 255, 255, 0.08);
             transform: translateX(5px);
+        }
+
+        .prediction-item.has-matches {
+            border-left-color: #00ff88;
+            background: rgba(0, 255, 136, 0.05);
         }
 
         .prediction-header {
@@ -633,6 +747,25 @@
         .prediction-accuracy {
             color: #00ff88;
             font-weight: 700;
+        }
+
+        .prediction-matches {
+            background: rgba(0, 255, 136, 0.2);
+            padding: 5px 10px;
+            border-radius: 10px;
+            font-size: 0.9em;
+            font-weight: bold;
+            color: #00ff88;
+        }
+
+        .learning-info {
+            background: rgba(255, 170, 0, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #ffaa00;
+            border-left: 3px solid #ffaa00;
         }
 
         /* Tabella moderna */
@@ -756,6 +889,12 @@
             color: #00d4ff;
         }
 
+        .message.learning {
+            background: rgba(255, 170, 0, 0.15);
+            border-left-color: #ffaa00;
+            color: #ffaa00;
+        }
+
         /* Toggle tema */
         .theme-toggle {
             position: fixed;
@@ -779,6 +918,12 @@
         }
 
         /* Responsive */
+        @media (max-width: 1024px) {
+            .analytics-dashboard {
+                grid-template-columns: 1fr;
+            }
+        }
+
         @media (max-width: 768px) {
             .container { padding: 15px; }
             .header h1 { font-size: 2.5em; }
@@ -786,6 +931,7 @@
             .algorithms-live-grid { grid-template-columns: 1fr; }
             .prediction-numbers { gap: 15px; }
             .number { width: 50px; height: 50px; font-size: 1.2em; }
+            .frequency-chart { grid-template-columns: repeat(5, 1fr); }
         }
     </style>
 </head>
@@ -795,42 +941,64 @@
     <div class="container">
         <!-- Header futuristico -->
         <div class="header">
-            <h1>🎯 EuroJackpot AI</h1>
-            <p>Sistema Avanzato con 13 Algoritmi di Machine Learning Simultanei</p>
+            <h1>🎯 EuroJackpot AI Advanced</h1>
+            <p>Sistema Predittivo Evolutivo con Auto-Apprendimento e Analytics</p>
+        </div>
+
+        <!-- Dashboard Analytics -->
+        <div class="analytics-dashboard">
+            <div class="analytics-main">
+                <h2 style="color: #00d4ff; margin-bottom: 20px; font-family: 'Orbitron', monospace;">📊 Analytics Dashboard</h2>
+                
+                <div class="chart-container">
+                    <h3 style="color: #ffaa00; margin-bottom: 15px;">Frequenza Numeri (1-50)</h3>
+                    <div class="frequency-chart" id="numberFrequencyChart">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="chart-container">
+                    <h3 style="color: #ffaa00; margin-bottom: 15px;">Frequenza Stelle (1-12)</h3>
+                    <div class="frequency-chart" id="starFrequencyChart" style="grid-template-columns: repeat(6, 1fr);">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="analytics-side">
+                <div class="ensemble-metrics">
+                    <h2>📊 Metriche Live</h2>
+                    <div class="metrics-grid" style="grid-template-columns: 1fr;">
+                        <div class="metric-card">
+                            <span class="metric-value" id="ensembleAccuracy">0%</span>
+                            <div class="metric-label">Accuratezza Combinata</div>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-value" id="activeAlgorithms">13</span>
+                            <div class="metric-label">Algoritmi Operativi</div>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-value" id="totalPredictions">0</span>
+                            <div class="metric-label">Predizioni Generate</div>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-value" id="learningRate">0%</span>
+                            <div class="metric-label">Tasso Apprendimento</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Status Algoritmi in Tempo Reale -->
         <div class="algorithm-status-panel">
             <div class="algorithm-status-header">
-                <div class="algorithm-status-title">🤖 Algoritmi Attivi in Tempo Reale</div>
+                <div class="algorithm-status-title">🤖 Algoritmi AI con Auto-Apprendimento</div>
                 <div class="active-counter" id="liveCounter">13/13 Attivi</div>
             </div>
             
             <div class="algorithms-live-grid" id="algorithmLiveGrid">
                 <!-- Populated by JavaScript -->
-            </div>
-        </div>
-
-        <!-- Metriche Ensemble -->
-        <div class="ensemble-metrics">
-            <h2>📊 Performance Ensemble</h2>
-            <div class="metrics-grid">
-                <div class="metric-card">
-                    <span class="metric-value" id="ensembleAccuracy">0%</span>
-                    <div class="metric-label">Accuratezza Combinata</div>
-                </div>
-                <div class="metric-card">
-                    <span class="metric-value" id="activeAlgorithms">13</span>
-                    <div class="metric-label">Algoritmi Operativi</div>
-                </div>
-                <div class="metric-card">
-                    <span class="metric-value" id="totalWeight">12.65</span>
-                    <div class="metric-label">Peso Computazionale</div>
-                </div>
-                <div class="metric-card">
-                    <span class="metric-value" id="totalPredictions">0</span>
-                    <div class="metric-label">Predizioni Generate</div>
-                </div>
             </div>
         </div>
 
@@ -874,10 +1042,13 @@
                     </button>
                 </div>
                 
-                <!-- Timer Predizione -->
+                <!-- Countdown Timer Migliorato -->
                 <div class="prediction-timer" id="predictionTimer" style="display: none;">
-                    <div class="timer-display" id="timerDisplay">00:00</div>
-                    <div class="timer-label">Tempo di Elaborazione</div>
+                    <div class="timer-display" id="timerDisplay">05:00</div>
+                    <div class="timer-label">Countdown Elaborazione Predizione</div>
+                    <div class="timer-progress">
+                        <div class="timer-progress-bar" id="timerProgressBar" style="width: 100%;"></div>
+                    </div>
                 </div>
                 
                 <div class="prediction-process" id="predictionProcess" style="display: none;">
@@ -901,9 +1072,9 @@
                     </div>
                 </div>
 
-                <!-- Storico Predizioni -->
+                <!-- Storico Predizioni Migliorato -->
                 <div class="predictions-history" id="predictionsHistory" style="display: none;">
-                    <h4 style="color: #ffaa00; margin-bottom: 20px;">📈 Storico Predizioni Generate</h4>
+                    <h4 style="color: #ffaa00; margin-bottom: 20px;">📈 Storico Predizioni con Auto-Apprendimento</h4>
                     <div id="predictionsHistoryList">
                         <!-- Populated by JavaScript -->
                     </div>
@@ -962,8 +1133,14 @@
         // Global variables
         let extractions = [];
         let predictions = [];
-        let predictionTimer = null;
-        let predictionStartTime = 0;
+        let countdownTimer = null;
+        let countdownTime = 300; // 5 minutes in seconds
+        let totalCountdownTime = 300;
+        let learningData = {
+            totalMatches: 0,
+            algorithmsLearning: {},
+            patternAnalysis: {}
+        };
         
         let algorithms = [
             {
@@ -973,7 +1150,10 @@
                 accuracy: 58,
                 specialty: "Temporal Patterns",
                 active: true,
-                description: "Reti neurali ricorrenti per pattern temporali complessi"
+                description: "Reti neurali ricorrenti per pattern temporali complessi",
+                learningRate: 0.1,
+                successRate: 0,
+                totalPredictions: 0
             },
             {
                 name: "Random Forest",
@@ -982,7 +1162,10 @@
                 accuracy: 52,
                 specialty: "Feature Correlation",
                 active: true,
-                description: "Ensemble di alberi decisionali per correlazioni multiple"
+                description: "Ensemble di alberi decisionali per correlazioni multiple",
+                learningRate: 0.08,
+                successRate: 0,
+                totalPredictions: 0
             },
             {
                 name: "Gradient Boosting",
@@ -991,7 +1174,10 @@
                 accuracy: 55,
                 specialty: "Error Correction",
                 active: true,
-                description: "Correzione iterativa degli errori predittivi"
+                description: "Correzione iterativa degli errori predittivi",
+                learningRate: 0.12,
+                successRate: 0,
+                totalPredictions: 0
             },
             {
                 name: "Deep Neural Network",
@@ -1000,7 +1186,10 @@
                 accuracy: 48,
                 specialty: "Complex Patterns",
                 active: true,
-                description: "Reti profonde per pattern non-lineari"
+                description: "Reti profonde per pattern non-lineari",
+                learningRate: 0.09,
+                successRate: 0,
+                totalPredictions: 0
             },
             {
                 name: "Analisi Bayesiana",
@@ -1009,7 +1198,10 @@
                 accuracy: 50,
                 specialty: "Probability Chains",
                 active: true,
-                description: "Calcolo probabilistico basato su evidenze storiche"
+                description: "Calcolo probabilistico basato su evidenze storiche",
+                learningRate: 0.07,
+                successRate: 0,
+                totalPredictions: 0
             },
             {
                 name: "Pattern Recognition",
@@ -1018,7 +1210,10 @@
                 accuracy: 44,
                 specialty: "Sequence Detection",
                 active: true,
-                description: "Riconoscimento automatico di sequenze ricorrenti"
+                description: "Riconoscimento automatico di sequenze ricorrenti",
+                learningRate: 0.11,
+                successRate: 0,
+                totalPredictions: 0
             },
             {
                 name: "Time Series ARIMA",
@@ -1027,7 +1222,10 @@
                 accuracy: 46,
                 specialty: "Trend Analysis",
                 active: true,
-                description: "Analisi autoregressiva per trend temporali"
+                description: "Analisi autoregressiva per trend temporali",
+                learningRate: 0.06,
+                successRate: 0,
+                totalPredictions: 0
             },
             {
                 name: "Quantum-Inspired",
@@ -1036,7 +1234,10 @@
                 accuracy: 38,
                 specialty: "Superposition States",
                 active: true,
-                description: "Algoritmi ispirati alla meccanica quantistica"
+                description: "Algoritmi ispirati alla meccanica quantistica",
+                learningRate: 0.15,
+                successRate: 0,
+                totalPredictions: 0
             },
             {
                 name: "Ensemble Meta-Learning",
@@ -1045,7 +1246,10 @@
                 accuracy: 62,
                 specialty: "Algorithm Selection",
                 active: true,
-                description: "Meta-apprendimento per selezione dinamica algoritmi"
+                description: "Meta-apprendimento per selezione dinamica algoritmi",
+                learningRate: 0.13,
+                successRate: 0,
+                totalPredictions: 0
             },
             {
                 name: "Reinforcement Learning",
@@ -1054,7 +1258,10 @@
                 accuracy: 49,
                 specialty: "Reward Optimization",
                 active: true,
-                description: "Apprendimento per rinforzo con ottimizzazione reward"
+                description: "Apprendimento per rinforzo con ottimizzazione reward",
+                learningRate: 0.14,
+                successRate: 0,
+                totalPredictions: 0
             },
             {
                 name: "Algoritmo Oracolo",
@@ -1063,7 +1270,10 @@
                 accuracy: 65,
                 specialty: "Mystical Vision",
                 active: true,
-                description: "Fusione di intuizione mistica e analisi matematica"
+                description: "Fusione di intuizione mistica e analisi matematica",
+                learningRate: 0.05,
+                successRate: 0,
+                totalPredictions: 0
             },
             {
                 name: "Entropic MaxEnt",
@@ -1072,7 +1282,10 @@
                 accuracy: 57,
                 specialty: "Entropy Minimization",
                 active: true,
-                description: "Minimizzazione entropica per massima informazione"
+                description: "Minimizzazione entropica per massima informazione",
+                learningRate: 0.10,
+                successRate: 0,
+                totalPredictions: 0
             },
             {
                 name: "Entropic MutualInfo",
@@ -1081,7 +1294,10 @@
                 accuracy: 54,
                 specialty: "Information Gain",
                 active: true,
-                description: "Massimizzazione informazione mutua tra variabili"
+                description: "Massimizzazione informazione mutua tra variabili",
+                learningRate: 0.09,
+                successRate: 0,
+                totalPredictions: 0
             }
         ];
 
@@ -1093,6 +1309,7 @@
             updateEnsembleMetrics();
             renderExtractions();
             renderPredictionsHistory();
+            renderFrequencyCharts();
             initializeCollapsibles();
             setCurrentDate();
         });
@@ -1117,8 +1334,16 @@
                         if (saved[i]) {
                             alg.active = saved[i].active !== undefined ? saved[i].active : true;
                             alg.weight = saved[i].weight || alg.weight;
+                            alg.successRate = saved[i].successRate || 0;
+                            alg.totalPredictions = saved[i].totalPredictions || 0;
+                            alg.learningRate = saved[i].learningRate || alg.learningRate;
                         }
                     });
+                }
+
+                const storedLearning = localStorage.getItem('eurojackpot_learning');
+                if (storedLearning) {
+                    learningData = { ...learningData, ...JSON.parse(storedLearning) };
                 }
             } catch (error) {
                 console.error('Error loading data:', error);
@@ -1130,33 +1355,254 @@
                 localStorage.setItem('eurojackpot_extractions', JSON.stringify(extractions));
                 localStorage.setItem('eurojackpot_predictions', JSON.stringify(predictions));
                 localStorage.setItem('eurojackpot_algorithms', JSON.stringify(algorithms));
+                localStorage.setItem('eurojackpot_learning', JSON.stringify(learningData));
             } catch (error) {
                 console.error('Error saving data:', error);
             }
         }
 
-        // Timer Functions
-        function startPredictionTimer() {
-            predictionStartTime = Date.now();
+        // Countdown Timer Functions
+        function startCountdownTimer() {
+            countdownTime = totalCountdownTime;
             document.getElementById('predictionTimer').style.display = 'block';
             
-            predictionTimer = setInterval(() => {
-                const elapsed = Date.now() - predictionStartTime;
-                const minutes = Math.floor(elapsed / 60000);
-                const seconds = Math.floor((elapsed % 60000) / 1000);
+            countdownTimer = setInterval(() => {
+                countdownTime--;
+                const minutes = Math.floor(countdownTime / 60);
+                const seconds = countdownTime % 60;
                 const formattedTime = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
                 document.getElementById('timerDisplay').textContent = formattedTime;
-            }, 100);
+                
+                // Update progress bar
+                const progress = ((totalCountdownTime - countdownTime) / totalCountdownTime) * 100;
+                document.getElementById('timerProgressBar').style.width = progress + '%';
+                
+                if (countdownTime <= 0) {
+                    stopCountdownTimer();
+                }
+            }, 1000);
         }
 
-        function stopPredictionTimer() {
-            if (predictionTimer) {
-                clearInterval(predictionTimer);
-                predictionTimer = null;
+        function stopCountdownTimer() {
+            if (countdownTimer) {
+                clearInterval(countdownTimer);
+                countdownTimer = null;
             }
             setTimeout(() => {
                 document.getElementById('predictionTimer').style.display = 'none';
+                document.getElementById('timerProgressBar').style.width = '100%';
             }, 2000);
+        }
+
+        // Analytics and Charts
+        function renderFrequencyCharts() {
+            renderNumberFrequencyChart();
+            renderStarFrequencyChart();
+        }
+
+        function renderNumberFrequencyChart() {
+            const container = document.getElementById('numberFrequencyChart');
+            container.innerHTML = '';
+            
+            if (extractions.length === 0) {
+                container.innerHTML = '<p style="text-align: center; opacity: 0.7;">Nessun dato disponibile</p>';
+                return;
+            }
+            
+            const frequency = calculateNumberFrequency();
+            const maxFreq = Math.max(...frequency.slice(1));
+            
+            for (let i = 1; i <= 50; i++) {
+                const bar = document.createElement('div');
+                bar.className = 'freq-bar';
+                const height = maxFreq > 0 ? (frequency[i] / maxFreq) * 100 : 0;
+                bar.style.height = Math.max(20, height) + 'px';
+                bar.textContent = i;
+                bar.title = `Numero ${i}: ${frequency[i]} volte (${((frequency[i] / extractions.length) * 100).toFixed(1)}%)`;
+                
+                // Color coding based on frequency
+                if (frequency[i] >= maxFreq * 0.8) {
+                    bar.style.background = 'linear-gradient(to top, #ff0096, #ff6600)';
+                } else if (frequency[i] <= maxFreq * 0.2) {
+                    bar.style.background = 'linear-gradient(to top, #0066ff, #00d4ff)';
+                }
+                
+                container.appendChild(bar);
+            }
+        }
+
+        function renderStarFrequencyChart() {
+            const container = document.getElementById('starFrequencyChart');
+            container.innerHTML = '';
+            
+            if (extractions.length === 0) {
+                container.innerHTML = '<p style="text-align: center; opacity: 0.7;">Nessun dato disponibile</p>';
+                return;
+            }
+            
+            const frequency = calculateStarFrequency();
+            const maxFreq = Math.max(...frequency.slice(1));
+            
+            for (let i = 1; i <= 12; i++) {
+                const bar = document.createElement('div');
+                bar.className = 'freq-bar';
+                const height = maxFreq > 0 ? (frequency[i] / maxFreq) * 100 : 0;
+                bar.style.height = Math.max(20, height) + 'px';
+                bar.textContent = i;
+                bar.title = `Stella ${i}: ${frequency[i]} volte (${((frequency[i] / (extractions.length * 2)) * 100).toFixed(1)}%)`;
+                
+                if (frequency[i] >= maxFreq * 0.8) {
+                    bar.style.background = 'linear-gradient(to top, #ffaa00, #ff6600)';
+                } else if (frequency[i] <= maxFreq * 0.2) {
+                    bar.style.background = 'linear-gradient(to top, #00ff88, #00d4ff)';
+                }
+                
+                container.appendChild(bar);
+            }
+        }
+
+        // Auto-Learning System
+        function checkPredictionMatches(newExtraction) {
+            let hasMatches = false;
+            let learningInsights = [];
+            
+            predictions.forEach(prediction => {
+                if (!prediction.matchesChecked) {
+                    const matchedNumbers = prediction.numbers.filter(n => 
+                        newExtraction.numbers.includes(n)
+                    );
+                    const matchedStars = prediction.stars.filter(s => 
+                        newExtraction.stars.includes(s)
+                    );
+                    
+                    prediction.matchedNumbers = matchedNumbers;
+                    prediction.matchedStars = matchedStars;
+                    prediction.totalMatches = matchedNumbers.length + matchedStars.length;
+                    prediction.matchesChecked = true;
+                    
+                    if (prediction.totalMatches > 0) {
+                        hasMatches = true;
+                        learningInsights.push(analyzePredictionSuccess(prediction, newExtraction));
+                        updateAlgorithmLearning(prediction);
+                    }
+                }
+            });
+            
+            if (hasMatches) {
+                learningData.totalMatches++;
+                showMessage(`🎯 Trovate corrispondenze! Sistema in apprendimento automatico...`, 'learning');
+                
+                // Update learning insights
+                learningInsights.forEach(insight => {
+                    if (insight) {
+                        showMessage(`🧠 Insight: ${insight}`, 'learning');
+                    }
+                });
+                
+                // Trigger visual learning indicators
+                triggerLearningAnimation();
+            }
+            
+            saveData();
+            renderPredictionsHistory();
+            renderFrequencyCharts();
+        }
+
+        function analyzePredictionSuccess(prediction, extraction) {
+            let insights = [];
+            
+            // Analyze which algorithms performed better
+            if (prediction.algorithmResults) {
+                Object.keys(prediction.algorithmResults).forEach(algName => {
+                    const algResult = prediction.algorithmResults[algName];
+                    const algMatches = algResult.numbers.filter(n => 
+                        extraction.numbers.includes(n)
+                    ).length + algResult.stars.filter(s => 
+                        extraction.stars.includes(s)
+                    ).length;
+                    
+                    if (algMatches > 0) {
+                        const algorithm = algorithms.find(a => a.name === algName);
+                        if (algorithm) {
+                            algorithm.successRate = ((algorithm.successRate * algorithm.totalPredictions) + algMatches) / (algorithm.totalPredictions + 1);
+                            algorithm.totalPredictions++;
+                            
+                            // Adjust weight based on success
+                            const weightAdjustment = algMatches * algorithm.learningRate * 0.1;
+                            algorithm.weight = Math.min(2.0, algorithm.weight + weightAdjustment);
+                            
+                            insights.push(`Algoritmo ${algorithm.emoji} ${algName} ha indovinato ${algMatches} numeri - peso aumentato`);
+                        }
+                    }
+                });
+            }
+            
+            // Pattern analysis
+            if (prediction.totalMatches >= 3) {
+                const pattern = identifySuccessPattern(prediction, extraction);
+                if (pattern) {
+                    learningData.patternAnalysis[pattern] = (learningData.patternAnalysis[pattern] || 0) + 1;
+                    insights.push(`Pattern identificato: ${pattern}`);
+                }
+            }
+            
+            return insights.join('; ');
+        }
+
+        function identifySuccessPattern(prediction, extraction) {
+            // Check for consecutive numbers
+            if (hasConsecutiveNumbers(extraction.numbers)) {
+                return "Numeri consecutivi vincenti";
+            }
+            
+            // Check for sum patterns
+            const sum = extraction.numbers.reduce((a, b) => a + b, 0);
+            if (sum >= 100 && sum <= 130) {
+                return "Somma numeri nella fascia 100-130";
+            }
+            
+            // Check for even/odd distribution
+            const evenCount = extraction.numbers.filter(n => n % 2 === 0).length;
+            if (evenCount === 3 || evenCount === 2) {
+                return "Distribuzione equilibrata pari/dispari";
+            }
+            
+            return null;
+        }
+
+        function hasConsecutiveNumbers(numbers) {
+            const sorted = [...numbers].sort((a, b) => a - b);
+            for (let i = 0; i < sorted.length - 1; i++) {
+                if (sorted[i + 1] === sorted[i] + 1) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function updateAlgorithmLearning(prediction) {
+            // Update algorithm accuracy based on performance
+            algorithms.forEach(algorithm => {
+                if (prediction.algorithms && prediction.algorithms.includes(algorithm.name)) {
+                    const learningBonus = prediction.totalMatches * algorithm.learningRate;
+                    algorithm.accuracy = Math.min(95, algorithm.accuracy + learningBonus);
+                }
+            });
+        }
+
+        function triggerLearningAnimation() {
+            // Add learning class to algorithms that are learning
+            algorithms.forEach((alg, index) => {
+                if (alg.successRate > 0) {
+                    const card = document.querySelector(`[data-algo-index="${index}"]`);
+                    if (card) {
+                        card.classList.add('learning');
+                        setTimeout(() => {
+                            card.classList.remove('learning');
+                        }, 3000);
+                    }
+                }
+            });
         }
 
         // Live Algorithm Rendering
@@ -1167,6 +1613,11 @@
             algorithms.forEach((alg, index) => {
                 const card = document.createElement('div');
                 card.className = `algo-live-card ${alg.active ? 'active' : 'inactive'}`;
+                card.setAttribute('data-algo-index', index);
+                
+                const learningIndicator = alg.successRate > 0 ? 
+                    `<div class="algo-learning-indicator">📚 Apprendimento attivo: ${(alg.successRate * 10).toFixed(1)}%</div>` : '';
+                
                 card.innerHTML = `
                     <div class="algo-header">
                         <div class="algo-name">
@@ -1177,14 +1628,15 @@
                              onclick="toggleAlgorithm(${index})"></div>
                     </div>
                     <div class="algo-metrics">
-                        <span class="algo-accuracy">Acc: ${alg.accuracy}%</span>
-                        <span class="algo-weight">Peso: ${alg.weight}</span>
+                        <span class="algo-accuracy">Acc: ${alg.accuracy.toFixed(1)}%</span>
+                        <span class="algo-weight">Peso: ${alg.weight.toFixed(2)}</span>
                         <span class="algo-specialty">${alg.specialty}</span>
                     </div>
                     <div class="algo-progress">
                         <div class="algo-progress-bar" style="width: ${alg.accuracy}%"></div>
                     </div>
                     <div class="algo-description">${alg.description}</div>
+                    ${learningIndicator}
                 `;
                 grid.appendChild(card);
             });
@@ -1210,6 +1662,10 @@
                     border-radius: 10px;
                     border: 1px solid rgba(0, 212, 255, 0.2);
                 `;
+                
+                const learningInfo = alg.successRate > 0 ? 
+                    `<span style="color: #ffaa00; font-size: 0.9em;">🧠 Learning: ${(alg.successRate * 10).toFixed(1)}%</span>` : '';
+                
                 weightControl.innerHTML = `
                     <label style="display: flex; align-items: center; gap: 15px;">
                         <span style="width: 280px; font-weight: 600; color: #00d4ff;">
@@ -1220,9 +1676,10 @@
                                onchange="updateAlgorithmWeight(${index}, this.value)"
                                style="flex: 1; margin: 0 15px; height: 8px; background: rgba(0, 212, 255, 0.2); border-radius: 4px;">
                         <span style="width: 80px; font-weight: bold; color: #ffaa00; font-family: 'Orbitron', monospace;">
-                            ${alg.weight}
+                            ${alg.weight.toFixed(2)}
                         </span>
                     </label>
+                    <div style="margin-top: 8px;">${learningInfo}</div>
                 `;
                 container.appendChild(weightControl);
             });
@@ -1248,10 +1705,13 @@
             const weightedAccuracy = activeAlgs.length > 0 ? 
                 activeAlgs.reduce((sum, a) => sum + (a.accuracy * a.weight), 0) / totalWeight : 0;
             
+            const avgLearningRate = activeAlgs.length > 0 ? 
+                activeAlgs.reduce((sum, a) => sum + a.successRate, 0) / activeAlgs.length * 100 : 0;
+            
             document.getElementById('activeAlgorithms').textContent = `${activeAlgs.length}`;
-            document.getElementById('totalWeight').textContent = totalWeight.toFixed(2);
             document.getElementById('ensembleAccuracy').textContent = weightedAccuracy.toFixed(1) + '%';
             document.getElementById('totalPredictions').textContent = predictions.length;
+            document.getElementById('learningRate').textContent = avgLearningRate.toFixed(1) + '%';
         }
 
         // Prediction System
@@ -1271,8 +1731,8 @@
             btn.disabled = true;
             btn.innerHTML = '⏳ Elaborazione Multi-Algoritmo...';
             
-            // Start timer
-            startPredictionTimer();
+            // Start countdown timer
+            startCountdownTimer();
             
             // Show processing
             document.getElementById('predictionProcess').style.display = 'block';
@@ -1297,10 +1757,11 @@
                 `;
                 steps.appendChild(step);
                 
-                // Simulate processing time
-                await new Promise(resolve => setTimeout(resolve, Math.random() * 1200 + 500));
+                // Simulate processing time based on algorithm complexity
+                const processingTime = Math.random() * 1500 + 800;
+                await new Promise(resolve => setTimeout(resolve, processingTime));
                 
-                // Generate algorithm-specific prediction based on historical data
+                // Generate algorithm-specific prediction based on historical data and learning
                 const prediction = generateAlgorithmPredictionFromHistory(alg);
                 algorithmResults[alg.name] = prediction;
                 
@@ -1317,24 +1778,25 @@
             const ensembleStep = document.createElement('div');
             ensembleStep.className = 'processing-step active';
             ensembleStep.innerHTML = `
-                <span style="font-weight: 600;">🎯 Combinazione Ensemble & Consenso</span>
+                <span style="font-weight: 600;">🎯 Combinazione Ensemble & Consenso AI</span>
                 <div class="spinner"></div>
             `;
             steps.appendChild(ensembleStep);
             
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            await new Promise(resolve => setTimeout(resolve, 1200));
             
             const finalPrediction = combineAlgorithmResults(algorithmResults, activeAlgorithms);
             
             ensembleStep.className = 'processing-step completed';
             ensembleStep.innerHTML = `
-                <span style="font-weight: 600;">🎯 Combinazione Ensemble & Consenso</span>
+                <span style="font-weight: 600;">🎯 Combinazione Ensemble & Consenso AI</span>
                 <span style="color: #00ff88; font-weight: bold;">✅ Completato</span>
             `;
             
-            // Stop timer and save prediction
-            stopPredictionTimer();
+            // Stop countdown timer
+            stopCountdownTimer();
             
+            // Save prediction with enhanced data
             const predictionData = {
                 id: Date.now(),
                 date: new Date().toISOString(),
@@ -1342,7 +1804,13 @@
                 stars: finalPrediction.stars,
                 algorithms: activeAlgorithms.map(a => a.name),
                 algorithmResults: algorithmResults,
-                accuracy: activeAlgorithms.reduce((sum, a) => sum + a.accuracy, 0) / activeAlgorithms.length
+                accuracy: activeAlgorithms.reduce((sum, a) => sum + a.accuracy, 0) / activeAlgorithms.length,
+                ensembleWeight: activeAlgorithms.reduce((sum, a) => sum + a.weight, 0),
+                learningData: {
+                    totalLearningRate: activeAlgorithms.reduce((sum, a) => sum + a.successRate, 0),
+                    patternAnalysisUsed: Object.keys(learningData.patternAnalysis)
+                },
+                matchesChecked: false
             };
             
             predictions.push(predictionData);
@@ -1360,7 +1828,7 @@
                 btn.disabled = false;
                 btn.innerHTML = '🎯 Avvia Predizione Ensemble';
                 
-                showMessage('Predizione ensemble generata e salvata con successo!', 'success');
+                showMessage('Predizione ensemble generata con auto-apprendimento attivo!', 'success');
             }, 1500);
         }
 
@@ -1376,29 +1844,49 @@
             historyContainer.style.display = 'block';
             historyList.innerHTML = '';
             
-            // Show last 5 predictions
-            predictions.slice(-5).reverse().forEach(pred => {
+            // Show last 8 predictions
+            predictions.slice(-8).reverse().forEach(pred => {
                 const item = document.createElement('div');
-                item.className = 'prediction-item';
+                const hasMatches = pred.totalMatches > 0;
+                item.className = `prediction-item ${hasMatches ? 'has-matches' : ''}`;
+                
+                const matchesInfo = hasMatches ? 
+                    `<div class="prediction-matches">🎯 ${pred.totalMatches} match${pred.totalMatches > 1 ? 'es' : ''} trovati!</div>` : '';
+                
+                const learningInfo = pred.learningData ? 
+                    `<div class="learning-info">🧠 Learning attivo: ${pred.learningData.totalLearningRate.toFixed(2)} - Pattern usati: ${pred.learningData.patternAnalysisUsed.length}</div>` : '';
+                
+                // Highlight matched numbers
+                const numbersHtml = pred.numbers.map(n => {
+                    const isMatched = pred.matchedNumbers && pred.matchedNumbers.includes(n);
+                    return `<span class="number ${isMatched ? 'matched' : 'main'}" style="width: 35px; height: 35px; font-size: 1em;">${n}</span>`;
+                }).join('');
+                
+                const starsHtml = pred.stars.map(s => {
+                    const isMatched = pred.matchedStars && pred.matchedStars.includes(s);
+                    return `<span class="number ${isMatched ? 'matched' : 'star'}" style="width: 35px; height: 35px; font-size: 1em;">${s}</span>`;
+                }).join('');
+                
                 item.innerHTML = `
                     <div class="prediction-header">
                         <span class="prediction-date">${formatDateTime(pred.date)}</span>
                         <span class="prediction-accuracy">${pred.accuracy.toFixed(1)}% Acc</span>
                     </div>
+                    ${matchesInfo}
                     <div class="prediction-numbers">
-                        ${pred.numbers.map(n => `<span class="number main" style="width: 35px; height: 35px; font-size: 1em;">${n}</span>`).join('')}
-                        ${pred.stars.map(s => `<span class="number star" style="width: 35px; height: 35px; font-size: 1em;">${s}</span>`).join('')}
+                        ${numbersHtml}
+                        ${starsHtml}
                     </div>
                     <div style="font-size: 0.9em; opacity: 0.7; margin-top: 10px;">
-                        Algoritmi utilizzati: ${pred.algorithms.length}
+                        Algoritmi: ${pred.algorithms.length} | Peso Ensemble: ${pred.ensembleWeight ? pred.ensembleWeight.toFixed(2) : 'N/A'}
                     </div>
+                    ${learningInfo}
                 `;
                 historyList.appendChild(item);
             });
         }
 
         function generateAlgorithmPredictionFromHistory(algorithm) {
-            // Analisi basata sui dati storici
             let numbers = [];
             let stars = [];
             
@@ -1410,50 +1898,39 @@
                 };
             }
             
-            // Calcola frequenze dai dati storici
+            // Enhanced prediction with learning data
             const numberFreq = calculateNumberFrequency();
             const starFreq = calculateStarFrequency();
             
-            // Generate numbers based on algorithm characteristics and historical data
             try {
-                if (algorithm.specialty === 'Temporal Patterns') {
-                    numbers = getRecentTrendNumbers(5);
-                } else if (algorithm.specialty === 'Feature Correlation') {
-                    numbers = getCorrelatedNumbers(5);
-                } else if (algorithm.specialty === 'Error Correction') {
-                    numbers = getBiasCorrectingNumbers(5);
-                } else if (algorithm.specialty === 'Mystical Vision') {
-                    numbers = getMysticalPatternNumbers(5);
+                // Apply learning patterns
+                if (algorithm.successRate > 0) {
+                    // Use successful patterns from learning data
+                    numbers = generateLearningBasedNumbers(algorithm, 5);
+                    stars = generateLearningBasedStars(algorithm, 2);
                 } else {
-                    numbers = getFrequencyBasedNumbers(numberFreq, 5);
+                    // Use base algorithm behavior
+                    if (algorithm.specialty === 'Temporal Patterns') {
+                        numbers = getRecentTrendNumbers(5);
+                    } else if (algorithm.specialty === 'Feature Correlation') {
+                        numbers = getCorrelatedNumbers(5);
+                    } else if (algorithm.specialty === 'Error Correction') {
+                        numbers = getBiasCorrectingNumbers(5);
+                    } else if (algorithm.specialty === 'Mystical Vision') {
+                        numbers = getMysticalPatternNumbers(5);
+                    } else {
+                        numbers = getFrequencyBasedNumbers(numberFreq, 5);
+                    }
+                    
+                    stars = getFrequencyBasedStars(starFreq, 2);
                 }
                 
-                // Ensure we have exactly 5 unique numbers
-                while (numbers.length < 5) {
-                    const candidates = Array.from({length: 50}, (_, i) => i + 1)
-                        .filter(n => !numbers.includes(n));
-                    if (candidates.length > 0) {
-                        numbers.push(candidates[Math.floor(Math.random() * candidates.length)]);
-                    } else {
-                        break;
-                    }
-                }
-                
-                // Generate stars
-                stars = getFrequencyBasedStars(starFreq, 2);
-                while (stars.length < 2) {
-                    const candidates = Array.from({length: 12}, (_, i) => i + 1)
-                        .filter(s => !stars.includes(s));
-                    if (candidates.length > 0) {
-                        stars.push(candidates[Math.floor(Math.random() * candidates.length)]);
-                    } else {
-                        break;
-                    }
-                }
+                // Ensure uniqueness and valid ranges
+                numbers = ensureUniqueNumbers(numbers, 5);
+                stars = ensureUniqueStars(stars, 2);
                 
             } catch (error) {
                 console.error('Error generating prediction:', error);
-                // Fallback to safe values
                 numbers = [1,2,3,4,5];
                 stars = [1,2];
             }
@@ -1461,13 +1938,95 @@
             return {
                 numbers: numbers.slice(0, 5).sort((a, b) => a - b),
                 stars: stars.slice(0, 2).sort((a, b) => a - b),
-                confidence: algorithm.accuracy + (Math.random() * 10 - 5)
+                confidence: algorithm.accuracy + (algorithm.successRate * 10)
             };
         }
 
-        // Historical analysis functions
+        function generateLearningBasedNumbers(algorithm, count) {
+            const successPatterns = Object.keys(learningData.patternAnalysis);
+            const numbers = [];
+            
+            // Apply learned patterns
+            if (successPatterns.includes("Numeri consecutivi vincenti")) {
+                const baseNum = Math.floor(Math.random() * 47) + 1;
+                numbers.push(baseNum, baseNum + 1);
+            }
+            
+            if (successPatterns.includes("Distribuzione equilibrata pari/dispari")) {
+                // Add balanced even/odd numbers
+                const evenCount = Math.floor(count / 2);
+                const oddCount = count - evenCount;
+                
+                for (let i = 0; i < evenCount && numbers.length < count; i++) {
+                    let even;
+                    do {
+                        even = (Math.floor(Math.random() * 25) + 1) * 2;
+                    } while (numbers.includes(even));
+                    numbers.push(even);
+                }
+                
+                for (let i = 0; i < oddCount && numbers.length < count; i++) {
+                    let odd;
+                    do {
+                        odd = (Math.floor(Math.random() * 25) + 1) * 2 - 1;
+                    } while (numbers.includes(odd));
+                    numbers.push(odd);
+                }
+            }
+            
+            // Fill remaining with frequency-based selection
+            while (numbers.length < count) {
+                const candidate = Math.floor(Math.random() * 50) + 1;
+                if (!numbers.includes(candidate)) {
+                    numbers.push(candidate);
+                }
+            }
+            
+            return numbers;
+        }
+
+        function generateLearningBasedStars(algorithm, count) {
+            const starFreq = calculateStarFrequency();
+            const stars = getFrequencyBasedStars(starFreq, count);
+            
+            // Apply learning adjustments
+            if (algorithm.successRate > 0.1) {
+                // Prefer stars that have been successful before
+                const adjustedStars = stars.map(s => {
+                    const adjustment = Math.random() > 0.7 ? (Math.random() > 0.5 ? 1 : -1) : 0;
+                    return Math.max(1, Math.min(12, s + adjustment));
+                });
+                return [...new Set(adjustedStars)];
+            }
+            
+            return stars;
+        }
+
+        function ensureUniqueNumbers(numbers, count) {
+            const unique = [...new Set(numbers)];
+            while (unique.length < count && unique.length < 50) {
+                const candidate = Math.floor(Math.random() * 50) + 1;
+                if (!unique.includes(candidate)) {
+                    unique.push(candidate);
+                }
+            }
+            return unique.slice(0, count);
+        }
+
+        function ensureUniqueStars(stars, count) {
+            const unique = [...new Set(stars)];
+            while (unique.length < count && unique.length < 12) {
+                const candidate = Math.floor(Math.random() * 12) + 1;
+                if (!unique.includes(candidate)) {
+                    unique.push(candidate);
+                }
+            }
+            return unique.slice(0, count);
+        }
+
+        // Historical analysis functions (enhanced)
         function getRecentTrendNumbers(count) {
-            const recentExtractions = extractions.slice(0, Math.min(3, extractions.length));
+            const recentExtractions = extractions.slice(0, Math.min(5, extractions.length));
             const trendNumbers = [];
             const freq = {};
             
@@ -1502,7 +2061,7 @@
             
             const topPairs = Object.entries(pairs)
                 .sort(([,a], [,b]) => b - a)
-                .slice(0, 2);
+                .slice(0, 3);
                 
             const result = new Set();
             topPairs.forEach(([pair]) => {
@@ -1511,15 +2070,7 @@
                 result.add(b);
             });
             
-            const resultArray = Array.from(result);
-            while (resultArray.length < count && resultArray.length < 50) {
-                const candidate = Math.floor(Math.random() * 50) + 1;
-                if (!resultArray.includes(candidate)) {
-                    resultArray.push(candidate);
-                }
-            }
-            
-            return resultArray.slice(0, count);
+            return ensureUniqueNumbers(Array.from(result), count);
         }
 
         function getBiasCorrectingNumbers(count) {
@@ -1550,15 +2101,7 @@
             
             result.push(...hotNumbers, ...coldNumbers, ...consecutive);
             
-            // Fill remaining with random unique numbers
-            while (result.length < count) {
-                const candidate = Math.floor(Math.random() * 50) + 1;
-                if (!result.includes(candidate)) {
-                    result.push(candidate);
-                }
-            }
-            
-            return result.slice(0, count);
+            return ensureUniqueNumbers(result, count);
         }
 
         function getFrequencyBasedNumbers(freq, count) {
@@ -1593,7 +2136,7 @@
                 return topPair[0].split('-').map(n => parseInt(n));
             }
             
-            return [Math.floor(Math.random() * 49) + 1]; // Random fallback
+            return [Math.floor(Math.random() * 49) + 1];
         }
 
         function getFrequencyBasedStars(starFreq, count) {
@@ -1622,10 +2165,10 @@
             const numberVotes = {};
             const starVotes = {};
             
-            // Collect weighted votes from each algorithm
+            // Collect weighted votes from each algorithm (enhanced with learning)
             activeAlgorithms.forEach(alg => {
                 const result = results[alg.name];
-                const weight = alg.weight;
+                const weight = alg.weight * (1 + alg.successRate); // Boost weight for successful algorithms
                 
                 result.numbers.forEach(num => {
                     numberVotes[num] = (numberVotes[num] || 0) + weight;
@@ -1670,9 +2213,11 @@
             
             activeAlgorithms.forEach(alg => {
                 const result = algorithmResults[alg.name];
-                const contribution = alg.weight * (alg.accuracy / 100);
-                const maxContribution = Math.max(...activeAlgorithms.map(a => a.weight * (a.accuracy / 100)));
+                const contribution = alg.weight * (alg.accuracy / 100) * (1 + alg.successRate);
+                const maxContribution = Math.max(...activeAlgorithms.map(a => a.weight * (a.accuracy / 100) * (1 + a.successRate)));
                 const contributionPercentage = (contribution / maxContribution) * 100;
+                
+                const learningBonus = alg.successRate > 0 ? `<span style="color: #ffaa00; font-size: 0.9em;">🧠 +${(alg.successRate * 100).toFixed(1)}%</span>` : '';
                 
                 const div = document.createElement('div');
                 div.style.cssText = `
@@ -1687,7 +2232,7 @@
                 `;
                 div.innerHTML = `
                     <span style="font-weight: 600; color: #ffffff;">
-                        ${alg.emoji} ${alg.name}
+                        ${alg.emoji} ${alg.name} ${learningBonus}
                     </span>
                     <span style="font-family: 'Orbitron', monospace; color: #00d4ff;">
                         ${result.numbers.concat(result.stars).join(', ')}
@@ -1703,7 +2248,7 @@
             });
         }
 
-        // Extraction Management
+        // Extraction Management (enhanced with auto-learning)
         function addExtraction() {
             const date = document.getElementById('extractionDate').value;
             const numbers = [
@@ -1733,11 +2278,17 @@
             extractions.push(extraction);
             extractions.sort((a, b) => new Date(b.date) - new Date(a.date));
             
+            // Auto-learning: check for matches with previous predictions
+            checkPredictionMatches(extraction);
+            
             saveData();
             renderExtractions();
+            renderFrequencyCharts();
+            renderLiveAlgorithms();
+            updateEnsembleMetrics();
             clearForm();
             
-            showMessage('✅ Estrazione aggiunta con successo al database!', 'success');
+            showMessage('✅ Estrazione aggiunta con successo! Sistema di auto-apprendimento attivato.', 'success');
         }
 
         function validateExtraction(date, numbers, stars) {
@@ -1792,6 +2343,7 @@
                 extractions = extractions.filter(e => e.id !== id);
                 saveData();
                 renderExtractions();
+                renderFrequencyCharts();
                 showMessage('🗑️ Estrazione eliminata dal database', 'info');
             }
         }
@@ -1805,7 +2357,7 @@
                 tbody.innerHTML = `
                     <tr>
                         <td colspan="9" style="padding: 30px; font-style: italic; color: #b0b0ff;">
-                            📊 Nessuna estrazione nel database. Aggiungi dati storici per iniziare l'analisi.
+                            📊 Nessuna estrazione nel database. Aggiungi dati storici per iniziare l'analisi AI.
                         </td>
                     </tr>
                 `;
@@ -1884,7 +2436,10 @@
                 {date: '2024-09-24', numbers: [9, 18, 27, 31, 43], stars: [2, 8]},
                 {date: '2024-09-21', numbers: [10, 20, 30, 40, 50], stars: [4, 11]},
                 {date: '2024-09-18', numbers: [13, 17, 32, 39, 47], stars: [5, 12]},
-                {date: '2024-09-15', numbers: [2, 8, 15, 23, 41], stars: [1, 7]}
+                {date: '2024-09-15', numbers: [2, 8, 15, 23, 41], stars: [1, 7]},
+                {date: '2024-09-12', numbers: [11, 22, 33, 44, 50], stars: [6, 10]},
+                {date: '2024-09-09', numbers: [14, 18, 25, 36, 49], stars: [3, 9]},
+                {date: '2024-09-06', numbers: [1, 7, 21, 35, 42], stars: [2, 8]}
             ];
             
             let added = 0;
@@ -1905,7 +2460,8 @@
                 extractions.sort((a, b) => new Date(b.date) - new Date(a.date));
                 saveData();
                 renderExtractions();
-                showMessage(`🎯 ${added} estrazioni demo caricate per testare gli algoritmi!`, 'success');
+                renderFrequencyCharts();
+                showMessage(`🎯 ${added} estrazioni demo caricate per addestrare l'AI!`, 'success');
             } else {
                 showMessage('ℹ️ I dati demo sono già presenti nel database', 'info');
             }
@@ -1925,16 +2481,19 @@
             const originalWeights = [1.15, 0.95, 1.05, 0.85, 0.9, 0.75, 0.8, 0.65, 1.25, 0.88, 1.35, 1.12, 1.08];
             algorithms.forEach((alg, i) => {
                 alg.weight = originalWeights[i];
+                alg.successRate = 0;
+                alg.totalPredictions = 0;
             });
             renderAlgorithmWeights();
+            renderLiveAlgorithms();
             updateEnsembleMetrics();
             saveData();
-            showMessage('🔄 Pesi degli algoritmi ripristinati ai valori default', 'success');
+            showMessage('🔄 Pesi e dati di apprendimento ripristinati ai valori default', 'success');
         }
 
         function saveAlgorithmConfig() {
             saveData();
-            showMessage('💾 Configurazione algoritmi salvata!', 'success');
+            showMessage('💾 Configurazione algoritmi e dati di apprendimento salvati!', 'success');
         }
 
         function loadDefaultConfig() {
@@ -1944,19 +2503,21 @@
             renderAlgorithmWeights();
             updateEnsembleMetrics();
             saveData();
-            showMessage('🔄 Configurazione default ripristinata!', 'success');
+            showMessage('🔄 Configurazione default caricata!', 'success');
         }
 
         function optimizeWeights() {
             algorithms.forEach(alg => {
                 const performanceBonus = (alg.accuracy - 50) / 100;
-                const newWeight = Math.max(0.1, Math.min(2.0, alg.weight + performanceBonus * 0.15));
+                const learningBonus = alg.successRate * 0.5;
+                const newWeight = Math.max(0.1, Math.min(2.0, alg.weight + performanceBonus * 0.15 + learningBonus));
                 alg.weight = Math.round(newWeight * 100) / 100;
             });
             renderAlgorithmWeights();
+            renderLiveAlgorithms();
             updateEnsembleMetrics();
             saveData();
-            showMessage('🎯 Pesi ottimizzati automaticamente basati sulla performance!', 'success');
+            showMessage('🎯 Pesi ottimizzati con dati di auto-apprendimento!', 'success');
         }
 
         function toggleTheme() {
@@ -2004,6 +2565,7 @@
     </script>
 </body>
 </html>
+
 
 
 
