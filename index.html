@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EuroJackpot AI Advanced - Sistema Predittivo Evolutivo</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         
         * {
             margin: 0;
@@ -13,2755 +13,808 @@
             box-sizing: border-box;
         }
 
-        :root {
-            --primary-bg: radial-gradient(ellipse at center, #1a0033 0%, #330066 35%, #000011 100%);
-            --text-color: #ffffff;
-            --accent-color: #00d4ff;
-            --secondary-color: #ff0096;
-            --success-color: #00ff88;
-            --warning-color: #ffaa00;
-            --error-color: #ff4444;
-            --section-bg: linear-gradient(135deg, rgba(0, 50, 100, 0.2) 0%, rgba(100, 0, 50, 0.2) 100%);
-            --card-bg: rgba(255, 255, 255, 0.05);
-            --border-color: rgba(255, 255, 255, 0.1);
-        }
-
         body {
-            font-family: 'Exo 2', sans-serif;
-            background: var(--primary-bg);
-            background-attachment: fixed;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #2a2a3a 0%, #1e1e2e 100%);
             min-height: 100vh;
-            color: var(--text-color);
-            overflow-x: hidden;
-            transition: all 0.5s ease;
-        }
-
-        /* Light Theme */
-        body.light-theme {
-            --primary-bg: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 50%, #e3f2fd 100%);
-            --text-color: #1a1a1a;
-            --accent-color: #0066cc;
-            --secondary-color: #cc0066;
-            --success-color: #00aa44;
-            --warning-color: #cc8800;
-            --error-color: #cc2222;
-            --section-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(240, 240, 240, 0.8) 100%);
-            --card-bg: rgba(255, 255, 255, 0.9);
-            --border-color: rgba(0, 0, 0, 0.1);
-            background: var(--primary-bg);
-        }
-
-        /* Classic Theme */
-        body.classic-theme {
-            --primary-bg: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #2c3e50 100%);
-            --text-color: #ecf0f1;
-            --accent-color: #3498db;
-            --secondary-color: #e74c3c;
-            --success-color: #27ae60;
-            --warning-color: #f39c12;
-            --error-color: #e74c3c;
-            --section-bg: linear-gradient(135deg, rgba(52, 73, 94, 0.3) 0%, rgba(44, 62, 80, 0.3) 100%);
-            --card-bg: rgba(236, 240, 241, 0.1);
-            --border-color: rgba(236, 240, 241, 0.2);
-            background: var(--primary-bg);
-        }
-
-        /* Neon Theme */
-        body.neon-theme {
-            --primary-bg: radial-gradient(ellipse at center, #0a0a0a 0%, #1a0a1a 35%, #000000 100%);
-            --text-color: #00ff00;
-            --accent-color: #00ffff;
-            --secondary-color: #ff00ff;
-            --success-color: #00ff88;
-            --warning-color: #ffff00;
-            --error-color: #ff0040;
-            --section-bg: linear-gradient(135deg, rgba(0, 255, 0, 0.1) 0%, rgba(255, 0, 255, 0.1) 100%);
-            --card-bg: rgba(0, 255, 0, 0.05);
-            --border-color: rgba(0, 255, 255, 0.3);
-            background: var(--primary-bg);
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
-            z-index: -1;
+            color: #f0f0f0;
+            line-height: 1.6;
         }
 
         .container {
-            max-width: 1600px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
-            position: relative;
-            z-index: 1;
         }
 
-        /* Header futuristico */
         .header {
             text-align: center;
-            margin-bottom: 40px;
-            padding: 50px 30px;
-            background: linear-gradient(135deg, rgba(255, 0, 150, 0.2) 0%, rgba(0, 150, 255, 0.2) 100%);
-            border-radius: 30px;
-            box-shadow: 
-                0 15px 35px rgba(0, 0, 0, 0.5),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1),
-                0 0 50px rgba(255, 0, 150, 0.3);
-            border: 1px solid var(--border-color);
-            backdrop-filter: blur(20px);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05), transparent);
-            transform: rotate(45deg);
-            animation: shimmer 3s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
         }
 
         .header h1 {
-            font-family: 'Orbitron', monospace;
-            font-size: 4em;
-            font-weight: 900;
-            margin-bottom: 15px;
-            background: linear-gradient(45deg, var(--secondary-color), var(--accent-color), var(--secondary-color), var(--accent-color));
-            background-size: 300% 300%;
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, #7dd3a3, #a8c8e8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: gradientShift 3s ease-in-out infinite;
-            text-shadow: 0 0 30px rgba(255, 0, 150, 0.5);
-            position: relative;
-            z-index: 1;
-        }
-
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+            margin-bottom: 10px;
         }
 
         .header p {
-            font-size: 1.4em;
-            font-weight: 300;
-            opacity: 0.9;
-            color: var(--text-color);
-            position: relative;
-            z-index: 1;
+            color: #c0c0c0;
+            font-size: 1.1rem;
         }
 
-        /* Theme Selector */
-        .theme-selector {
-            position: fixed;
-            top: 30px;
-            right: 30px;
+        .section {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .section-header {
+            padding: 15px 20px;
+            background: linear-gradient(135deg, #7dd3a3, #a8c8e8);
+            cursor: pointer;
             display: flex;
-            gap: 10px;
-            z-index: 1000;
+            align-items: center;
+            justify-content: space-between;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #2a2a3a;
+            transition: all 0.3s ease;
         }
 
-        .theme-btn {
-            width: 50px;
-            height: 50px;
+        .section-header:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 20px rgba(125, 211, 163, 0.3);
+        }
+
+        .section-header .icon {
+            margin-right: 10px;
+        }
+
+        .section-header .arrow {
+            transition: transform 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .section-header.collapsed .arrow {
+            transform: rotate(-90deg);
+        }
+
+        .section-content {
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .section-content.collapsed {
+            max-height: 0;
+            padding: 0 20px;
+            overflow: hidden;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .card h3 {
+            color: #7dd3a3;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #7dd3a3, #a8c8e8);
+            color: #2a2a3a;
             border: none;
-            border-radius: 50%;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-size: 20px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1rem;
         }
 
-        .theme-btn:hover {
-            transform: scale(1.1);
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(125, 211, 163, 0.4);
         }
 
-        .theme-btn.dark {
-            background: linear-gradient(135deg, #ff0096, #00d4ff);
+        .btn-danger {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+            color: white;
         }
 
-        .theme-btn.light {
-            background: linear-gradient(135deg, #ffd700, #ff6600);
+        .btn-danger:hover {
+            box-shadow: 0 5px 20px rgba(255, 107, 107, 0.4);
         }
 
-        .theme-btn.classic {
-            background: linear-gradient(135deg, #3498db, #2c3e50);
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 0.9rem;
+            margin-left: 10px;
         }
 
-        .theme-btn.neon {
-            background: linear-gradient(135deg, #00ff00, #ff00ff);
+        .input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 12px;
+            color: #f0f0f0;
+            width: 100%;
+            margin-bottom: 10px;
+            font-size: 1rem;
         }
 
-        /* Dashboard Analytics */
-        .analytics-dashboard {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 30px;
-            margin-bottom: 30px;
+        .input:focus {
+            outline: none;
+            border-color: #7dd3a3;
+            box-shadow: 0 0 0 3px rgba(125, 211, 163, 0.3);
         }
 
-        .analytics-main {
-            background: var(--section-bg);
-            border-radius: 25px;
-            padding: 30px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(15px);
-        }
-
-        .analytics-side {
+        .numbers-display {
             display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .chart-container {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 20px;
-            border-radius: 15px;
-            margin-top: 20px;
-        }
-
-        .frequency-chart {
-            display: grid;
-            grid-template-columns: repeat(10, 1fr);
+            flex-wrap: wrap;
             gap: 8px;
             margin: 15px 0;
         }
 
-        .freq-bar {
-            background: linear-gradient(to top, var(--secondary-color), var(--accent-color));
-            border-radius: 4px;
-            min-height: 20px;
-            display: flex;
-            align-items: end;
-            justify-content: center;
-            font-size: 0.7em;
-            font-weight: bold;
-            color: white;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .freq-bar:hover {
-            transform: scale(1.1);
-            box-shadow: 0 4px 15px rgba(255, 0, 150, 0.5);
-        }
-
-        /* Status Algoritmi */
-        .algorithm-status-panel {
-            background: var(--section-bg);
-            border-radius: 25px;
-            padding: 30px;
-            margin-bottom: 30px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(15px);
-        }
-
-        .algorithm-status-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .algorithm-status-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.8em;
-            font-weight: 700;
-            color: var(--accent-color);
-            text-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
-        }
-
-        .algorithm-controls {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .active-counter {
-            background: linear-gradient(45deg, var(--secondary-color), var(--accent-color));
-            padding: 8px 16px;
-            border-radius: 15px;
-            font-weight: 700;
-            color: #ffffff;
-            box-shadow: 0 4px 15px rgba(255, 0, 150, 0.3);
-        }
-
-        .algorithms-live-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            transition: all 0.5s ease;
-        }
-
-        .algorithms-live-grid.hidden {
-            max-height: 0;
-            opacity: 0;
-            overflow: hidden;
-            margin: 0;
-            padding: 0;
-        }
-
-        .algo-live-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 20px;
-            border: 1px solid var(--border-color);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .algo-live-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: left 0.6s ease;
-        }
-
-        .algo-live-card:hover::before {
-            left: 100%;
-        }
-
-        .algo-live-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-color);
-            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.3);
-        }
-
-        .algo-live-card.active {
-            border-color: var(--success-color);
-            box-shadow: 0 8px 25px rgba(0, 255, 136, 0.2);
-        }
-
-        .algo-live-card.inactive {
-            opacity: 0.4;
-            border-color: var(--error-color);
-        }
-
-        .algo-live-card.learning {
-            border-color: var(--warning-color);
-            box-shadow: 0 8px 25px rgba(255, 170, 0, 0.3);
-            animation: learningPulse 2s infinite;
-        }
-
-        @keyframes learningPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-        }
-
-        .algo-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .algo-name {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 600;
-            font-size: 1.1em;
-            color: var(--text-color);
-        }
-
-        .algo-emoji {
-            font-size: 1.6em;
-            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
-        }
-
-        .algo-toggle {
-            width: 60px;
-            height: 30px;
-            background: var(--error-color);
-            border-radius: 15px;
-            position: relative;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .algo-toggle.active {
-            background: linear-gradient(45deg, var(--success-color), var(--accent-color));
-        }
-
-        .algo-toggle::after {
-            content: '';
-            width: 26px;
-            height: 26px;
-            background: white;
-            border-radius: 50%;
-            position: absolute;
-            top: 2px;
-            left: 2px;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-        }
-
-        .algo-toggle.active::after {
-            left: 32px;
-        }
-
-        .algo-metrics {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 12px;
-            font-size: 0.95em;
-        }
-
-        .algo-accuracy {
-            color: var(--success-color);
-            font-weight: 600;
-        }
-
-        .algo-weight {
-            color: var(--warning-color);
-            font-weight: 600;
-        }
-
-        .algo-specialty {
-            color: var(--secondary-color);
-            font-weight: 600;
-        }
-
-        .algo-progress {
-            height: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
-            overflow: hidden;
-            margin-bottom: 10px;
-        }
-
-        .algo-progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
-            border-radius: 4px;
-            transition: width 0.6s ease;
-        }
-
-        .algo-description {
-            font-size: 0.85em;
-            opacity: 0.8;
-            color: var(--text-color);
-            font-style: italic;
-        }
-
-        .algo-learning-indicator {
-            font-size: 0.8em;
-            color: var(--warning-color);
-            font-weight: bold;
-            margin-top: 5px;
-        }
-
-        /* Metriche Ensemble */
-        .ensemble-metrics {
-            background: var(--section-bg);
-            padding: 35px;
-            border-radius: 25px;
-            margin-bottom: 30px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(15px);
-        }
-
-        .ensemble-metrics h2 {
-            font-family: 'Orbitron', monospace;
-            color: var(--warning-color);
-            border-bottom: 2px solid var(--warning-color);
-            margin-bottom: 25px;
-            font-size: 1.8em;
-            text-shadow: 0 0 15px rgba(255, 170, 0, 0.5);
-        }
-
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 25px;
-        }
-
-        .metric-card {
-            text-align: center;
-            padding: 25px 20px;
-            background: var(--card-bg);
-            border-radius: 20px;
-            border: 1px solid var(--border-color);
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
-
-        .metric-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(255, 170, 0, 0.2);
-        }
-
-        .metric-value {
-            font-family: 'Orbitron', monospace;
-            font-size: 3em;
-            font-weight: 900;
-            color: var(--warning-color);
-            display: block;
-            text-shadow: 0 0 20px rgba(255, 170, 0, 0.6);
-        }
-
-        .metric-label {
-            font-size: 1em;
-            font-weight: 600;
-            color: var(--text-color);
-            margin-top: 10px;
-            opacity: 0.9;
-        }
-
-        /* Countdown timer migliorato */
-        .prediction-timer {
-            background: linear-gradient(135deg, rgba(255, 170, 0, 0.2), rgba(255, 0, 150, 0.2));
-            padding: 25px;
-            border-radius: 20px;
-            margin: 20px 0;
-            text-align: center;
-            border: 2px solid var(--warning-color);
-            box-shadow: 0 10px 30px rgba(255, 170, 0, 0.3);
-        }
-
-        .timer-display {
-            font-family: 'Orbitron', monospace;
-            font-size: 3em;
-            color: var(--warning-color);
-            font-weight: 900;
-            text-shadow: 0 0 20px rgba(255, 170, 0, 0.8);
-            margin-bottom: 10px;
-        }
-
-        .timer-label {
-            color: var(--text-color);
-            font-size: 1.2em;
-            opacity: 0.9;
-            margin-bottom: 10px;
-        }
-
-        .timer-progress {
-            width: 100%;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 4px;
-            overflow: hidden;
-            margin-top: 15px;
-        }
-
-        .timer-progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--warning-color), var(--secondary-color));
-            border-radius: 4px;
-            transition: width 0.1s linear;
-        }
-
-        /* Sezioni principali */
-        .section {
-            background: var(--section-bg);
-            padding: 35px;
-            border-radius: 25px;
-            margin-bottom: 30px;
-            border: 1px solid var(--border-color);
-            box-shadow: 
-                0 15px 40px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
-        }
-
-        .section h2 {
-            font-family: 'Orbitron', monospace;
-            margin-bottom: 30px;
-            color: var(--accent-color);
-            border-bottom: 3px solid var(--accent-color);
-            padding-bottom: 15px;
-            font-size: 1.8em;
-            font-weight: 700;
-            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
-            position: relative;
-        }
-
-        .collapsible {
-            cursor: pointer;
-            user-select: none;
-            transition: all 0.3s ease;
-        }
-
-        .collapsible:hover {
-            text-shadow: 0 0 25px rgba(0, 212, 255, 0.8);
-        }
-
-        .collapsible::after {
-            content: '▼';
-            float: right;
-            transition: transform 0.3s;
-            font-size: 1.2em;
-            color: var(--accent-color);
-        }
-
-        .collapsible.collapsed::after {
-            transform: rotate(-90deg);
-        }
-
-        .collapsible-content {
-            max-height: 2000px;
-            overflow: hidden;
-            opacity: 1;
-            transition: all 0.5s ease;
-        }
-
-        .collapsible-content.collapsed {
-            max-height: 0;
-            opacity: 0;
-            margin: 0;
-            padding: 0;
-        }
-
-        /* Input e bottoni futuristici */
-        .input-group {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
-        }
-
-        .input-row {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .stars-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        input[type="number"], input[type="date"], input[type="text"], select {
-            padding: 15px 20px;
-            border: 2px solid var(--border-color);
-            border-radius: 15px;
-            background: var(--card-bg);
-            color: var(--text-color);
-            font-size: 16px;
-            font-weight: 500;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
-
-        input[type="number"]:focus, input[type="date"]:focus, input[type="text"]:focus, select:focus {
-            outline: none;
-            border-color: var(--accent-color);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
-            background: var(--card-bg);
-        }
-
-        input::placeholder {
-            color: var(--text-color);
-            opacity: 0.5;
-        }
-
-        button {
-            padding: 15px 25px;
-            border: none;
-            border-radius: 15px;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            backdrop-filter: blur(10px);
-            position: relative;
-            overflow: hidden;
-        }
-
-        button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.6s ease;
-        }
-
-        button:hover:not(:disabled)::before {
-            left: 100%;
-        }
-
-        button:hover:not(:disabled) {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--success-color), var(--accent-color));
-            color: #000000;
-            box-shadow: 0 6px 20px rgba(0, 255, 136, 0.3);
-        }
-
-        .btn-primary:hover:not(:disabled) {
-            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.5);
-        }
-
-        .btn-secondary {
-            background: linear-gradient(135deg, #666666, #888888);
-            color: #ffffff;
-            box-shadow: 0 6px 20px rgba(102, 102, 102, 0.3);
-        }
-
-        .btn-danger {
-            background: linear-gradient(135deg, var(--error-color), var(--secondary-color));
-            color: #ffffff;
-            box-shadow: 0 6px 20px rgba(255, 68, 68, 0.3);
-        }
-
-        .btn-gold {
-            background: linear-gradient(135deg, var(--warning-color), #ff6600);
-            color: #ffffff;
-            box-shadow: 0 6px 20px rgba(255, 170, 0, 0.3);
-        }
-
-        .btn-toggle {
-            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
-            color: #ffffff;
-            box-shadow: 0 6px 20px rgba(0, 212, 255, 0.3);
-            font-size: 14px;
-            padding: 8px 16px;
-        }
-
-        /* Numeri e risultati */
-        .prediction-numbers {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin: 30px 0;
-        }
-
         .number {
-            width: 60px;
-            height: 60px;
+            background: linear-gradient(45deg, #7dd3a3, #a8c8e8);
+            color: #2a2a3a;
+            padding: 8px 12px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Orbitron', monospace;
-            font-weight: 900;
-            font-size: 1.4em;
-            color: #ffffff;
-            text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
-            box-shadow: 
-                0 8px 20px rgba(0, 0, 0, 0.3),
-                inset 0 2px 5px rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            font-weight: 700;
+            min-width: 40px;
+            text-align: center;
         }
 
-        .number::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transform: rotate(45deg);
-            animation: numberShine 2s infinite;
-        }
-
-        @keyframes numberShine {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-        }
-
-        .number:hover {
-            transform: scale(1.1);
-        }
-
-        .number.main {
-            background: linear-gradient(135deg, #0066ff, var(--accent-color));
-            border: 3px solid #00ffff;
-        }
-
-        .number.star {
-            background: linear-gradient(135deg, var(--warning-color), #ff6600);
-            border: 3px solid #ffff00;
-        }
-
-        .number.matched {
-            background: linear-gradient(135deg, var(--success-color), #00cc44);
-            border: 3px solid var(--success-color);
-            animation: matchedGlow 2s infinite;
-        }
-
-        @keyframes matchedGlow {
-            0%, 100% { 
-                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 255, 136, 0.8);
-            }
-            50% { 
-                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 255, 136, 1);
-            }
-        }
-
-        /* Storico predizioni migliorato */
-        .predictions-history {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 25px;
-            border-radius: 20px;
-            margin-top: 25px;
+        .euronumber {
+            background: linear-gradient(45deg, #e8b8c8, #b8a8d8);
         }
 
         .prediction-item {
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 15px;
-            margin: 15px 0;
-            border-left: 4px solid var(--accent-color);
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .prediction-item:hover {
-            background: var(--card-bg);
-            transform: translateX(5px);
-        }
-
-        .prediction-item.has-matches {
-            border-left-color: var(--success-color);
-            background: rgba(0, 255, 136, 0.05);
-        }
-
-        .prediction-header {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
             display: flex;
+            align-items: center;
             justify-content: space-between;
+        }
+
+        .prediction-numbers {
+            flex-grow: 1;
+        }
+
+        .prediction-meta {
+            font-size: 0.9rem;
+            color: #c0c0c0;
+            margin-bottom: 8px;
+        }
+
+        .delete-btn {
+            background: #ff4757;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .delete-btn:hover {
+            background: #ff3742;
+            transform: scale(1.1);
+        }
+
+        .algorithm-status {
+            display: flex;
             align-items: center;
             margin-bottom: 10px;
         }
 
-        .prediction-date {
-            font-family: 'Orbitron', monospace;
-            color: var(--accent-color);
-            font-weight: 600;
-        }
-
-        .prediction-accuracy {
-            color: var(--success-color);
-            font-weight: 700;
-        }
-
-        .prediction-matches {
-            background: rgba(0, 255, 136, 0.2);
-            padding: 5px 10px;
-            border-radius: 10px;
-            font-size: 0.9em;
-            font-weight: bold;
-            color: var(--success-color);
-        }
-
-        .learning-info {
-            background: rgba(255, 170, 0, 0.1);
-            padding: 10px;
-            border-radius: 8px;
-            margin-top: 10px;
-            font-size: 0.9em;
-            color: var(--warning-color);
-            border-left: 3px solid var(--warning-color);
-        }
-
-        /* Tabella moderna */
-        table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            background: var(--card-bg);
-            border-radius: 20px;
-            overflow: hidden;
-            margin-top: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-        }
-
-        th, td {
-            padding: 18px 15px;
-            text-align: center;
-            border-bottom: 1px solid var(--border-color);
-            color: var(--text-color);
-        }
-
-        th {
-            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
-            color: #ffffff;
-            font-family: 'Orbitron', monospace;
-            font-weight: 700;
-            font-size: 1.1em;
-            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
-        }
-
-        tr:nth-child(even) {
-            background: rgba(255, 255, 255, 0.02);
-        }
-
-        tr:hover {
-            background: var(--card-bg);
-            transform: scale(1.01);
-        }
-
-        /* Processi di predizione */
-        .prediction-process {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 25px;
-            border-radius: 20px;
-            margin: 25px 0;
-        }
-
-        .processing-step {
-            background: var(--card-bg);
-            padding: 18px 25px;
-            border-radius: 15px;
-            margin: 15px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-left: 4px solid #666666;
-            transition: all 0.3s ease;
-            color: var(--text-color);
-        }
-
-        .processing-step.active {
-            background: rgba(255, 170, 0, 0.15);
-            border-left-color: var(--warning-color);
-            animation: pulse 2s infinite;
-        }
-
-        .processing-step.completed {
-            background: rgba(0, 255, 136, 0.15);
-            border-left-color: var(--success-color);
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.8; transform: scale(0.98); }
-        }
-
-        .spinner {
-            width: 28px;
-            height: 28px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
+        .status-indicator {
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
-            border-top-color: var(--accent-color);
-            animation: spin 1s linear infinite;
+            margin-right: 10px;
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        .status-active { background: #7dd3a3; }
+        .status-learning { background: #feca57; }
+        .status-idle { background: #c0c0c0; }
+
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            height: 8px;
+            overflow: hidden;
+            margin-top: 8px;
         }
 
-        /* Messaggi */
-        .message {
-            padding: 20px 25px;
-            border-radius: 15px;
-            margin: 20px 0;
-            font-weight: 600;
-            font-size: 1.1em;
-            backdrop-filter: blur(10px);
-            border-left: 5px solid;
-            animation: slideIn 0.5s ease-out;
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #7dd3a3, #a8c8e8);
+            transition: width 0.3s ease;
         }
 
-        @keyframes slideIn {
-            from { transform: translateX(-100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
         }
 
-        .message.success {
-            background: rgba(0, 255, 136, 0.15);
-            border-left-color: var(--success-color);
-            color: var(--success-color);
+        .stat-item {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 10px;
         }
 
-        .message.error {
-            background: rgba(255, 68, 68, 0.15);
-            border-left-color: var(--error-color);
-            color: var(--error-color);
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #7dd3a3;
         }
 
-        .message.info {
-            background: rgba(0, 212, 255, 0.15);
-            border-left-color: var(--accent-color);
-            color: var(--accent-color);
-        }
-
-        .message.learning {
-            background: rgba(255, 170, 0, 0.15);
-            border-left-color: var(--warning-color);
-            color: var(--warning-color);
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .analytics-dashboard {
-                grid-template-columns: 1fr;
-            }
-            .theme-selector {
-                top: 10px;
-                right: 10px;
-                flex-direction: column;
-            }
+        .stat-label {
+            font-size: 0.9rem;
+            color: #c0c0c0;
         }
 
         @media (max-width: 768px) {
-            .container { padding: 15px; }
-            .header h1 { font-size: 2.5em; }
-            .input-row { grid-template-columns: repeat(2, 1fr); }
-            .algorithms-live-grid { grid-template-columns: 1fr; }
-            .prediction-numbers { gap: 15px; }
-            .number { width: 50px; height: 50px; font-size: 1.2em; }
-            .frequency-chart { grid-template-columns: repeat(5, 1fr); }
-            .algorithm-status-header { flex-direction: column; align-items: stretch; }
-            .algorithm-controls { justify-content: center; }
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .prediction-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .delete-btn {
+                align-self: flex-end;
+                margin-top: 10px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="theme-selector">
-        <button class="theme-btn dark" onclick="setTheme('dark')" title="Tema Scuro">🌙</button>
-        <button class="theme-btn light" onclick="setTheme('light')" title="Tema Chiaro">☀️</button>
-        <button class="theme-btn classic" onclick="setTheme('classic')" title="Tema Classico">🎭</button>
-        <button class="theme-btn neon" onclick="setTheme('neon')" title="Tema Neon">⚡</button>
-    </div>
-
     <div class="container">
-        <!-- Header futuristico -->
-        <div class="header">
+        <header class="header">
             <h1>🎯 EuroJackpot AI Advanced</h1>
-            <p>Sistema Predittivo Evolutivo con Auto-Apprendimento e Analytics</p>
-        </div>
+            <p>Sistema Predittivo Evolutivo con Machine Learning</p>
+        </header>
 
         <!-- Dashboard Analytics -->
-        <div class="analytics-dashboard">
-            <div class="analytics-main">
-                <h2 style="color: var(--accent-color); margin-bottom: 20px; font-family: 'Orbitron', monospace;">📊 Analytics Dashboard</h2>
-                
-                <div class="chart-container">
-                    <h3 style="color: var(--warning-color); margin-bottom: 15px;">Frequenza Numeri (1-50)</h3>
-                    <div class="frequency-chart" id="numberFrequencyChart">
-                        <!-- Populated by JavaScript -->
+        <section class="section">
+            <div class="section-header" onclick="toggleSection('analytics')">
+                <span><span class="icon">📊</span>Dashboard Analytics</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="section-content" id="analytics">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value" id="totalPredictions">0</div>
+                        <div class="stat-label">Predizioni Generate</div>
                     </div>
-                </div>
-                
-                <div class="chart-container">
-                    <h3 style="color: var(--warning-color); margin-bottom: 15px;">Frequenza Stelle (1-12)</h3>
-                    <div class="frequency-chart" id="starFrequencyChart" style="grid-template-columns: repeat(6, 1fr);">
-                        <!-- Populated by JavaScript -->
+                    <div class="stat-item">
+                        <div class="stat-value" id="totalExtractions">0</div>
+                        <div class="stat-label">Estrazioni Analizzate</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="avgAccuracy">0%</div>
+                        <div class="stat-label">Accuratezza Media</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="learningProgress">0%</div>
+                        <div class="stat-label">Progresso Learning</div>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <div class="analytics-side">
-                <div class="ensemble-metrics">
-                    <h2>📊 Metriche Live</h2>
-                    <div class="metrics-grid" style="grid-template-columns: 1fr;">
-                        <div class="metric-card">
-                            <span class="metric-value" id="ensembleAccuracy">0%</span>
-                            <div class="metric-label">Accuratezza Combinata</div>
-                        </div>
-                        <div class="metric-card">
-                            <span class="metric-value" id="activeAlgorithms">13</span>
-                            <div class="metric-label">Algoritmi Operativi</div>
-                        </div>
-                        <div class="metric-card">
-                            <span class="metric-value" id="totalPredictions">0</span>
-                            <div class="metric-label">Predizioni Generate</div>
-                        </div>
-                        <div class="metric-card">
-                            <span class="metric-value" id="learningRate">0%</span>
-                            <div class="metric-label">Tasso Apprendimento</div>
-                        </div>
-                    </div>
-                </div>
+        <!-- Status Algoritmi -->
+        <section class="section">
+            <div class="section-header" onclick="toggleSection('algorithms')">
+                <span><span class="icon">🤖</span>Status Algoritmi AI</span>
+                <span class="arrow">▼</span>
             </div>
-        </div>
+            <div class="section-content" id="algorithms">
+                <div class="grid" id="algorithmsGrid"></div>
+            </div>
+        </section>
 
-        <!-- Status Algoritmi in Tempo Reale -->
-        <div class="algorithm-status-panel">
-            <div class="algorithm-status-header">
-                <div class="algorithm-status-title">🤖 Algoritmi AI con Auto-Apprendimento</div>
-                <div class="algorithm-controls">
-                    <div class="active-counter" id="liveCounter">13/13 Attivi</div>
-                    <button class="btn-toggle" onclick="toggleAlgorithmsVisibility()" id="toggleAlgorithmsBtn">
-                        👁️ Nascondi Algoritmi
-                    </button>
+        <!-- Inserimento Dati -->
+        <section class="section">
+            <div class="section-header" onclick="toggleSection('dataInput')">
+                <span><span class="icon">📥</span>Inserimento Dati</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="section-content" id="dataInput">
+                <div class="grid">
+                    <div class="card">
+                        <h3>Inserimento Manuale</h3>
+                        <input type="date" id="extractionDate" class="input">
+                        <input type="text" id="mainNumbers" placeholder="5 numeri principali (es: 1,15,23,35,49)" class="input">
+                        <input type="text" id="euroNumbers" placeholder="2 euronumeri (es: 3,8)" class="input">
+                        <button class="btn" onclick="addExtraction()">Aggiungi Estrazione</button>
+                    </div>
+                    <div class="card">
+                        <h3>Import CSV</h3>
+                        <input type="file" id="csvFile" accept=".csv" class="input">
+                        <button class="btn" onclick="importCSV()">Importa da CSV</button>
+                        <p style="margin-top: 10px; font-size: 0.9rem; color: #c0c0c0;">
+                            Formato CSV: data,num1,num2,num3,num4,num5,euro1,euro2
+                        </p>
+                    </div>
                 </div>
             </div>
-            
-            <div class="algorithms-live-grid" id="algorithmLiveGrid">
-                <!-- Populated by JavaScript -->
-            </div>
-        </div>
+        </section>
 
-        <!-- Inserimento Estrazioni -->
-        <div class="section">
-            <h2 class="collapsible">➕ Inserimento Dati Storici</h2>
-            <div class="collapsible-content">
-                <div class="input-group">
-                    <input type="date" id="extractionDate" required>
-                </div>
-                <div class="input-row">
-                    <input type="number" min="1" max="50" placeholder="N1" id="num1" required>
-                    <input type="number" min="1" max="50" placeholder="N2" id="num2" required>
-                    <input type="number" min="1" max="50" placeholder="N3" id="num3" required>
-                    <input type="number" min="1" max="50" placeholder="N4" id="num4" required>
-                    <input type="number" min="1" max="50" placeholder="N5" id="num5" required>
-                </div>
-                <div class="stars-row">
-                    <input type="number" min="1" max="12" placeholder="⭐ S1" id="star1" required>
-                    <input type="number" min="1" max="12" placeholder="⭐ S2" id="star2" required>
-                </div>
-                <button class="btn-primary" onclick="addExtraction()">Aggiungi Estrazione</button>
-                <button class="btn-secondary" onclick="clearForm()">Pulisci Form</button>
-                <button class="btn-gold" onclick="addSampleData()">Carica Dati Demo</button>
+        <!-- Predizioni AI -->
+        <section class="section">
+            <div class="section-header" onclick="toggleSection('predictions')">
+                <span><span class="icon">🎯</span>Predizioni AI</span>
+                <span class="arrow">▼</span>
             </div>
-        </div>
-
-        <!-- Predizioni AI Ensemble -->
-        <div class="section">
-            <h2 class="collapsible">🚀 Centro di Controllo Predizioni</h2>
-            <div class="collapsible-content">
-                <div class="input-group">
-                    <button class="btn-primary" id="generateBtn" onclick="generateEnsemblePrediction()">
-                        🎯 Avvia Predizione Ensemble
-                    </button>
-                    <button class="btn-secondary" onclick="toggleAllAlgorithms()">
-                        ⚡ Toggle Tutti gli Algoritmi
-                    </button>
-                    <button class="btn-gold" onclick="resetAlgorithmWeights()">
-                        🔄 Reset Configurazione
-                    </button>
+            <div class="section-content" id="predictions">
+                <div style="margin-bottom: 20px;">
+                    <button class="btn" onclick="generatePrediction()">🎲 Genera Predizione AI</button>
+                    <button class="btn btn-danger" onclick="clearAllPredictions()" style="margin-left: 10px;">🗑️ Cancella Tutte le Predizioni</button>
                 </div>
-                
-                <!-- Countdown Timer Migliorato -->
-                <div class="prediction-timer" id="predictionTimer" style="display: none;">
-                    <div class="timer-display" id="timerDisplay">05:00</div>
-                    <div class="timer-label">Countdown Elaborazione Predizione</div>
-                    <div class="timer-progress">
-                        <div class="timer-progress-bar" id="timerProgressBar" style="width: 100%;"></div>
-                    </div>
-                </div>
-                
-                <div class="prediction-process" id="predictionProcess" style="display: none;">
-                    <h3 style="color: var(--warning-color); margin-bottom: 20px;">🔄 Elaborazione Multi-Algoritmo...</h3>
-                    <div id="processingSteps">
-                        <!-- Populated by JavaScript -->
-                    </div>
-                </div>
-                
-                <div class="prediction-results" id="predictionResults" style="display: none;">
-                    <h3 style="color: var(--success-color); margin-bottom: 20px;">🎯 Risultato Predizione Ensemble</h3>
-                    <div class="prediction-numbers" id="finalNumbers">
-                        <!-- Populated by JavaScript -->
-                    </div>
-                    
-                    <div style="background: rgba(0, 0, 0, 0.3); padding: 25px; border-radius: 20px; margin-top: 25px;">
-                        <h4 style="color: var(--accent-color); margin-bottom: 20px;">📋 Contributo Algoritmi per Risultato</h4>
-                        <div id="algorithmContributions">
-                            <!-- Populated by JavaScript -->
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Storico Predizioni Migliorato -->
-                <div class="predictions-history" id="predictionsHistory" style="display: none;">
-                    <h4 style="color: var(--warning-color); margin-bottom: 20px;">📈 Storico Predizioni con Auto-Apprendimento</h4>
-                    <div id="predictionsHistoryList">
-                        <!-- Populated by JavaScript -->
-                    </div>
-                </div>
+                <div id="predictionsHistory"></div>
             </div>
-        </div>
+        </section>
 
         <!-- Storico Estrazioni -->
-        <div class="section">
-            <h2 class="collapsible">📋 Database Estrazioni Storiche</h2>
-            <div class="collapsible-content">
-                <div class="input-group">
-                    <input type="text" placeholder="🔍 Ricerca per data..." id="searchInput" oninput="filterExtractions()">
-                    <button class="btn-secondary" onclick="clearSearch()">Pulisci</button>
-                </div>
-                
-                <table id="extractionsTable">
-                    <thead>
-                        <tr>
-                            <th>Data Estrazione</th>
-                            <th>N1</th>
-                            <th>N2</th>
-                            <th>N3</th>
-                            <th>N4</th>
-                            <th>N5</th>
-                            <th>S1</th>
-                            <th>S2</th>
-                            <th>Controlli</th>
-                        </tr>
-                    </thead>
-                    <tbody id="extractionsBody">
-                        <!-- Populated by JavaScript -->
-                    </tbody>
-                </table>
+        <section class="section">
+            <div class="section-header" onclick="toggleSection('history')">
+                <span><span class="icon">📋</span>Storico Estrazioni</span>
+                <span class="arrow">▼</span>
             </div>
-        </div>
+            <div class="section-content" id="history">
+                <div id="extractionsHistory"></div>
+            </div>
+        </section>
 
-        <!-- Configurazione Algoritmi -->
-        <div class="section">
-            <h2 class="collapsible collapsed">⚙️ Configurazione Avanzata Algoritmi</h2>
-            <div class="collapsible-content collapsed">
-                <p style="margin-bottom: 25px; color: var(--text-color); opacity: 0.8;">Personalizza i parametri di ogni algoritmo per ottimizzare le predizioni:</p>
-                <div id="algorithmWeights" style="background: rgba(0, 0, 0, 0.2); padding: 20px; border-radius: 15px;">
-                    <!-- Populated by JavaScript -->
-                </div>
-                <div class="input-group" style="margin-top: 25px;">
-                    <button class="btn-primary" onclick="saveAlgorithmConfig()">💾 Salva Configurazione</button>
-                    <button class="btn-secondary" onclick="loadDefaultConfig()">🔄 Ripristina Default</button>
-                    <button class="btn-gold" onclick="optimizeWeights()">🎯 Auto-Ottimizza</button>
+        <!-- Configurazione Avanzata -->
+        <section class="section">
+            <div class="section-header" onclick="toggleSection('config')">
+                <span><span class="icon">⚙️</span>Configurazione Avanzata</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="section-content collapsed" id="config">
+                <div class="grid">
+                    <div class="card">
+                        <h3>Parametri Learning</h3>
+                        <label>Learning Rate:</label>
+                        <input type="range" id="learningRate" min="0.01" max="0.1" step="0.01" value="0.05" class="input">
+                        <span id="learningRateValue">0.05</span>
+                        
+                        <label>Peso Pattern Analysis:</label>
+                        <input type="range" id="patternWeight" min="0.1" max="1.0" step="0.1" value="0.7" class="input">
+                        <span id="patternWeightValue">0.7</span>
+                    </div>
+                    <div class="card">
+                        <h3>Algoritmi Attivi</h3>
+                        <div id="algorithmToggles"></div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
     </div>
 
     <script>
-        // Global variables
-        let extractions = [];
-        let predictions = [];
-        let countdownTimer = null;
-        let countdownTime = 300; // 5 minutes in seconds
-        let totalCountdownTime = 300;
-        let algorithmsVisible = true;
-        let currentTheme = 'dark';
-        let learningData = {
-            totalMatches: 0,
-            algorithmsLearning: {},
-            patternAnalysis: {}
-        };
-        
-        let algorithms = [
-            {
-                name: "LSTM Neural Network",
-                emoji: "🧠",
-                weight: 1.15,
-                accuracy: 58,
-                specialty: "Temporal Patterns",
-                active: true,
-                description: "Reti neurali ricorrenti per pattern temporali complessi",
-                learningRate: 0.1,
-                successRate: 0,
-                totalPredictions: 0
-            },
-            {
-                name: "Random Forest",
-                emoji: "🌳",
-                weight: 0.95,
-                accuracy: 52,
-                specialty: "Feature Correlation",
-                active: true,
-                description: "Ensemble di alberi decisionali per correlazioni multiple",
-                learningRate: 0.08,
-                successRate: 0,
-                totalPredictions: 0
-            },
-            {
-                name: "Gradient Boosting",
-                emoji: "📈",
-                weight: 1.05,
-                accuracy: 55,
-                specialty: "Error Correction",
-                active: true,
-                description: "Correzione iterativa degli errori predittivi",
-                learningRate: 0.12,
-                successRate: 0,
-                totalPredictions: 0
-            },
-            {
-                name: "Deep Neural Network",
-                emoji: "🔮",
-                weight: 0.85,
-                accuracy: 48,
-                specialty: "Complex Patterns",
-                active: true,
-                description: "Reti profonde per pattern non-lineari",
-                learningRate: 0.09,
-                successRate: 0,
-                totalPredictions: 0
-            },
-            {
-                name: "Analisi Bayesiana",
-                emoji: "📊",
-                weight: 0.9,
-                accuracy: 50,
-                specialty: "Probability Chains",
-                active: true,
-                description: "Calcolo probabilistico basato su evidenze storiche",
-                learningRate: 0.07,
-                successRate: 0,
-                totalPredictions: 0
-            },
-            {
-                name: "Pattern Recognition",
-                emoji: "🔍",
-                weight: 0.75,
-                accuracy: 44,
-                specialty: "Sequence Detection",
-                active: true,
-                description: "Riconoscimento automatico di sequenze ricorrenti",
-                learningRate: 0.11,
-                successRate: 0,
-                totalPredictions: 0
-            },
-            {
-                name: "Time Series ARIMA",
-                emoji: "📉",
-                weight: 0.8,
-                accuracy: 46,
-                specialty: "Trend Analysis",
-                active: true,
-                description: "Analisi autoregressiva per trend temporali",
-                learningRate: 0.06,
-                successRate: 0,
-                totalPredictions: 0
-            },
-            {
-                name: "Quantum-Inspired",
-                emoji: "⚛️",
-                weight: 0.65,
-                accuracy: 38,
-                specialty: "Superposition States",
-                active: true,
-                description: "Algoritmi ispirati alla meccanica quantistica",
-                learningRate: 0.15,
-                successRate: 0,
-                totalPredictions: 0
-            },
-            {
-                name: "Ensemble Meta-Learning",
-                emoji: "🎯",
-                weight: 1.25,
-                accuracy: 62,
-                specialty: "Algorithm Selection",
-                active: true,
-                description: "Meta-apprendimento per selezione dinamica algoritmi",
-                learningRate: 0.13,
-                successRate: 0,
-                totalPredictions: 0
-            },
-            {
-                name: "Reinforcement Learning",
-                emoji: "🏆",
-                weight: 0.88,
-                accuracy: 49,
-                specialty: "Reward Optimization",
-                active: true,
-                description: "Apprendimento per rinforzo con ottimizzazione reward",
-                learningRate: 0.14,
-                successRate: 0,
-                totalPredictions: 0
-            },
-            {
-                name: "Algoritmo Oracolo",
-                emoji: "🔮",
-                weight: 1.35,
-                accuracy: 65,
-                specialty: "Mystical Vision",
-                active: true,
-                description: "Fusione di intuizione mistica e analisi matematica",
-                learningRate: 0.05,
-                successRate: 0,
-                totalPredictions: 0
-            },
-            {
-                name: "Entropic MaxEnt",
-                emoji: "📉",
-                weight: 1.12,
-                accuracy: 57,
-                specialty: "Entropy Minimization",
-                active: true,
-                description: "Minimizzazione entropica per massima informazione",
-                learningRate: 0.10,
-                successRate: 0,
-                totalPredictions: 0
-            },
-            {
-                name: "Entropic MutualInfo",
-                emoji: "📊",
-                weight: 1.08,
-                accuracy: 54,
-                specialty: "Information Gain",
-                active: true,
-                description: "Massimizzazione informazione mutua tra variabili",
-                learningRate: 0.09,
-                successRate: 0,
-                totalPredictions: 0
-            }
-        ];
-
-        // Initialize app
-        document.addEventListener('DOMContentLoaded', function() {
-            loadData();
-            loadTheme();
-            renderLiveAlgorithms();
-            renderAlgorithmWeights();
-            updateEnsembleMetrics();
-            renderExtractions();
-            renderPredictionsHistory();
-            renderFrequencyCharts();
-            initializeCollapsibles();
-            setCurrentDate();
-            
-            // Test initial functionality
-            console.log('App initialized successfully');
-            showMessage('Sistema EuroJackpot AI Advanced caricato con successo!', 'success');
-        });
-
-        // Theme Management
-        function setTheme(theme) {
-            const body = document.body;
-            body.className = ''; // Clear all theme classes
-            
-            if (theme !== 'dark') {
-                body.classList.add(theme + '-theme');
-            }
-            
-            currentTheme = theme;
-            localStorage.setItem('eurojackpot_theme', theme);
-            
-            // Update theme buttons visual feedback
-            document.querySelectorAll('.theme-btn').forEach(btn => {
-                btn.style.opacity = '0.7';
-            });
-            document.querySelector(`.theme-btn.${theme}`).style.opacity = '1';
-            
-            showMessage(`Tema ${theme} attivato!`, 'info');
-        }
-
-        function loadTheme() {
-            const savedTheme = localStorage.getItem('eurojackpot_theme');
-            if (savedTheme) {
-                setTheme(savedTheme);
-            } else {
-                setTheme('dark');
-            }
-        }
-
-        // Algorithm Visibility Toggle
-        function toggleAlgorithmsVisibility() {
-            const grid = document.getElementById('algorithmLiveGrid');
-            const btn = document.getElementById('toggleAlgorithmsBtn');
-            
-            algorithmsVisible = !algorithmsVisible;
-            
-            if (algorithmsVisible) {
-                grid.classList.remove('hidden');
-                btn.innerHTML = '👁️ Nascondi Algoritmi';
-                btn.title = 'Nasconde la visualizzazione degli algoritmi';
-            } else {
-                grid.classList.add('hidden');
-                btn.innerHTML = '👁️ Mostra Algoritmi';
-                btn.title = 'Mostra la visualizzazione degli algoritmi';
-            }
-            
-            showMessage(`Algoritmi ${algorithmsVisible ? 'mostrati' : 'nascosti'}`, 'info');
-        }
-
-        // Data Management
-        function loadData() {
-            try {
-                const stored = localStorage.getItem('eurojackpot_extractions');
-                if (stored) {
-                    extractions = JSON.parse(stored);
-                }
+        class EuroJackpotAI {
+            constructor() {
+                this.algorithms = [
+                    { name: 'Neural Network', accuracy: 0.72, status: 'active', description: 'Rete neurale per pattern complessi' },
+                    { name: 'Random Forest', accuracy: 0.68, status: 'active', description: 'Ensemble di alberi decisionali' },
+                    { name: 'K-Means Clustering', accuracy: 0.65, status: 'learning', description: 'Raggruppamento numeri frequenti' },
+                    { name: 'Regression Analysis', accuracy: 0.71, status: 'active', description: 'Analisi tendenze temporali' },
+                    { name: 'Frequency Analysis', accuracy: 0.69, status: 'active', description: 'Analisi frequenze statistiche' },
+                    { name: 'Pattern Recognition', accuracy: 0.67, status: 'learning', description: 'Riconoscimento pattern ricorrenti' },
+                    { name: 'Markov Chain', accuracy: 0.63, status: 'active', description: 'Catene di Markov per sequenze' },
+                    { name: 'Genetic Algorithm', accuracy: 0.70, status: 'learning', description: 'Algoritmo genetico evolutivo' },
+                    { name: 'SVM Classifier', accuracy: 0.66, status: 'active', description: 'Support Vector Machine' },
+                    { name: 'Decision Tree', accuracy: 0.64, status: 'idle', description: 'Albero decisionale semplificato' }
+                ];
                 
-                const storedPredictions = localStorage.getItem('eurojackpot_predictions');
-                if (storedPredictions) {
-                    predictions = JSON.parse(storedPredictions);
-                }
+                this.extractions = this.loadExtractions();
+                this.predictions = this.loadPredictions();
+                this.sectionStates = this.loadSectionStates();
                 
-                const storedAlgorithms = localStorage.getItem('eurojackpot_algorithms');
-                if (storedAlgorithms) {
-                    const saved = JSON.parse(storedAlgorithms);
-                    algorithms.forEach((alg, i) => {
-                        if (saved[i]) {
-                            alg.active = saved[i].active !== undefined ? saved[i].active : true;
-                            alg.weight = saved[i].weight || alg.weight;
-                            alg.successRate = saved[i].successRate || 0;
-                            alg.totalPredictions = saved[i].totalPredictions || 0;
-                            alg.learningRate = saved[i].learningRate || alg.learningRate;
-                        }
-                    });
-                }
-
-                const storedLearning = localStorage.getItem('eurojackpot_learning');
-                if (storedLearning) {
-                    learningData = { ...learningData, ...JSON.parse(storedLearning) };
-                }
-            } catch (error) {
-                console.error('Error loading data:', error);
-                showMessage('Errore nel caricamento dati: ' + error.message, 'error');
+                this.init();
             }
-        }
 
-        function saveData() {
-            try {
-                localStorage.setItem('eurojackpot_extractions', JSON.stringify(extractions));
-                localStorage.setItem('eurojackpot_predictions', JSON.stringify(predictions));
-                localStorage.setItem('eurojackpot_algorithms', JSON.stringify(algorithms));
-                localStorage.setItem('eurojackpot_learning', JSON.stringify(learningData));
-            } catch (error) {
-                console.error('Error saving data:', error);
-                showMessage('Errore nel salvataggio dati: ' + error.message, 'error');
+            init() {
+                this.renderAlgorithms();
+                this.renderPredictions();
+                this.renderExtractions();
+                this.updateStats();
+                this.initConfigSliders();
+                this.applySectionStates();
             }
-        }
 
-        // Countdown Timer Functions (FIXED)
-        function startCountdownTimer() {
-            countdownTime = totalCountdownTime;
-            document.getElementById('predictionTimer').style.display = 'block';
-            
-            countdownTimer = setInterval(() => {
-                countdownTime--;
-                const minutes = Math.floor(countdownTime / 60);
-                const seconds = countdownTime % 60;
-                const formattedTime = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-                document.getElementById('timerDisplay').textContent = formattedTime;
-                
-                // Update progress bar (decreases as countdown goes down)
-                const progress = (countdownTime / totalCountdownTime) * 100;
-                document.getElementById('timerProgressBar').style.width = progress + '%';
-                
-                if (countdownTime <= 0) {
-                    stopCountdownTimer();
-                }
-            }, 1000);
-        }
-
-        function stopCountdownTimer() {
-            if (countdownTimer) {
-                clearInterval(countdownTimer);
-                countdownTimer = null;
+            // Storage Methods
+            loadExtractions() {
+                return JSON.parse(localStorage.getItem('eurojackpot_extractions') || '[]');
             }
-            setTimeout(() => {
-                document.getElementById('predictionTimer').style.display = 'none';
-                document.getElementById('timerProgressBar').style.width = '100%';
-            }, 2000);
-        }
 
-        // Analytics and Charts
-        function renderFrequencyCharts() {
-            renderNumberFrequencyChart();
-            renderStarFrequencyChart();
-        }
-
-        function renderNumberFrequencyChart() {
-            const container = document.getElementById('numberFrequencyChart');
-            container.innerHTML = '';
-            
-            if (extractions.length === 0) {
-                container.innerHTML = '<p style="text-align: center; opacity: 0.7; color: var(--text-color);">Nessun dato disponibile</p>';
-                return;
+            saveExtractions() {
+                localStorage.setItem('eurojackpot_extractions', JSON.stringify(this.extractions));
             }
-            
-            const frequency = calculateNumberFrequency();
-            const maxFreq = Math.max(...frequency.slice(1));
-            
-            for (let i = 1; i <= 50; i++) {
-                const bar = document.createElement('div');
-                bar.className = 'freq-bar';
-                const height = maxFreq > 0 ? (frequency[i] / maxFreq) * 100 : 0;
-                bar.style.height = Math.max(20, height) + 'px';
-                bar.textContent = i;
-                bar.title = `Numero ${i}: ${frequency[i]} volte (${((frequency[i] / extractions.length) * 100).toFixed(1)}%)`;
-                
-                // Color coding based on frequency
-                if (frequency[i] >= maxFreq * 0.8) {
-                    bar.style.background = 'linear-gradient(to top, #ff0096, #ff6600)';
-                } else if (frequency[i] <= maxFreq * 0.2) {
-                    bar.style.background = 'linear-gradient(to top, #0066ff, #00d4ff)';
-                }
-                
-                container.appendChild(bar);
+
+            loadPredictions() {
+                return JSON.parse(localStorage.getItem('eurojackpot_predictions') || '[]');
             }
-        }
 
-        function renderStarFrequencyChart() {
-            const container = document.getElementById('starFrequencyChart');
-            container.innerHTML = '';
-            
-            if (extractions.length === 0) {
-                container.innerHTML = '<p style="text-align: center; opacity: 0.7; color: var(--text-color);">Nessun dato disponibile</p>';
-                return;
+            savePredictions() {
+                localStorage.setItem('eurojackpot_predictions', JSON.stringify(this.predictions));
             }
-            
-            const frequency = calculateStarFrequency();
-            const maxFreq = Math.max(...frequency.slice(1));
-            
-            for (let i = 1; i <= 12; i++) {
-                const bar = document.createElement('div');
-                bar.className = 'freq-bar';
-                const height = maxFreq > 0 ? (frequency[i] / maxFreq) * 100 : 0;
-                bar.style.height = Math.max(20, height) + 'px';
-                bar.textContent = i;
-                bar.title = `Stella ${i}: ${frequency[i]} volte (${((frequency[i] / (extractions.length * 2)) * 100).toFixed(1)}%)`;
-                
-                if (frequency[i] >= maxFreq * 0.8) {
-                    bar.style.background = 'linear-gradient(to top, #ffaa00, #ff6600)';
-                } else if (frequency[i] <= maxFreq * 0.2) {
-                    bar.style.background = 'linear-gradient(to top, #00ff88, #00d4ff)';
-                }
-                
-                container.appendChild(bar);
+
+            loadSectionStates() {
+                return JSON.parse(localStorage.getItem('eurojackpot_sections') || '{}');
             }
-        }
 
-        // Auto-Learning System
-        function checkPredictionMatches(newExtraction) {
-            let hasMatches = false;
-            let learningInsights = [];
-            
-            predictions.forEach(prediction => {
-                if (!prediction.matchesChecked) {
-                    const matchedNumbers = prediction.numbers.filter(n => 
-                        newExtraction.numbers.includes(n)
-                    );
-                    const matchedStars = prediction.stars.filter(s => 
-                        newExtraction.stars.includes(s)
-                    );
-                    
-                    prediction.matchedNumbers = matchedNumbers;
-                    prediction.matchedStars = matchedStars;
-                    prediction.totalMatches = matchedNumbers.length + matchedStars.length;
-                    prediction.matchesChecked = true;
-                    
-                    if (prediction.totalMatches > 0) {
-                        hasMatches = true;
-                        learningInsights.push(analyzePredictionSuccess(prediction, newExtraction));
-                        updateAlgorithmLearning(prediction);
-                    }
-                }
-            });
-            
-            if (hasMatches) {
-                learningData.totalMatches++;
-                showMessage(`🎯 Trovate ${learningInsights.length} corrispondenze! Sistema in apprendimento automatico...`, 'learning');
-                
-                // Update learning insights
-                learningInsights.forEach(insight => {
-                    if (insight) {
-                        showMessage(`🧠 Insight: ${insight}`, 'learning');
-                    }
-                });
-                
-                // Trigger visual learning indicators
-                triggerLearningAnimation();
+            saveSectionStates() {
+                localStorage.setItem('eurojackpot_sections', JSON.stringify(this.sectionStates));
             }
-            
-            saveData();
-            renderPredictionsHistory();
-            renderFrequencyCharts();
-        }
 
-        function analyzePredictionSuccess(prediction, extraction) {
-            let insights = [];
-            
-            // Analyze which algorithms performed better
-            if (prediction.algorithmResults) {
-                Object.keys(prediction.algorithmResults).forEach(algName => {
-                    const algResult = prediction.algorithmResults[algName];
-                    const algMatches = algResult.numbers.filter(n => 
-                        extraction.numbers.includes(n)
-                    ).length + algResult.stars.filter(s => 
-                        extraction.stars.includes(s)
-                    ).length;
-                    
-                    if (algMatches > 0) {
-                        const algorithm = algorithms.find(a => a.name === algName);
-                        if (algorithm) {
-                            algorithm.successRate = ((algorithm.successRate * algorithm.totalPredictions) + algMatches) / (algorithm.totalPredictions + 1);
-                            algorithm.totalPredictions++;
-                            
-                            // Adjust weight based on success
-                            const weightAdjustment = algMatches * algorithm.learningRate * 0.1;
-                            algorithm.weight = Math.min(2.0, algorithm.weight + weightAdjustment);
-                            
-                            insights.push(`Algoritmo ${algorithm.emoji} ${algName} ha indovinato ${algMatches} numeri - peso aumentato`);
-                        }
-                    }
-                });
-            }
-            
-            // Pattern analysis
-            if (prediction.totalMatches >= 3) {
-                const pattern = identifySuccessPattern(prediction, extraction);
-                if (pattern) {
-                    learningData.patternAnalysis[pattern] = (learningData.patternAnalysis[pattern] || 0) + 1;
-                    insights.push(`Pattern identificato: ${pattern}`);
-                }
-            }
-            
-            return insights.join('; ');
-        }
-
-        function identifySuccessPattern(prediction, extraction) {
-            // Check for consecutive numbers
-            if (hasConsecutiveNumbers(extraction.numbers)) {
-                return "Numeri consecutivi vincenti";
-            }
-            
-            // Check for sum patterns
-            const sum = extraction.numbers.reduce((a, b) => a + b, 0);
-            if (sum >= 100 && sum <= 130) {
-                return "Somma numeri nella fascia 100-130";
-            }
-            
-            // Check for even/odd distribution
-            const evenCount = extraction.numbers.filter(n => n % 2 === 0).length;
-            if (evenCount === 3 || evenCount === 2) {
-                return "Distribuzione equilibrata pari/dispari";
-            }
-            
-            return null;
-        }
-
-        function hasConsecutiveNumbers(numbers) {
-            const sorted = [...numbers].sort((a, b) => a - b);
-            for (let i = 0; i < sorted.length - 1; i++) {
-                if (sorted[i + 1] === sorted[i] + 1) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        function updateAlgorithmLearning(prediction) {
-            // Update algorithm accuracy based on performance
-            algorithms.forEach(algorithm => {
-                if (prediction.algorithms && prediction.algorithms.includes(algorithm.name)) {
-                    const learningBonus = prediction.totalMatches * algorithm.learningRate;
-                    algorithm.accuracy = Math.min(95, algorithm.accuracy + learningBonus);
-                }
-            });
-        }
-
-        function triggerLearningAnimation() {
-            // Add learning class to algorithms that are learning
-            algorithms.forEach((alg, index) => {
-                if (alg.successRate > 0) {
-                    const card = document.querySelector(`[data-algo-index="${index}"]`);
-                    if (card) {
-                        card.classList.add('learning');
-                        setTimeout(() => {
-                            card.classList.remove('learning');
-                        }, 3000);
-                    }
-                }
-            });
-        }
-
-        // Live Algorithm Rendering
-        function renderLiveAlgorithms() {
-            const grid = document.getElementById('algorithmLiveGrid');
-            grid.innerHTML = '';
-            
-            algorithms.forEach((alg, index) => {
-                const card = document.createElement('div');
-                card.className = `algo-live-card ${alg.active ? 'active' : 'inactive'}`;
-                card.setAttribute('data-algo-index', index);
-                
-                const learningIndicator = alg.successRate > 0 ? 
-                    `<div class="algo-learning-indicator">📚 Apprendimento attivo: ${(alg.successRate * 10).toFixed(1)}%</div>` : '';
-                
-                card.innerHTML = `
-                    <div class="algo-header">
-                        <div class="algo-name">
-                            <span class="algo-emoji">${alg.emoji}</span>
-                            <span>${alg.name}</span>
-                        </div>
-                        <div class="algo-toggle ${alg.active ? 'active' : ''}" 
-                             onclick="toggleAlgorithm(${index})"></div>
-                    </div>
-                    <div class="algo-metrics">
-                        <span class="algo-accuracy">Acc: ${alg.accuracy.toFixed(1)}%</span>
-                        <span class="algo-weight">Peso: ${alg.weight.toFixed(2)}</span>
-                        <span class="algo-specialty">${alg.specialty}</span>
-                    </div>
-                    <div class="algo-progress">
-                        <div class="algo-progress-bar" style="width: ${alg.accuracy}%"></div>
-                    </div>
-                    <div class="algo-description">${alg.description}</div>
-                    ${learningIndicator}
-                `;
-                grid.appendChild(card);
-            });
-            
-            updateLiveCounter();
-        }
-
-        function updateLiveCounter() {
-            const activeCount = algorithms.filter(a => a.active).length;
-            document.getElementById('liveCounter').textContent = `${activeCount}/13 Attivi`;
-        }
-
-        function renderAlgorithmWeights() {
-            const container = document.getElementById('algorithmWeights');
-            container.innerHTML = '';
-            
-            algorithms.forEach((alg, index) => {
-                const weightControl = document.createElement('div');
-                weightControl.style.cssText = `
-                    margin-bottom: 20px;
-                    background: var(--card-bg);
-                    padding: 15px;
-                    border-radius: 10px;
-                    border: 1px solid var(--border-color);
-                `;
-                
-                const learningInfo = alg.successRate > 0 ? 
-                    `<span style="color: var(--warning-color); font-size: 0.9em;">🧠 Learning: ${(alg.successRate * 10).toFixed(1)}%</span>` : '';
-                
-                weightControl.innerHTML = `
-                    <label style="display: flex; align-items: center; gap: 15px;">
-                        <span style="width: 280px; font-weight: 600; color: var(--accent-color);">
-                            ${alg.emoji} ${alg.name}
-                        </span>
-                        <input type="range" min="0.1" max="2.0" step="0.05" 
-                               value="${alg.weight}" 
-                               onchange="updateAlgorithmWeight(${index}, this.value)"
-                               style="flex: 1; margin: 0 15px; height: 8px; background: var(--border-color); border-radius: 4px;">
-                        <span style="width: 80px; font-weight: bold; color: var(--warning-color); font-family: 'Orbitron', monospace;">
-                            ${alg.weight.toFixed(2)}
-                        </span>
-                    </label>
-                    <div style="margin-top: 8px;">${learningInfo}</div>
-                `;
-                container.appendChild(weightControl);
-            });
-        }
-
-        function toggleAlgorithm(index) {
-            algorithms[index].active = !algorithms[index].active;
-            renderLiveAlgorithms();
-            updateEnsembleMetrics();
-            saveData();
-        }
-
-        function updateAlgorithmWeight(index, value) {
-            algorithms[index].weight = parseFloat(value);
-            renderAlgorithmWeights();
-            updateEnsembleMetrics();
-            saveData();
-        }
-
-        function updateEnsembleMetrics() {
-            const activeAlgs = algorithms.filter(a => a.active);
-            const totalWeight = activeAlgs.reduce((sum, a) => sum + a.weight, 0);
-            const weightedAccuracy = activeAlgs.length > 0 ? 
-                activeAlgs.reduce((sum, a) => sum + (a.accuracy * a.weight), 0) / totalWeight : 0;
-            
-            const avgLearningRate = activeAlgs.length > 0 ? 
-                activeAlgs.reduce((sum, a) => sum + a.successRate, 0) / activeAlgs.length * 100 : 0;
-            
-            document.getElementById('activeAlgorithms').textContent = `${activeAlgs.length}`;
-            document.getElementById('ensembleAccuracy').textContent = weightedAccuracy.toFixed(1) + '%';
-            document.getElementById('totalPredictions').textContent = predictions.length;
-            document.getElementById('learningRate').textContent = avgLearningRate.toFixed(1) + '%';
-        }
-
-        // Collapsible Functionality (FIXED)
-        function initializeCollapsibles() {
-            document.querySelectorAll('.collapsible').forEach(collapsible => {
-                collapsible.addEventListener('click', function() {
-                    const isCollapsed = this.classList.contains('collapsed');
-                    const content = this.nextElementSibling;
-                    
-                    if (isCollapsed) {
-                        // Expand
-                        this.classList.remove('collapsed');
-                        content.classList.remove('collapsed');
-                    } else {
-                        // Collapse
-                        this.classList.add('collapsed');
+            // Section Management
+            applySectionStates() {
+                Object.keys(this.sectionStates).forEach(sectionId => {
+                    if (this.sectionStates[sectionId] === 'collapsed') {
+                        const content = document.getElementById(sectionId);
+                        const header = content.previousElementSibling;
                         content.classList.add('collapsed');
+                        header.classList.add('collapsed');
                     }
                 });
-            });
-        }
-
-        // Prediction System
-        async function generateEnsemblePrediction() {
-            if (extractions.length < 5) {
-                showMessage('Servono almeno 5 estrazioni storiche per generare predizioni accurate basate sui pattern', 'error');
-                return;
             }
 
-            const activeAlgorithms = algorithms.filter(a => a.active);
-            if (activeAlgorithms.length === 0) {
-                showMessage('Attiva almeno un algoritmo per generare predizioni', 'error');
-                return;
-            }
-
-            const btn = document.getElementById('generateBtn');
-            btn.disabled = true;
-            btn.innerHTML = '⏳ Elaborazione Multi-Algoritmo...';
-            
-            // Start countdown timer
-            startCountdownTimer();
-            
-            // Show processing
-            document.getElementById('predictionProcess').style.display = 'block';
-            document.getElementById('predictionResults').style.display = 'none';
-            
-            const steps = document.getElementById('processingSteps');
-            steps.innerHTML = '';
-            
-            // Process each algorithm
-            const algorithmResults = {};
-            
-            for (let i = 0; i < activeAlgorithms.length; i++) {
-                const alg = activeAlgorithms[i];
-                
-                const step = document.createElement('div');
-                step.className = 'processing-step active';
-                step.innerHTML = `
-                    <span style="font-weight: 600;">
-                        ${alg.emoji} ${alg.name} - ${alg.specialty}
-                    </span>
-                    <div class="spinner"></div>
-                `;
-                steps.appendChild(step);
-                
-                // Simulate processing time based on algorithm complexity
-                const processingTime = Math.random() * 1500 + 800;
-                await new Promise(resolve => setTimeout(resolve, processingTime));
-                
-                // Generate algorithm-specific prediction based on historical data and learning
-                const prediction = generateAlgorithmPredictionFromHistory(alg);
-                algorithmResults[alg.name] = prediction;
-                
-                step.className = 'processing-step completed';
-                step.innerHTML = `
-                    <span style="font-weight: 600;">
-                        ${alg.emoji} ${alg.name} - ${alg.specialty}
-                    </span>
-                    <span style="color: var(--success-color); font-weight: bold;">✅ Completato</span>
-                `;
-            }
-            
-            // Ensemble combination
-            const ensembleStep = document.createElement('div');
-            ensembleStep.className = 'processing-step active';
-            ensembleStep.innerHTML = `
-                <span style="font-weight: 600;">🎯 Combinazione Ensemble & Consenso AI</span>
-                <div class="spinner"></div>
-            `;
-            steps.appendChild(ensembleStep);
-            
-            await new Promise(resolve => setTimeout(resolve, 1200));
-            
-            const finalPrediction = combineAlgorithmResults(algorithmResults, activeAlgorithms);
-            
-            ensembleStep.className = 'processing-step completed';
-            ensembleStep.innerHTML = `
-                <span style="font-weight: 600;">🎯 Combinazione Ensemble & Consenso AI</span>
-                <span style="color: var(--success-color); font-weight: bold;">✅ Completato</span>
-            `;
-            
-            // Stop countdown timer
-            stopCountdownTimer();
-            
-            // Save prediction with enhanced data
-            const predictionData = {
-                id: Date.now(),
-                date: new Date().toISOString(),
-                numbers: finalPrediction.numbers,
-                stars: finalPrediction.stars,
-                algorithms: activeAlgorithms.map(a => a.name),
-                algorithmResults: algorithmResults,
-                accuracy: activeAlgorithms.reduce((sum, a) => sum + a.accuracy, 0) / activeAlgorithms.length,
-                ensembleWeight: activeAlgorithms.reduce((sum, a) => sum + a.weight, 0),
-                learningData: {
-                    totalLearningRate: activeAlgorithms.reduce((sum, a) => sum + a.successRate, 0),
-                    patternAnalysisUsed: Object.keys(learningData.patternAnalysis)
-                },
-                matchesChecked: false
-            };
-            
-            predictions.push(predictionData);
-            saveData();
-            updateEnsembleMetrics();
-            
-            // Show results
-            setTimeout(() => {
-                document.getElementById('predictionProcess').style.display = 'none';
-                document.getElementById('predictionResults').style.display = 'block';
-                
-                renderPredictionResults(finalPrediction, algorithmResults, activeAlgorithms);
-                renderPredictionsHistory();
-                
-                btn.disabled = false;
-                btn.innerHTML = '🎯 Avvia Predizione Ensemble';
-                
-                showMessage('Predizione ensemble generata con auto-apprendimento attivo!', 'success');
-            }, 1500);
-        }
-
-        function renderPredictionsHistory() {
-            const historyContainer = document.getElementById('predictionsHistory');
-            const historyList = document.getElementById('predictionsHistoryList');
-            
-            if (predictions.length === 0) {
-                historyContainer.style.display = 'none';
-                return;
-            }
-            
-            historyContainer.style.display = 'block';
-            historyList.innerHTML = '';
-            
-            // Show last 8 predictions
-            predictions.slice(-8).reverse().forEach(pred => {
-                const item = document.createElement('div');
-                const hasMatches = pred.totalMatches > 0;
-                item.className = `prediction-item ${hasMatches ? 'has-matches' : ''}`;
-                
-                const matchesInfo = hasMatches ? 
-                    `<div class="prediction-matches">🎯 ${pred.totalMatches} match${pred.totalMatches > 1 ? 'es' : ''} trovati!</div>` : '';
-                
-                const learningInfo = pred.learningData ? 
-                    `<div class="learning-info">🧠 Learning attivo: ${pred.learningData.totalLearningRate.toFixed(2)} - Pattern usati: ${pred.learningData.patternAnalysisUsed.length}</div>` : '';
-                
-                // Highlight matched numbers
-                const numbersHtml = pred.numbers.map(n => {
-                    const isMatched = pred.matchedNumbers && pred.matchedNumbers.includes(n);
-                    return `<span class="number ${isMatched ? 'matched' : 'main'}" style="width: 35px; height: 35px; font-size: 1em;">${n}</span>`;
-                }).join('');
-                
-                const starsHtml = pred.stars.map(s => {
-                    const isMatched = pred.matchedStars && pred.matchedStars.includes(s);
-                    return `<span class="number ${isMatched ? 'matched' : 'star'}" style="width: 35px; height: 35px; font-size: 1em;">${s}</span>`;
-                }).join('');
-                
-                item.innerHTML = `
-                    <div class="prediction-header">
-                        <span class="prediction-date">${formatDateTime(pred.date)}</span>
-                        <span class="prediction-accuracy">${pred.accuracy.toFixed(1)}% Acc</span>
+            // Algorithm Methods
+            renderAlgorithms() {
+                const grid = document.getElementById('algorithmsGrid');
+                grid.innerHTML = this.algorithms.map(alg => `
+                    <div class="card">
+                        <div class="algorithm-status">
+                            <div class="status-indicator status-${alg.status}"></div>
+                            <strong>${alg.name}</strong>
+                        </div>
+                        <p style="font-size: 0.9rem; margin-bottom: 10px;">${alg.description}</p>
+                        <div>Accuratezza: <strong>${(alg.accuracy * 100).toFixed(1)}%</strong></div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${alg.accuracy * 100}%"></div>
+                        </div>
                     </div>
-                    ${matchesInfo}
-                    <div class="prediction-numbers">
-                        ${numbersHtml}
-                        ${starsHtml}
-                    </div>
-                    <div style="font-size: 0.9em; opacity: 0.7; margin-top: 10px; color: var(--text-color);">
-                        Algoritmi: ${pred.algorithms.length} | Peso Ensemble: ${pred.ensembleWeight ? pred.ensembleWeight.toFixed(2) : 'N/A'}
-                    </div>
-                    ${learningInfo}
-                `;
-                historyList.appendChild(item);
-            });
-        }
+                `).join('');
+            }
 
-        function generateAlgorithmPredictionFromHistory(algorithm) {
-            let numbers = [];
-            let stars = [];
-            
-            if (extractions.length === 0) {
-                return { 
-                    numbers: [1,2,3,4,5], 
-                    stars: [1,2], 
-                    confidence: algorithm.accuracy 
+            // Prediction Methods
+            generatePrediction() {
+                const mainNumbers = this.generateMainNumbers();
+                const euroNumbers = this.generateEuroNumbers();
+                
+                const prediction = {
+                    id: Date.now(),
+                    mainNumbers,
+                    euroNumbers,
+                    timestamp: new Date().toISOString(),
+                    confidence: Math.random() * 0.3 + 0.6, // 60-90%
+                    algorithm: this.algorithms[Math.floor(Math.random() * this.algorithms.length)].name
+                };
+
+                this.predictions.unshift(prediction);
+                this.savePredictions();
+                this.renderPredictions();
+                this.updateStats();
+
+                // Simulazione learning
+                this.simulateLearning();
+            }
+
+            generateMainNumbers() {
+                const numbers = new Set();
+                const patterns = this.analyzePatterns();
+                
+                while (numbers.size < 5) {
+                    let num;
+                    if (Math.random() < 0.7 && patterns.frequent.length > 0) {
+                        // 70% chance di usare numeri frequenti
+                        num = patterns.frequent[Math.floor(Math.random() * patterns.frequent.length)];
+                    } else {
+                        num = Math.floor(Math.random() * 50) + 1;
+                    }
+                    numbers.add(num);
+                }
+                
+                return Array.from(numbers).sort((a, b) => a - b);
+            }
+
+            generateEuroNumbers() {
+                const numbers = new Set();
+                while (numbers.size < 2) {
+                    numbers.add(Math.floor(Math.random() * 12) + 1);
+                }
+                return Array.from(numbers).sort((a, b) => a - b);
+            }
+
+            analyzePatterns() {
+                if (this.extractions.length === 0) {
+                    return { frequent: [], rare: [] };
+                }
+
+                const frequency = {};
+                this.extractions.forEach(ext => {
+                    ext.mainNumbers.forEach(num => {
+                        frequency[num] = (frequency[num] || 0) + 1;
+                    });
+                });
+
+                const sorted = Object.entries(frequency).sort((a, b) => b[1] - a[1]);
+                const frequent = sorted.slice(0, 15).map(([num]) => parseInt(num));
+                const rare = sorted.slice(-10).map(([num]) => parseInt(num));
+
+                return { frequent, rare };
+            }
+
+            deletePrediction(predictionId) {
+                if (confirm('Sei sicuro di voler cancellare questa predizione?')) {
+                    this.predictions = this.predictions.filter(p => p.id !== predictionId);
+                    this.savePredictions();
+                    this.renderPredictions();
+                    this.updateStats();
+                }
+            }
+
+            clearAllPredictions() {
+                if (confirm('Sei sicuro di voler cancellare TUTTE le predizioni? Questa azione non può essere annullata.')) {
+                    this.predictions = [];
+                    this.savePredictions();
+                    this.renderPredictions();
+                    this.updateStats();
+                }
+            }
+
+            renderPredictions() {
+                const container = document.getElementById('predictionsHistory');
+                if (this.predictions.length === 0) {
+                    container.innerHTML = '<p style="text-align: center; color: #c0c0c0; padding: 20px;">Nessuna predizione generata ancora. Clicca "Genera Predizione AI" per iniziare!</p>';
+                    return;
+                }
+
+                container.innerHTML = this.predictions.map(pred => `
+                    <div class="prediction-item">
+                        <div class="prediction-numbers">
+                            <div class="prediction-meta">
+                                ${new Date(pred.timestamp).toLocaleString('it-IT')} - 
+                                ${pred.algorithm} - 
+                                Confidenza: ${(pred.confidence * 100).toFixed(1)}%
+                            </div>
+                            <div class="numbers-display">
+                                ${pred.mainNumbers.map(num => `<span class="number">${num}</span>`).join('')}
+                                ${pred.euroNumbers.map(num => `<span class="number euronumber">${num}</span>`).join('')}
+                            </div>
+                        </div>
+                        <button class="delete-btn" onclick="ai.deletePrediction(${pred.id})" title="Cancella predizione">×</button>
+                    </div>
+                `).join('');
+            }
+
+            // Extraction Methods
+            addExtraction() {
+                const date = document.getElementById('extractionDate').value;
+                const mainStr = document.getElementById('mainNumbers').value;
+                const euroStr = document.getElementById('euroNumbers').value;
+
+                if (!date || !mainStr || !euroStr) {
+                    alert('Compila tutti i campi!');
+                    return;
+                }
+
+                const mainNumbers = mainStr.split(',').map(n => parseInt(n.trim()));
+                const euroNumbers = euroStr.split(',').map(n => parseInt(n.trim()));
+
+                if (mainNumbers.length !== 5 || euroNumbers.length !== 2) {
+                    alert('Inserisci esattamente 5 numeri principali e 2 euronumeri!');
+                    return;
+                }
+
+                const extraction = {
+                    id: Date.now(),
+                    date,
+                    mainNumbers: mainNumbers.sort((a, b) => a - b),
+                    euroNumbers: euroNumbers.sort((a, b) => a - b)
+                };
+
+                this.extractions.unshift(extraction);
+                this.saveExtractions();
+                this.renderExtractions();
+                this.updateStats();
+
+                // Clear form
+                document.getElementById('extractionDate').value = '';
+                document.getElementById('mainNumbers').value = '';
+                document.getElementById('euroNumbers').value = '';
+            }
+
+            renderExtractions() {
+                const container = document.getElementById('extractionsHistory');
+                if (this.extractions.length === 0) {
+                    container.innerHTML = '<p style="text-align: center; color: #c0c0c0; padding: 20px;">Nessuna estrazione inserita. Aggiungi le estrazioni storiche per migliorare le predizioni AI!</p>';
+                    return;
+                }
+
+                container.innerHTML = this.extractions.map(ext => `
+                    <div class="prediction-item">
+                        <div class="prediction-numbers">
+                            <div class="prediction-meta">Estrazione del ${new Date(ext.date).toLocaleDateString('it-IT')}</div>
+                            <div class="numbers-display">
+                                ${ext.mainNumbers.map(num => `<span class="number">${num}</span>`).join('')}
+                                ${ext.euroNumbers.map(num => `<span class="number euronumber">${num}</span>`).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Stats Methods
+            updateStats() {
+                document.getElementById('totalPredictions').textContent = this.predictions.length;
+                document.getElementById('totalExtractions').textContent = this.extractions.length;
+                
+                const avgAccuracy = this.algorithms.reduce((sum, alg) => sum + alg.accuracy, 0) / this.algorithms.length;
+                document.getElementById('avgAccuracy').textContent = (avgAccuracy * 100).toFixed(1) + '%';
+                
+                const learningProgress = Math.min(100, (this.extractions.length * 2) + (this.predictions.length * 0.5));
+                document.getElementById('learningProgress').textContent = learningProgress.toFixed(0) + '%';
+            }
+
+            simulateLearning() {
+                // Simula il miglioramento degli algoritmi
+                this.algorithms.forEach(alg => {
+                    if (alg.status === 'learning') {
+                        alg.accuracy += Math.random() * 0.005;
+                        if (alg.accuracy > 0.85) alg.accuracy = 0.85;
+                    }
+                });
+                this.renderAlgorithms();
+            }
+
+            initConfigSliders() {
+                const learningRate = document.getElementById('learningRate');
+                const patternWeight = document.getElementById('patternWeight');
+                
+                learningRate.oninput = () => {
+                    document.getElementById('learningRateValue').textContent = learningRate.value;
+                };
+                
+                patternWeight.oninput = () => {
+                    document.getElementById('patternWeightValue').textContent = patternWeight.value;
                 };
             }
-            
-            // Enhanced prediction with learning data
-            const numberFreq = calculateNumberFrequency();
-            const starFreq = calculateStarFrequency();
-            
-            try {
-                // Apply learning patterns
-                if (algorithm.successRate > 0) {
-                    // Use successful patterns from learning data
-                    numbers = generateLearningBasedNumbers(algorithm, 5);
-                    stars = generateLearningBasedStars(algorithm, 2);
-                } else {
-                    // Use base algorithm behavior
-                    if (algorithm.specialty === 'Temporal Patterns') {
-                        numbers = getRecentTrendNumbers(5);
-                    } else if (algorithm.specialty === 'Feature Correlation') {
-                        numbers = getCorrelatedNumbers(5);
-                    } else if (algorithm.specialty === 'Error Correction') {
-                        numbers = getBiasCorrectingNumbers(5);
-                    } else if (algorithm.specialty === 'Mystical Vision') {
-                        numbers = getMysticalPatternNumbers(5);
-                    } else {
-                        numbers = getFrequencyBasedNumbers(numberFreq, 5);
-                    }
-                    
-                    stars = getFrequencyBasedStars(starFreq, 2);
-                }
-                
-                // Ensure uniqueness and valid ranges
-                numbers = ensureUniqueNumbers(numbers, 5);
-                stars = ensureUniqueStars(stars, 2);
-                
-            } catch (error) {
-                console.error('Error generating prediction:', error);
-                numbers = [1,2,3,4,5];
-                stars = [1,2];
-            }
-            
-            return {
-                numbers: numbers.slice(0, 5).sort((a, b) => a - b),
-                stars: stars.slice(0, 2).sort((a, b) => a - b),
-                confidence: algorithm.accuracy + (algorithm.successRate * 10)
-            };
         }
 
-        function generateLearningBasedNumbers(algorithm, count) {
-            const successPatterns = Object.keys(learningData.patternAnalysis);
-            const numbers = [];
+        // Global Functions
+        function toggleSection(sectionId) {
+            const content = document.getElementById(sectionId);
+            const header = content.previousElementSibling;
             
-            // Apply learned patterns
-            if (successPatterns.includes("Numeri consecutivi vincenti")) {
-                const baseNum = Math.floor(Math.random() * 47) + 1;
-                numbers.push(baseNum, baseNum + 1);
-            }
+            content.classList.toggle('collapsed');
+            header.classList.toggle('collapsed');
             
-            if (successPatterns.includes("Distribuzione equilibrata pari/dispari")) {
-                // Add balanced even/odd numbers
-                const evenCount = Math.floor(count / 2);
-                const oddCount = count - evenCount;
-                
-                for (let i = 0; i < evenCount && numbers.length < count; i++) {
-                    let even;
-                    do {
-                        even = (Math.floor(Math.random() * 25) + 1) * 2;
-                    } while (numbers.includes(even));
-                    numbers.push(even);
-                }
-                
-                for (let i = 0; i < oddCount && numbers.length < count; i++) {
-                    let odd;
-                    do {
-                        odd = (Math.floor(Math.random() * 25) + 1) * 2 - 1;
-                    } while (numbers.includes(odd));
-                    numbers.push(odd);
-                }
-            }
-            
-            // Fill remaining with frequency-based selection
-            while (numbers.length < count) {
-                const candidate = Math.floor(Math.random() * 50) + 1;
-                if (!numbers.includes(candidate)) {
-                    numbers.push(candidate);
-                }
-            }
-            
-            return numbers;
+            ai.sectionStates[sectionId] = content.classList.contains('collapsed') ? 'collapsed' : 'expanded';
+            ai.saveSectionStates();
         }
 
-        function generateLearningBasedStars(algorithm, count) {
-            const starFreq = calculateStarFrequency();
-            const stars = getFrequencyBasedStars(starFreq, count);
-            
-            // Apply learning adjustments
-            if (algorithm.successRate > 0.1) {
-                // Prefer stars that have been successful before
-                const adjustedStars = stars.map(s => {
-                    const adjustment = Math.random() > 0.7 ? (Math.random() > 0.5 ? 1 : -1) : 0;
-                    return Math.max(1, Math.min(12, s + adjustment));
-                });
-                return [...new Set(adjustedStars)];
-            }
-            
-            return stars;
-        }
-
-        function ensureUniqueNumbers(numbers, count) {
-            const unique = [...new Set(numbers)];
-            while (unique.length < count && unique.length < 50) {
-                const candidate = Math.floor(Math.random() * 50) + 1;
-                if (!unique.includes(candidate)) {
-                    unique.push(candidate);
-                }
-            }
-            return unique.slice(0, count);
-        }
-
-        function ensureUniqueStars(stars, count) {
-            const unique = [...new Set(stars)];
-            while (unique.length < count && unique.length < 12) {
-                const candidate = Math.floor(Math.random() * 12) + 1;
-                if (!unique.includes(candidate)) {
-                    unique.push(candidate);
-                }
-            }
-            return unique.slice(0, count);
-        }
-
-        // Historical analysis functions (enhanced)
-        function getRecentTrendNumbers(count) {
-            const recentExtractions = extractions.slice(0, Math.min(5, extractions.length));
-            const trendNumbers = [];
-            const freq = {};
-            
-            recentExtractions.forEach((ext, index) => {
-                const weight = recentExtractions.length - index;
-                ext.numbers.forEach(num => {
-                    freq[num] = (freq[num] || 0) + weight;
-                });
-            });
-            
-            const sorted = Object.entries(freq)
-                .sort(([,a], [,b]) => b - a)
-                .map(([num]) => parseInt(num));
-                
-            return sorted.slice(0, Math.min(count, sorted.length));
-        }
-
-        function getCorrelatedNumbers(count) {
-            if (extractions.length < 2) {
-                return Array.from({length: count}, (_, i) => i + 1);
-            }
-            
-            const pairs = {};
-            extractions.forEach(ext => {
-                for (let i = 0; i < ext.numbers.length; i++) {
-                    for (let j = i + 1; j < ext.numbers.length; j++) {
-                        const key = `${Math.min(ext.numbers[i], ext.numbers[j])}-${Math.max(ext.numbers[i], ext.numbers[j])}`;
-                        pairs[key] = (pairs[key] || 0) + 1;
-                    }
-                }
-            });
-            
-            const topPairs = Object.entries(pairs)
-                .sort(([,a], [,b]) => b - a)
-                .slice(0, 3);
-                
-            const result = new Set();
-            topPairs.forEach(([pair]) => {
-                const [a, b] = pair.split('-').map(n => parseInt(n));
-                result.add(a);
-                result.add(b);
-            });
-            
-            return ensureUniqueNumbers(Array.from(result), count);
-        }
-
-        function getBiasCorrectingNumbers(count) {
-            const freq = calculateNumberFrequency();
-            const avgFreq = extractions.length / 50;
-            
-            const underrepresented = [];
-            for (let i = 1; i <= 50; i++) {
-                underrepresented.push({ 
-                    num: i, 
-                    deficit: Math.max(0, avgFreq - freq[i]) 
-                });
-            }
-            
-            return underrepresented
-                .sort((a, b) => b.deficit - a.deficit)
-                .slice(0, count)
-                .map(item => item.num);
-        }
-
-        function getMysticalPatternNumbers(count) {
-            const result = [];
-            const freq = calculateNumberFrequency();
-            
-            const hotNumbers = getFrequencyBasedNumbers(freq, 2);
-            const coldNumbers = getColdNumbers(freq, 2);
-            const consecutive = getConsecutivePattern(1);
-            
-            result.push(...hotNumbers, ...coldNumbers, ...consecutive);
-            
-            return ensureUniqueNumbers(result, count);
-        }
-
-        function getFrequencyBasedNumbers(freq, count) {
-            return Array.from({length: 50}, (_, i) => i + 1)
-                .sort((a, b) => freq[b] - freq[a])
-                .slice(0, count);
-        }
-
-        function getColdNumbers(freq, count) {
-            return Array.from({length: 50}, (_, i) => i + 1)
-                .sort((a, b) => freq[a] - freq[b])
-                .slice(0, count);
-        }
-
-        function getConsecutivePattern(count) {
-            if (extractions.length === 0) return [1];
-            
-            const consecutivePairs = {};
-            extractions.forEach(ext => {
-                for (let i = 0; i < ext.numbers.length - 1; i++) {
-                    if (ext.numbers[i + 1] === ext.numbers[i] + 1) {
-                        const key = `${ext.numbers[i]}-${ext.numbers[i + 1]}`;
-                        consecutivePairs[key] = (consecutivePairs[key] || 0) + 1;
-                    }
-                }
-            });
-            
-            const topPair = Object.entries(consecutivePairs)
-                .sort(([,a], [,b]) => b - a)[0];
-                
-            if (topPair) {
-                return topPair[0].split('-').map(n => parseInt(n));
-            }
-            
-            return [Math.floor(Math.random() * 49) + 1];
-        }
-
-        function getFrequencyBasedStars(starFreq, count) {
-            return Array.from({length: 12}, (_, i) => i + 1)
-                .sort((a, b) => starFreq[b] - starFreq[a])
-                .slice(0, count);
-        }
-
-        function calculateNumberFrequency() {
-            const freq = Array(51).fill(0);
-            extractions.forEach(ext => {
-                ext.numbers.forEach(num => freq[num]++);
-            });
-            return freq;
-        }
-
-        function calculateStarFrequency() {
-            const freq = Array(13).fill(0);
-            extractions.forEach(ext => {
-                ext.stars.forEach(star => freq[star]++);
-            });
-            return freq;
-        }
-
-        function combineAlgorithmResults(results, activeAlgorithms) {
-            const numberVotes = {};
-            const starVotes = {};
-            
-            // Collect weighted votes from each algorithm (enhanced with learning)
-            activeAlgorithms.forEach(alg => {
-                const result = results[alg.name];
-                const weight = alg.weight * (1 + alg.successRate); // Boost weight for successful algorithms
-                
-                result.numbers.forEach(num => {
-                    numberVotes[num] = (numberVotes[num] || 0) + weight;
-                });
-                
-                result.stars.forEach(star => {
-                    starVotes[star] = (starVotes[star] || 0) + weight;
-                });
-            });
-            
-            // Select top-voted numbers and stars
-            const finalNumbers = Object.entries(numberVotes)
-                .sort(([,a], [,b]) => b - a)
-                .slice(0, 5)
-                .map(([num]) => parseInt(num))
-                .sort((a, b) => a - b);
-                
-            const finalStars = Object.entries(starVotes)
-                .sort(([,a], [,b]) => b - a)
-                .slice(0, 2)
-                .map(([star]) => parseInt(star))
-                .sort((a, b) => a - b);
-            
-            return {
-                numbers: finalNumbers.length === 5 ? finalNumbers : [1,2,3,4,5],
-                stars: finalStars.length === 2 ? finalStars : [1,2],
-                numberVotes,
-                starVotes
-            };
-        }
-
-        function renderPredictionResults(prediction, algorithmResults, activeAlgorithms) {
-            // Render final numbers
-            const numbersContainer = document.getElementById('finalNumbers');
-            numbersContainer.innerHTML = 
-                prediction.numbers.map(n => `<span class="number main">${n}</span>`).join('') +
-                prediction.stars.map(s => `<span class="number star">${s}</span>`).join('');
-            
-            // Render algorithm contributions
-            const contributionsContainer = document.getElementById('algorithmContributions');
-            contributionsContainer.innerHTML = '';
-            
-            activeAlgorithms.forEach(alg => {
-                const result = algorithmResults[alg.name];
-                const contribution = alg.weight * (alg.accuracy / 100) * (1 + alg.successRate);
-                const maxContribution = Math.max(...activeAlgorithms.map(a => a.weight * (a.accuracy / 100) * (1 + a.successRate)));
-                const contributionPercentage = (contribution / maxContribution) * 100;
-                
-                const learningBonus = alg.successRate > 0 ? `<span style="color: var(--warning-color); font-size: 0.9em;">🧠 +${(alg.successRate * 100).toFixed(1)}%</span>` : '';
-                
-                const div = document.createElement('div');
-                div.style.cssText = `
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    padding: 15px;
-                    margin: 10px 0;
-                    background: var(--card-bg);
-                    border-radius: 10px;
-                    border-left: 4px solid var(--accent-color);
-                `;
-                div.innerHTML = `
-                    <span style="font-weight: 600; color: var(--text-color);">
-                        ${alg.emoji} ${alg.name} ${learningBonus}
-                    </span>
-                    <span style="font-family: 'Orbitron', monospace; color: var(--accent-color);">
-                        ${result.numbers.concat(result.stars).join(', ')}
-                    </span>
-                    <div style="width: 100px; height: 10px; background: var(--border-color); border-radius: 5px; overflow: hidden;">
-                        <div style="height: 100%; width: ${contributionPercentage}%; background: linear-gradient(90deg, var(--secondary-color), var(--accent-color)); border-radius: 5px;"></div>
-                    </div>
-                    <span style="font-weight: bold; color: var(--warning-color); font-family: 'Orbitron', monospace;">
-                        ${contribution.toFixed(2)}
-                    </span>
-                `;
-                contributionsContainer.appendChild(div);
-            });
-        }
-
-        // Extraction Management (enhanced with auto-learning)
         function addExtraction() {
-            const date = document.getElementById('extractionDate').value;
-            const numbers = [
-                parseInt(document.getElementById('num1').value),
-                parseInt(document.getElementById('num2').value),
-                parseInt(document.getElementById('num3').value),
-                parseInt(document.getElementById('num4').value),
-                parseInt(document.getElementById('num5').value)
-            ];
-            const stars = [
-                parseInt(document.getElementById('star1').value),
-                parseInt(document.getElementById('star2').value)
-            ];
+            ai.addExtraction();
+        }
 
-            if (!validateExtraction(date, numbers, stars)) {
+        function generatePrediction() {
+            ai.generatePrediction();
+        }
+
+        function clearAllPredictions() {
+            ai.clearAllPredictions();
+        }
+
+        function importCSV() {
+            const fileInput = document.getElementById('csvFile');
+            const file = fileInput.files[0];
+            
+            if (!file) {
+                alert('Seleziona un file CSV!');
                 return;
             }
-
-            const extraction = {
-                id: Date.now(),
-                date: date,
-                numbers: numbers.sort((a, b) => a - b),
-                stars: stars.sort((a, b) => a - b),
-                timestamp: new Date().toISOString()
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const csv = e.target.result;
+                const lines = csv.split('\n').slice(1); // Skip header
+                
+                lines.forEach(line => {
+                    if (line.trim()) {
+                        const parts = line.split(',');
+                        if (parts.length >= 8) {
+                            const extraction = {
+                                id: Date.now() + Math.random(),
+                                date: parts[0],
+                                mainNumbers: [
+                                    parseInt(parts[1]),
+                                    parseInt(parts[2]),
+                                    parseInt(parts[3]),
+                                    parseInt(parts[4]),
+                                    parseInt(parts[5])
+                                ].sort((a, b) => a - b),
+                                euroNumbers: [
+                                    parseInt(parts[6]),
+                                    parseInt(parts[7])
+                                ].sort((a, b) => a - b)
+                            };
+                            ai.extractions.push(extraction);
+                        }
+                    }
+                });
+                
+                ai.saveExtractions();
+                ai.renderExtractions();
+                ai.updateStats();
+                alert('Dati CSV importati con successo!');
             };
-
-            extractions.push(extraction);
-            extractions.sort((a, b) => new Date(b.date) - new Date(a.date));
             
-            // Auto-learning: check for matches with previous predictions
-            checkPredictionMatches(extraction);
-            
-            saveData();
-            renderExtractions();
-            renderFrequencyCharts();
-            renderLiveAlgorithms();
-            updateEnsembleMetrics();
-            clearForm();
-            
-            showMessage('✅ Estrazione aggiunta con successo! Sistema di auto-apprendimento attivato.', 'success');
+            reader.readAsText(file);
         }
 
-        function validateExtraction(date, numbers, stars) {
-            if (!date) {
-                showMessage('⚠️ Inserire una data valida', 'error');
-                return false;
-            }
-
-            if (numbers.some(n => isNaN(n) || n < 1 || n > 50)) {
-                showMessage('⚠️ I numeri devono essere compresi tra 1 e 50', 'error');
-                return false;
-            }
-
-            if (stars.some(s => isNaN(s) || s < 1 || s > 12)) {
-                showMessage('⚠️ Le stelle devono essere comprese tra 1 e 12', 'error');
-                return false;
-            }
-
-            if (new Set(numbers).size !== 5) {
-                showMessage('⚠️ I numeri non possono essere duplicati', 'error');
-                return false;
-            }
-
-            if (new Set(stars).size !== 2) {
-                showMessage('⚠️ Le stelle non possono essere duplicate', 'error');
-                return false;
-            }
-
-            if (extractions.some(e => e.date === date)) {
-                showMessage('⚠️ Esiste già un\'estrazione per questa data', 'error');
-                return false;
-            }
-
-            return true;
-        }
-
-        function clearForm() {
-            ['num1', 'num2', 'num3', 'num4', 'num5', 'star1', 'star2'].forEach(id => {
-                document.getElementById(id).value = '';
-            });
-            setCurrentDate();
-        }
-
-        function setCurrentDate() {
-            const today = new Date();
-            const dateString = today.toISOString().split('T')[0];
-            document.getElementById('extractionDate').value = dateString;
-        }
-
-        function deleteExtraction(id) {
-            if (confirm('⚠️ Sei sicuro di voler eliminare questa estrazione?')) {
-                extractions = extractions.filter(e => e.id !== id);
-                saveData();
-                renderExtractions();
-                renderFrequencyCharts();
-                showMessage('🗑️ Estrazione eliminata dal database', 'info');
-            }
-        }
-
-        // UI Functions
-        function renderExtractions() {
-            const tbody = document.getElementById('extractionsBody');
-            tbody.innerHTML = '';
-            
-            if (extractions.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="9" style="padding: 30px; font-style: italic; color: var(--text-color); opacity: 0.7;">
-                            📊 Nessuna estrazione nel database. Aggiungi dati storici per iniziare l'analisi AI.
-                        </td>
-                    </tr>
-                `;
-                return;
-            }
-            
-            extractions.slice(0, 20).forEach(ext => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td style="font-weight: bold; color: var(--accent-color);">${formatDate(ext.date)}</td>
-                    <td><span class="number main">${ext.numbers[0]}</span></td>
-                    <td><span class="number main">${ext.numbers[1]}</span></td>
-                    <td><span class="number main">${ext.numbers[2]}</span></td>
-                    <td><span class="number main">${ext.numbers[3]}</span></td>
-                    <td><span class="number main">${ext.numbers[4]}</span></td>
-                    <td><span class="number star">${ext.stars[0]}</span></td>
-                    <td><span class="number star">${ext.stars[1]}</span></td>
-                    <td><button class="btn-danger" onclick="deleteExtraction(${ext.id})" style="padding: 8px 12px; font-size: 0.9em;">🗑️</button></td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-
-        function filterExtractions() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = extractions.filter(ext => 
-                ext.date.toLowerCase().includes(searchTerm)
-            );
-            
-            const tbody = document.getElementById('extractionsBody');
-            tbody.innerHTML = '';
-            
-            if (filtered.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="9" style="padding: 20px; font-style: italic; color: var(--text-color); opacity: 0.7;">
-                            🔍 Nessuna estrazione trovata per "${searchTerm}".
-                        </td>
-                    </tr>
-                `;
-                return;
-            }
-            
-            filtered.slice(0, 20).forEach(ext => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td style="font-weight: bold; color: var(--accent-color);">${formatDate(ext.date)}</td>
-                    <td><span class="number main">${ext.numbers[0]}</span></td>
-                    <td><span class="number main">${ext.numbers[1]}</span></td>
-                    <td><span class="number main">${ext.numbers[2]}</span></td>
-                    <td><span class="number main">${ext.numbers[3]}</span></td>
-                    <td><span class="number main">${ext.numbers[4]}</span></td>
-                    <td><span class="number star">${ext.stars[0]}</span></td>
-                    <td><span class="number star">${ext.stars[1]}</span></td>
-                    <td><button class="btn-danger" onclick="deleteExtraction(${ext.id})" style="padding: 8px 12px; font-size: 0.9em;">🗑️</button></td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-
-        function clearSearch() {
-            document.getElementById('searchInput').value = '';
-            renderExtractions();
-        }
-
-        function addSampleData() {
-            const sampleExtractions = [
-                {date: '2024-10-15', numbers: [5, 12, 23, 34, 45], stars: [3, 8]},
-                {date: '2024-10-12', numbers: [8, 17, 26, 41, 49], stars: [2, 11]},
-                {date: '2024-10-10', numbers: [1, 19, 28, 37, 44], stars: [5, 9]},
-                {date: '2024-10-08', numbers: [3, 15, 25, 39, 47], stars: [1, 12]},
-                {date: '2024-10-05', numbers: [7, 14, 22, 33, 48], stars: [4, 10]},
-                {date: '2024-10-03', numbers: [2, 16, 29, 35, 50], stars: [6, 7]},
-                {date: '2024-09-30', numbers: [4, 11, 24, 36, 42], stars: [1, 9]},
-                {date: '2024-09-27', numbers: [6, 13, 21, 38, 46], stars: [3, 12]},
-                {date: '2024-09-24', numbers: [9, 18, 27, 31, 43], stars: [2, 8]},
-                {date: '2024-09-21', numbers: [10, 20, 30, 40, 50], stars: [4, 11]},
-                {date: '2024-09-18', numbers: [13, 17, 32, 39, 47], stars: [5, 12]},
-                {date: '2024-09-15', numbers: [2, 8, 15, 23, 41], stars: [1, 7]},
-                {date: '2024-09-12', numbers: [11, 22, 33, 44, 50], stars: [6, 10]},
-                {date: '2024-09-09', numbers: [14, 18, 25, 36, 49], stars: [3, 9]},
-                {date: '2024-09-06', numbers: [1, 7, 21, 35, 42], stars: [2, 8]}
-            ];
-            
-            let added = 0;
-            sampleExtractions.forEach(sample => {
-                if (!extractions.some(e => e.date === sample.date)) {
-                    extractions.push({
-                        id: Date.now() + added,
-                        date: sample.date,
-                        numbers: sample.numbers,
-                        stars: sample.stars,
-                        timestamp: new Date().toISOString()
-                    });
-                    added++;
-                }
-            });
-            
-            if (added > 0) {
-                extractions.sort((a, b) => new Date(b.date) - new Date(a.date));
-                saveData();
-                renderExtractions();
-                renderFrequencyCharts();
-                showMessage(`🎯 ${added} estrazioni demo caricate per addestrare l'AI!`, 'success');
-            } else {
-                showMessage('ℹ️ I dati demo sono già presenti nel database', 'info');
-            }
-        }
-
-        // Utility Functions
-        function toggleAllAlgorithms() {
-            const allActive = algorithms.every(a => a.active);
-            algorithms.forEach(a => a.active = !allActive);
-            renderLiveAlgorithms();
-            updateEnsembleMetrics();
-            saveData();
-            showMessage(allActive ? '⏸️ Tutti gli algoritmi disattivati' : '▶️ Tutti gli algoritmi attivati', 'info');
-        }
-
-        function resetAlgorithmWeights() {
-            const originalWeights = [1.15, 0.95, 1.05, 0.85, 0.9, 0.75, 0.8, 0.65, 1.25, 0.88, 1.35, 1.12, 1.08];
-            algorithms.forEach((alg, i) => {
-                alg.weight = originalWeights[i];
-                alg.successRate = 0;
-                alg.totalPredictions = 0;
-            });
-            renderAlgorithmWeights();
-            renderLiveAlgorithms();
-            updateEnsembleMetrics();
-            saveData();
-            showMessage('🔄 Pesi e dati di apprendimento ripristinati ai valori default', 'success');
-        }
-
-        function saveAlgorithmConfig() {
-            saveData();
-            showMessage('💾 Configurazione algoritmi e dati di apprendimento salvati!', 'success');
-        }
-
-        function loadDefaultConfig() {
-            resetAlgorithmWeights();
-            algorithms.forEach(a => a.active = true);
-            renderLiveAlgorithms();
-            renderAlgorithmWeights();
-            updateEnsembleMetrics();
-            saveData();
-            showMessage('🔄 Configurazione default caricata!', 'success');
-        }
-
-        function optimizeWeights() {
-            algorithms.forEach(alg => {
-                const performanceBonus = (alg.accuracy - 50) / 100;
-                const learningBonus = alg.successRate * 0.5;
-                const newWeight = Math.max(0.1, Math.min(2.0, alg.weight + performanceBonus * 0.15 + learningBonus));
-                alg.weight = Math.round(newWeight * 100) / 100;
-            });
-            renderAlgorithmWeights();
-            renderLiveAlgorithms();
-            updateEnsembleMetrics();
-            saveData();
-            showMessage('🎯 Pesi ottimizzati con dati di auto-apprendimento!', 'success');
-        }
-
-        function showMessage(message, type = 'info') {
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `message ${type}`;
-            messageDiv.textContent = message;
-            
-            const container = document.querySelector('.container');
-            container.insertBefore(messageDiv, container.firstChild.nextSibling);
-            
-            setTimeout(() => {
-                if (messageDiv.parentNode) {
-                    messageDiv.parentNode.removeChild(messageDiv);
-                }
-            }, 6000);
-            
-            messageDiv.addEventListener('click', () => {
-                if (messageDiv.parentNode) {
-                    messageDiv.parentNode.removeChild(messageDiv);
-                }
-            });
-        }
-
-        function formatDate(dateString) {
-            return new Date(dateString).toLocaleDateString('it-IT');
-        }
-
-        function formatDateTime(isoString) {
-            return new Date(isoString).toLocaleString('it-IT');
-        }
+        // Initialize App
+        let ai;
+        document.addEventListener('DOMContentLoaded', function() {
+            ai = new EuroJackpotAI();
+        });
     </script>
 </body>
 </html>
+
 
 
 
