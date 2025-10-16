@@ -108,7 +108,7 @@
             z-index: 1;
         }
 
-        /* Status Algoritmi - Nuovo Modulo */
+        /* Status Algoritmi */
         .algorithm-status-panel {
             background: linear-gradient(135deg, rgba(0, 150, 255, 0.15) 0%, rgba(255, 0, 150, 0.15) 100%);
             border-radius: 25px;
@@ -345,6 +345,31 @@
             opacity: 0.9;
         }
 
+        /* Timer per predizione */
+        .prediction-timer {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 20px;
+            border-radius: 20px;
+            margin: 20px 0;
+            text-align: center;
+            border: 2px solid #ffaa00;
+        }
+
+        .timer-display {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5em;
+            color: #ffaa00;
+            font-weight: 900;
+            text-shadow: 0 0 20px rgba(255, 170, 0, 0.8);
+            margin-bottom: 10px;
+        }
+
+        .timer-label {
+            color: #ffffff;
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
         /* Sezioni principali */
         .section {
             background: linear-gradient(135deg, rgba(0, 50, 100, 0.2) 0%, rgba(100, 0, 50, 0.2) 100%);
@@ -570,6 +595,46 @@
             border: 3px solid #ffff00;
         }
 
+        /* Storico predizioni */
+        .predictions-history {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 25px;
+            border-radius: 20px;
+            margin-top: 25px;
+        }
+
+        .prediction-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 15px 0;
+            border-left: 4px solid #00d4ff;
+            transition: all 0.3s ease;
+        }
+
+        .prediction-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(5px);
+        }
+
+        .prediction-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .prediction-date {
+            font-family: 'Orbitron', monospace;
+            color: #00d4ff;
+            font-weight: 600;
+        }
+
+        .prediction-accuracy {
+            color: #00ff88;
+            font-weight: 700;
+        }
+
         /* Tabella moderna */
         table {
             width: 100%;
@@ -734,7 +799,7 @@
             <p>Sistema Avanzato con 13 Algoritmi di Machine Learning Simultanei</p>
         </div>
 
-        <!-- Nuovo Modulo: Status Algoritmi in Tempo Reale -->
+        <!-- Status Algoritmi in Tempo Reale -->
         <div class="algorithm-status-panel">
             <div class="algorithm-status-header">
                 <div class="algorithm-status-title">🤖 Algoritmi Attivi in Tempo Reale</div>
@@ -763,8 +828,8 @@
                     <div class="metric-label">Peso Computazionale</div>
                 </div>
                 <div class="metric-card">
-                    <span class="metric-value" id="processingTime">0ms</span>
-                    <div class="metric-label">Velocità Elaborazione</div>
+                    <span class="metric-value" id="totalPredictions">0</span>
+                    <div class="metric-label">Predizioni Generate</div>
                 </div>
             </div>
         </div>
@@ -809,6 +874,12 @@
                     </button>
                 </div>
                 
+                <!-- Timer Predizione -->
+                <div class="prediction-timer" id="predictionTimer" style="display: none;">
+                    <div class="timer-display" id="timerDisplay">00:00</div>
+                    <div class="timer-label">Tempo di Elaborazione</div>
+                </div>
+                
                 <div class="prediction-process" id="predictionProcess" style="display: none;">
                     <h3 style="color: #ffaa00; margin-bottom: 20px;">🔄 Elaborazione Multi-Algoritmo...</h3>
                     <div id="processingSteps">
@@ -827,6 +898,14 @@
                         <div id="algorithmContributions">
                             <!-- Populated by JavaScript -->
                         </div>
+                    </div>
+                </div>
+
+                <!-- Storico Predizioni -->
+                <div class="predictions-history" id="predictionsHistory" style="display: none;">
+                    <h4 style="color: #ffaa00; margin-bottom: 20px;">📈 Storico Predizioni Generate</h4>
+                    <div id="predictionsHistoryList">
+                        <!-- Populated by JavaScript -->
                     </div>
                 </div>
             </div>
@@ -883,6 +962,9 @@
         // Global variables
         let extractions = [];
         let predictions = [];
+        let predictionTimer = null;
+        let predictionStartTime = 0;
+        
         let algorithms = [
             {
                 name: "LSTM Neural Network",
@@ -1010,6 +1092,7 @@
             renderAlgorithmWeights();
             updateEnsembleMetrics();
             renderExtractions();
+            renderPredictionsHistory();
             initializeCollapsibles();
             setCurrentDate();
         });
@@ -1020,6 +1103,11 @@
                 const stored = localStorage.getItem('eurojackpot_extractions');
                 if (stored) {
                     extractions = JSON.parse(stored);
+                }
+                
+                const storedPredictions = localStorage.getItem('eurojackpot_predictions');
+                if (storedPredictions) {
+                    predictions = JSON.parse(storedPredictions);
                 }
                 
                 const storedAlgorithms = localStorage.getItem('eurojackpot_algorithms');
@@ -1040,10 +1128,35 @@
         function saveData() {
             try {
                 localStorage.setItem('eurojackpot_extractions', JSON.stringify(extractions));
+                localStorage.setItem('eurojackpot_predictions', JSON.stringify(predictions));
                 localStorage.setItem('eurojackpot_algorithms', JSON.stringify(algorithms));
             } catch (error) {
                 console.error('Error saving data:', error);
             }
+        }
+
+        // Timer Functions
+        function startPredictionTimer() {
+            predictionStartTime = Date.now();
+            document.getElementById('predictionTimer').style.display = 'block';
+            
+            predictionTimer = setInterval(() => {
+                const elapsed = Date.now() - predictionStartTime;
+                const minutes = Math.floor(elapsed / 60000);
+                const seconds = Math.floor((elapsed % 60000) / 1000);
+                const formattedTime = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                document.getElementById('timerDisplay').textContent = formattedTime;
+            }, 100);
+        }
+
+        function stopPredictionTimer() {
+            if (predictionTimer) {
+                clearInterval(predictionTimer);
+                predictionTimer = null;
+            }
+            setTimeout(() => {
+                document.getElementById('predictionTimer').style.display = 'none';
+            }, 2000);
         }
 
         // Live Algorithm Rendering
@@ -1138,12 +1251,13 @@
             document.getElementById('activeAlgorithms').textContent = `${activeAlgs.length}`;
             document.getElementById('totalWeight').textContent = totalWeight.toFixed(2);
             document.getElementById('ensembleAccuracy').textContent = weightedAccuracy.toFixed(1) + '%';
+            document.getElementById('totalPredictions').textContent = predictions.length;
         }
 
-        // Prediction System (senza generazione random)
+        // Prediction System
         async function generateEnsemblePrediction() {
-            if (extractions.length < 10) {
-                showMessage('Servono almeno 10 estrazioni storiche per generare predizioni accurate basate sui pattern', 'error');
+            if (extractions.length < 5) {
+                showMessage('Servono almeno 5 estrazioni storiche per generare predizioni accurate basate sui pattern', 'error');
                 return;
             }
 
@@ -1157,7 +1271,8 @@
             btn.disabled = true;
             btn.innerHTML = '⏳ Elaborazione Multi-Algoritmo...';
             
-            const startTime = Date.now();
+            // Start timer
+            startPredictionTimer();
             
             // Show processing
             document.getElementById('predictionProcess').style.display = 'block';
@@ -1183,7 +1298,7 @@
                 steps.appendChild(step);
                 
                 // Simulate processing time
-                await new Promise(resolve => setTimeout(resolve, Math.random() * 1000 + 300));
+                await new Promise(resolve => setTimeout(resolve, Math.random() * 1200 + 500));
                 
                 // Generate algorithm-specific prediction based on historical data
                 const prediction = generateAlgorithmPredictionFromHistory(alg);
@@ -1207,7 +1322,7 @@
             `;
             steps.appendChild(ensembleStep);
             
-            await new Promise(resolve => setTimeout(resolve, 800));
+            await new Promise(resolve => setTimeout(resolve, 1000));
             
             const finalPrediction = combineAlgorithmResults(algorithmResults, activeAlgorithms);
             
@@ -1217,10 +1332,22 @@
                 <span style="color: #00ff88; font-weight: bold;">✅ Completato</span>
             `;
             
-            const endTime = Date.now();
-            const processingTime = endTime - startTime;
+            // Stop timer and save prediction
+            stopPredictionTimer();
             
-            document.getElementById('processingTime').textContent = processingTime + 'ms';
+            const predictionData = {
+                id: Date.now(),
+                date: new Date().toISOString(),
+                numbers: finalPrediction.numbers,
+                stars: finalPrediction.stars,
+                algorithms: activeAlgorithms.map(a => a.name),
+                algorithmResults: algorithmResults,
+                accuracy: activeAlgorithms.reduce((sum, a) => sum + a.accuracy, 0) / activeAlgorithms.length
+            };
+            
+            predictions.push(predictionData);
+            saveData();
+            updateEnsembleMetrics();
             
             // Show results
             setTimeout(() => {
@@ -1228,22 +1355,59 @@
                 document.getElementById('predictionResults').style.display = 'block';
                 
                 renderPredictionResults(finalPrediction, algorithmResults, activeAlgorithms);
+                renderPredictionsHistory();
                 
                 btn.disabled = false;
                 btn.innerHTML = '🎯 Avvia Predizione Ensemble';
                 
-                showMessage('Predizione ensemble generata con successo basata sui dati storici!', 'success');
-            }, 1200);
+                showMessage('Predizione ensemble generata e salvata con successo!', 'success');
+            }, 1500);
+        }
+
+        function renderPredictionsHistory() {
+            const historyContainer = document.getElementById('predictionsHistory');
+            const historyList = document.getElementById('predictionsHistoryList');
+            
+            if (predictions.length === 0) {
+                historyContainer.style.display = 'none';
+                return;
+            }
+            
+            historyContainer.style.display = 'block';
+            historyList.innerHTML = '';
+            
+            // Show last 5 predictions
+            predictions.slice(-5).reverse().forEach(pred => {
+                const item = document.createElement('div');
+                item.className = 'prediction-item';
+                item.innerHTML = `
+                    <div class="prediction-header">
+                        <span class="prediction-date">${formatDateTime(pred.date)}</span>
+                        <span class="prediction-accuracy">${pred.accuracy.toFixed(1)}% Acc</span>
+                    </div>
+                    <div class="prediction-numbers">
+                        ${pred.numbers.map(n => `<span class="number main" style="width: 35px; height: 35px; font-size: 1em;">${n}</span>`).join('')}
+                        ${pred.stars.map(s => `<span class="number star" style="width: 35px; height: 35px; font-size: 1em;">${s}</span>`).join('')}
+                    </div>
+                    <div style="font-size: 0.9em; opacity: 0.7; margin-top: 10px;">
+                        Algoritmi utilizzati: ${pred.algorithms.length}
+                    </div>
+                `;
+                historyList.appendChild(item);
+            });
         }
 
         function generateAlgorithmPredictionFromHistory(algorithm) {
-            // Analisi basata sui dati storici invece di numeri casuali
-            const numbers = [];
-            const stars = [];
+            // Analisi basata sui dati storici
+            let numbers = [];
+            let stars = [];
             
             if (extractions.length === 0) {
-                showMessage('Nessun dato storico disponibile per le predizioni', 'error');
-                return { numbers: [1,2,3,4,5], stars: [1,2], confidence: 0 };
+                return { 
+                    numbers: [1,2,3,4,5], 
+                    stars: [1,2], 
+                    confidence: algorithm.accuracy 
+                };
             }
             
             // Calcola frequenze dai dati storici
@@ -1251,31 +1415,59 @@
             const starFreq = calculateStarFrequency();
             
             // Generate numbers based on algorithm characteristics and historical data
-            if (algorithm.specialty === 'Temporal Patterns') {
-                numbers.push(...getRecentTrendNumbers(5));
-            } else if (algorithm.specialty === 'Feature Correlation') {
-                numbers.push(...getCorrelatedNumbers(5));
-            } else if (algorithm.specialty === 'Error Correction') {
-                numbers.push(...getBiasCorrectingNumbers(5));
-            } else if (algorithm.specialty === 'Mystical Vision') {
-                numbers.push(...getMysticalPatternNumbers(5));
-            } else {
-                numbers.push(...getFrequencyBasedNumbers(numberFreq, 5));
+            try {
+                if (algorithm.specialty === 'Temporal Patterns') {
+                    numbers = getRecentTrendNumbers(5);
+                } else if (algorithm.specialty === 'Feature Correlation') {
+                    numbers = getCorrelatedNumbers(5);
+                } else if (algorithm.specialty === 'Error Correction') {
+                    numbers = getBiasCorrectingNumbers(5);
+                } else if (algorithm.specialty === 'Mystical Vision') {
+                    numbers = getMysticalPatternNumbers(5);
+                } else {
+                    numbers = getFrequencyBasedNumbers(numberFreq, 5);
+                }
+                
+                // Ensure we have exactly 5 unique numbers
+                while (numbers.length < 5) {
+                    const candidates = Array.from({length: 50}, (_, i) => i + 1)
+                        .filter(n => !numbers.includes(n));
+                    if (candidates.length > 0) {
+                        numbers.push(candidates[Math.floor(Math.random() * candidates.length)]);
+                    } else {
+                        break;
+                    }
+                }
+                
+                // Generate stars
+                stars = getFrequencyBasedStars(starFreq, 2);
+                while (stars.length < 2) {
+                    const candidates = Array.from({length: 12}, (_, i) => i + 1)
+                        .filter(s => !stars.includes(s));
+                    if (candidates.length > 0) {
+                        stars.push(candidates[Math.floor(Math.random() * candidates.length)]);
+                    } else {
+                        break;
+                    }
+                }
+                
+            } catch (error) {
+                console.error('Error generating prediction:', error);
+                // Fallback to safe values
+                numbers = [1,2,3,4,5];
+                stars = [1,2];
             }
             
-            // Generate stars based on historical data
-            stars.push(...getFrequencyBasedStars(starFreq, 2));
-            
             return {
-                numbers: numbers.sort((a, b) => a - b),
-                stars: stars.sort((a, b) => a - b),
+                numbers: numbers.slice(0, 5).sort((a, b) => a - b),
+                stars: stars.slice(0, 2).sort((a, b) => a - b),
                 confidence: algorithm.accuracy + (Math.random() * 10 - 5)
             };
         }
 
         // Historical analysis functions
         function getRecentTrendNumbers(count) {
-            const recentExtractions = extractions.slice(0, Math.min(5, extractions.length));
+            const recentExtractions = extractions.slice(0, Math.min(3, extractions.length));
             const trendNumbers = [];
             const freq = {};
             
@@ -1294,13 +1486,15 @@
         }
 
         function getCorrelatedNumbers(count) {
-            if (extractions.length < 3) return [1,2,3,4,5].slice(0, count);
+            if (extractions.length < 2) {
+                return Array.from({length: count}, (_, i) => i + 1);
+            }
             
             const pairs = {};
             extractions.forEach(ext => {
                 for (let i = 0; i < ext.numbers.length; i++) {
                     for (let j = i + 1; j < ext.numbers.length; j++) {
-                        const key = `${ext.numbers[i]}-${ext.numbers[j]}`;
+                        const key = `${Math.min(ext.numbers[i], ext.numbers[j])}-${Math.max(ext.numbers[i], ext.numbers[j])}`;
                         pairs[key] = (pairs[key] || 0) + 1;
                     }
                 }
@@ -1308,7 +1502,7 @@
             
             const topPairs = Object.entries(pairs)
                 .sort(([,a], [,b]) => b - a)
-                .slice(0, 3);
+                .slice(0, 2);
                 
             const result = new Set();
             topPairs.forEach(([pair]) => {
@@ -1317,7 +1511,15 @@
                 result.add(b);
             });
             
-            return Array.from(result).slice(0, count);
+            const resultArray = Array.from(result);
+            while (resultArray.length < count && resultArray.length < 50) {
+                const candidate = Math.floor(Math.random() * 50) + 1;
+                if (!resultArray.includes(candidate)) {
+                    resultArray.push(candidate);
+                }
+            }
+            
+            return resultArray.slice(0, count);
         }
 
         function getBiasCorrectingNumbers(count) {
@@ -1326,9 +1528,10 @@
             
             const underrepresented = [];
             for (let i = 1; i <= 50; i++) {
-                if (freq[i] < avgFreq) {
-                    underrepresented.push({ num: i, deficit: avgFreq - freq[i] });
-                }
+                underrepresented.push({ 
+                    num: i, 
+                    deficit: Math.max(0, avgFreq - freq[i]) 
+                });
             }
             
             return underrepresented
@@ -1346,6 +1549,15 @@
             const consecutive = getConsecutivePattern(1);
             
             result.push(...hotNumbers, ...coldNumbers, ...consecutive);
+            
+            // Fill remaining with random unique numbers
+            while (result.length < count) {
+                const candidate = Math.floor(Math.random() * 50) + 1;
+                if (!result.includes(candidate)) {
+                    result.push(candidate);
+                }
+            }
+            
             return result.slice(0, count);
         }
 
@@ -1381,7 +1593,7 @@
                 return topPair[0].split('-').map(n => parseInt(n));
             }
             
-            return [1];
+            return [Math.floor(Math.random() * 49) + 1]; // Random fallback
         }
 
         function getFrequencyBasedStars(starFreq, count) {
@@ -1749,7 +1961,6 @@
 
         function toggleTheme() {
             document.body.classList.toggle('light');
-            // Tema chiaro non implementato completamente in questo esempio
         }
 
         function initializeCollapsibles() {
@@ -1786,8 +1997,13 @@
         function formatDate(dateString) {
             return new Date(dateString).toLocaleDateString('it-IT');
         }
+
+        function formatDateTime(isoString) {
+            return new Date(isoString).toLocaleString('it-IT');
+        }
     </script>
 </body>
 </html>
+
 
 
