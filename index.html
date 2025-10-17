@@ -248,15 +248,16 @@
             box-shadow: var(--shadow-xl);
         }
 
-        /* Section Styling */
+        /* Section Styling - CORRETTO */
         .section {
             background: var(--card-bg);
             border-radius: 16px;
-            padding: 32px;
+            padding: 0;
             margin-bottom: 24px;
             box-shadow: var(--shadow-md);
             border: 1px solid var(--border-color);
             transition: all 0.2s ease;
+            overflow: hidden;
         }
 
         .section:hover {
@@ -264,12 +265,19 @@
         }
 
         .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-            padding-bottom: 16px;
+            padding: 24px 32px;
             border-bottom: 2px solid var(--border-color);
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.2s ease;
+        }
+
+        .section-header:hover {
+            background: var(--card-hover);
+        }
+
+        .section-header.collapsed {
+            border-bottom: none;
         }
 
         .section-title {
@@ -277,25 +285,26 @@
             font-size: 1.5rem;
             font-weight: 600;
             color: var(--text-primary);
-            cursor: pointer;
             display: flex;
             align-items: center;
             gap: 12px;
-            user-select: none;
+            margin: 0;
         }
 
         .section-title::after {
             content: '▼';
-            font-size: 0.875rem;
+            font-size: 1rem;
             color: var(--text-muted);
+            margin-left: auto;
             transition: transform 0.3s ease;
         }
 
-        .section-title.collapsed::after {
+        .section-header.collapsed .section-title::after {
             transform: rotate(-90deg);
         }
 
         .section-content {
+            padding: 32px;
             max-height: 5000px;
             overflow: hidden;
             opacity: 1;
@@ -983,7 +992,7 @@
 
         <!-- Analytics Dashboard -->
         <div class="section">
-            <div class="section-header">
+            <div class="section-header" onclick="toggleSection(this)">
                 <h2 class="section-title">📊 Analytics Dashboard</h2>
             </div>
             <div class="section-content">
@@ -1001,20 +1010,22 @@
 
         <!-- Algorithms Status -->
         <div class="section">
-            <div class="section-header">
+            <div class="section-header" onclick="toggleSection(this)">
                 <h2 class="section-title">🤖 Algoritmi AI con Auto-Apprendimento</h2>
-                <button class="btn btn-secondary btn-sm" onclick="toggleAlgorithmsVisibility()" id="toggleAlgorithmsBtn">
-                    👁️ Nascondi
-                </button>
             </div>
             <div class="section-content">
+                <div style="margin-bottom: 20px; display: flex; justify-content: flex-end;">
+                    <button class="btn btn-secondary btn-sm" onclick="toggleAlgorithmsVisibility()" id="toggleAlgorithmsBtn">
+                        👁️ Nascondi
+                    </button>
+                </div>
                 <div class="algorithms-grid" id="algorithmLiveGrid"></div>
             </div>
         </div>
 
         <!-- Data Input -->
         <div class="section">
-            <div class="section-header">
+            <div class="section-header" onclick="toggleSection(this)">
                 <h2 class="section-title">➕ Inserimento Dati Storici</h2>
             </div>
             <div class="section-content">
@@ -1043,7 +1054,7 @@
 
         <!-- Predictions Control -->
         <div class="section">
-            <div class="section-header">
+            <div class="section-header" onclick="toggleSection(this)">
                 <h2 class="section-title">🚀 Centro di Controllo Predizioni</h2>
             </div>
             <div class="section-content">
@@ -1094,7 +1105,7 @@
 
         <!-- Extractions History -->
         <div class="section">
-            <div class="section-header">
+            <div class="section-header" onclick="toggleSection(this)">
                 <h2 class="section-title">📋 Database Estrazioni Storiche</h2>
             </div>
             <div class="section-content">
@@ -1124,8 +1135,8 @@
 
         <!-- Algorithm Configuration -->
         <div class="section">
-            <div class="section-header">
-                <h2 class="section-title collapsed">⚙️ Configurazione Avanzata Algoritmi</h2>
+            <div class="section-header collapsed" onclick="toggleSection(this)">
+                <h2 class="section-title">⚙️ Configurazione Avanzata Algoritmi</h2>
             </div>
             <div class="section-content collapsed">
                 <p style="margin-bottom: 20px; color: var(--text-secondary);">Personalizza i parametri di ogni algoritmo per ottimizzare le predizioni:</p>
@@ -1181,12 +1192,43 @@
             renderExtractions();
             renderPredictionsHistory();
             renderFrequencyCharts();
-            initializeCollapsibles();
             setCurrentDate();
             
             showMessage('✅ Sistema EuroJackpot AI caricato con successo!', 'success');
             setTimeout(fetchLastExtraction, 3000);
         });
+
+        // Toggle Section - CORRETTO
+        function toggleSection(headerDiv) {
+            const sectionContent = headerDiv.nextElementSibling;
+            headerDiv.classList.toggle('collapsed');
+            sectionContent.classList.toggle('collapsed');
+        }
+
+        // Toggle All Sections - CORRETTO
+        function toggleAllSections() {
+            allSectionsExpanded = !allSectionsExpanded;
+            const btn = document.getElementById('minimizeAllBtn');
+            
+            document.querySelectorAll('.section').forEach(section => {
+                const header = section.querySelector('.section-header');
+                const content = section.querySelector('.section-content');
+                
+                if (allSectionsExpanded) {
+                    header.classList.remove('collapsed');
+                    content.classList.remove('collapsed');
+                } else {
+                    header.classList.add('collapsed');
+                    content.classList.add('collapsed');
+                }
+            });
+            
+            btn.textContent = allSectionsExpanded ? '⬇️' : '⬆️';
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
         // Theme Management
         function setTheme(theme) {
@@ -1203,41 +1245,12 @@
         function loadTheme() {
             const savedTheme = localStorage.getItem('EJ_THEME') || 'default';
             const btn = document.querySelector(`[onclick="setTheme('${savedTheme}')"]`);
-            if (btn) btn.click();
-        }
-
-        // Toggle All Sections
-        function toggleAllSections() {
-            allSectionsExpanded = !allSectionsExpanded;
-            const btn = document.getElementById('minimizeAllBtn');
-            
-            document.querySelectorAll('.section-title').forEach(title => {
-                const content = title.parentElement.nextElementSibling;
-                if (allSectionsExpanded) {
-                    title.classList.remove('collapsed');
-                    if (content) content.classList.remove('collapsed');
-                    btn.textContent = '⬇️';
-                } else {
-                    title.classList.add('collapsed');
-                    if (content) content.classList.add('collapsed');
-                    btn.textContent = '⬆️';
+            if (btn) {
+                btn.classList.add('active');
+                if (savedTheme !== 'default') {
+                    document.body.classList.add(savedTheme + '-theme');
                 }
-            });
-        }
-
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // Collapsibles
-        function initializeCollapsibles() {
-            document.querySelectorAll('.section-title').forEach(title => {
-                title.addEventListener('click', function() {
-                    this.classList.toggle('collapsed');
-                    const content = this.parentElement.nextElementSibling;
-                    if (content) content.classList.toggle('collapsed');
-                });
-            });
+            }
         }
 
         // Data Management
@@ -2023,6 +2036,8 @@
     </script>
 </body>
 </html>
+
+
 
 
 
