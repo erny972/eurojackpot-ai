@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EuroJackpot AI Advanced - Sistema Predittivo Evolutivo</title>
+    <title>EuroJackpot AI Advanced - Professional Edition</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;600;700&display=swap');
         
         * {
             margin: 0;
@@ -14,426 +14,387 @@
         }
 
         :root {
-            --primary-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --text-color: #f0f4f8;
-            --accent-color: #81c9f7;
-            --secondary-color: #a78bfa;
-            --success-color: #6ee7b7;
-            --warning-color: #fbbf24;
-            --error-color: #f87171;
-            --section-bg: rgba(255, 255, 255, 0.08);
-            --card-bg: rgba(255, 255, 255, 0.06);
-            --border-color: rgba(255, 255, 255, 0.15);
+            /* Professional Color Palette - Colori Tenui */
+            --primary-bg: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%);
+            --text-primary: #1e293b;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            
+            --accent-blue: #3b82f6;
+            --accent-blue-light: #60a5fa;
+            --accent-purple: #8b5cf6;
+            --accent-purple-light: #a78bfa;
+            --accent-teal: #14b8a6;
+            --accent-teal-light: #5eead4;
+            
+            --success: #10b981;
+            --success-light: #6ee7b7;
+            --warning: #f59e0b;
+            --warning-light: #fbbf24;
+            --error: #ef4444;
+            --error-light: #f87171;
+            
+            --card-bg: #ffffff;
+            --card-hover: #f8fafc;
+            --section-bg: #f1f5f9;
+            --border-color: #e2e8f0;
+            --border-hover: #cbd5e1;
+            
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Dark Theme */
+        body.dark-theme {
+            --primary-bg: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --card-bg: #1e293b;
+            --card-hover: #334155;
+            --section-bg: #0f172a;
+            --border-color: #334155;
+            --border-hover: #475569;
+        }
+
+        /* Light Theme */
+        body.light-theme {
+            --primary-bg: linear-gradient(135deg, #fefce8 0%, #fef3c7 50%, #fde68a 100%);
+            --text-primary: #422006;
+            --text-secondary: #78350f;
+            --text-muted: #92400e;
+            --card-bg: #fffbeb;
+            --card-hover: #fef3c7;
+            --section-bg: #fef9c3;
+            --border-color: #fde68a;
+            --border-hover: #fcd34d;
+        }
+
+        /* Ocean Theme */
+        body.ocean-theme {
+            --primary-bg: linear-gradient(135deg, #ecfeff 0%, #cffafe 50%, #a5f3fc 100%);
+            --text-primary: #164e63;
+            --text-secondary: #0e7490;
+            --text-muted: #155e75;
+            --accent-blue: #0891b2;
+            --accent-purple: #06b6d4;
+            --card-bg: #f0fdfa;
+            --card-hover: #ccfbf1;
+            --section-bg: #e0f2fe;
+            --border-color: #a5f3fc;
+            --border-hover: #67e8f9;
+        }
+
+        /* Sunset Theme */
+        body.sunset-theme {
+            --primary-bg: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 50%, #fecdd3 100%);
+            --text-primary: #881337;
+            --text-secondary: #9f1239;
+            --text-muted: #be123c;
+            --accent-blue: #fb7185;
+            --accent-purple: #f472b6;
+            --card-bg: #fff7ed;
+            --card-hover: #ffedd5;
+            --section-bg: #fef2f2;
+            --border-color: #fecdd3;
+            --border-hover: #fda4af;
+        }
+
+        /* Forest Theme */
+        body.forest-theme {
+            --primary-bg: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 50%, #bbf7d0 100%);
+            --text-primary: #14532d;
+            --text-secondary: #166534;
+            --text-muted: #15803d;
+            --accent-blue: #22c55e;
+            --accent-purple: #4ade80;
+            --success: #16a34a;
+            --card-bg: #f7fee7;
+            --card-hover: #ecfccb;
+            --section-bg: #f0fdf4;
+            --border-color: #bbf7d0;
+            --border-hover: #86efac;
+        }
+
+        /* Lavender Theme */
+        body.lavender-theme {
+            --primary-bg: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 50%, #e9d5ff 100%);
+            --text-primary: #581c87;
+            --text-secondary: #6b21a8;
+            --text-muted: #7e22ce;
+            --accent-blue: #a855f7;
+            --accent-purple: #c084fc;
+            --card-bg: #fdf4ff;
+            --card-hover: #fae8ff;
+            --section-bg: #f5f3ff;
+            --border-color: #e9d5ff;
+            --border-hover: #d8b4fe;
         }
 
         body {
-            font-family: 'Exo 2', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--primary-bg);
-            background-attachment: fixed;
+            color: var(--text-primary);
             min-height: 100vh;
-            color: var(--text-color);
-            overflow-x: hidden;
-            transition: all 0.5s ease;
-        }
-
-        /* Light Theme - Colori Pastello Delicati */
-        body.light-theme {
-            --primary-bg: linear-gradient(135deg, #fef3c7 0%, #fde68a 50%, #fcd34d 100%);
-            --text-color: #374151;
-            --accent-color: #60a5fa;
-            --secondary-color: #c084fc;
-            --success-color: #34d399;
-            --warning-color: #fbbf24;
-            --error-color: #f87171;
-            --section-bg: rgba(255, 255, 255, 0.7);
-            --card-bg: rgba(255, 255, 255, 0.85);
-            --border-color: rgba(156, 163, 175, 0.3);
-        }
-
-        /* Classic Theme - Eleganza Tradizionale */
-        body.classic-theme {
-            --primary-bg: linear-gradient(135deg, #475569 0%, #64748b 50%, #475569 100%);
-            --text-color: #f1f5f9;
-            --accent-color: #38bdf8;
-            --secondary-color: #fb923c;
-            --success-color: #4ade80;
-            --warning-color: #facc15;
-            --error-color: #ef4444;
-            --section-bg: rgba(71, 85, 105, 0.4);
-            --card-bg: rgba(100, 116, 139, 0.3);
-            --border-color: rgba(148, 163, 184, 0.3);
-        }
-
-        /* Neon Theme - Vibrante Luminoso */
-        body.neon-theme {
-            --primary-bg: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
-            --text-color: #a5f3fc;
-            --accent-color: #22d3ee;
-            --secondary-color: #e879f9;
-            --success-color: #4ade80;
-            --warning-color: #fde047;
-            --error-color: #fb7185;
-            --section-bg: rgba(34, 211, 238, 0.08);
-            --card-bg: rgba(165, 243, 252, 0.05);
-            --border-color: rgba(34, 211, 238, 0.3);
-        }
-
-        /* Ocean Theme - Serenità Marina */
-        body.ocean-theme {
-            --primary-bg: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 50%, #0284c7 100%);
-            --text-color: #f0fdfa;
-            --accent-color: #67e8f9;
-            --secondary-color: #818cf8;
-            --success-color: #5eead4;
-            --warning-color: #fde68a;
-            --error-color: #fda4af;
-            --section-bg: rgba(255, 255, 255, 0.12);
-            --card-bg: rgba(255, 255, 255, 0.08);
-            --border-color: rgba(240, 253, 250, 0.2);
-        }
-
-        /* Sunset Theme - Calore Avvolgente */
-        body.sunset-theme {
-            --primary-bg: linear-gradient(135deg, #fb923c 0%, #f97316 50%, #ea580c 100%);
-            --text-color: #fffbeb;
-            --accent-color: #fde047;
-            --secondary-color: #f472b6;
-            --success-color: #86efac;
-            --warning-color: #fcd34d;
-            --error-color: #fca5a5;
-            --section-bg: rgba(255, 255, 255, 0.12);
-            --card-bg: rgba(255, 255, 255, 0.08);
-            --border-color: rgba(255, 251, 235, 0.2);
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(168, 162, 210, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(250, 204, 21, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(129, 201, 247, 0.12) 0%, transparent 50%);
-            z-index: -1;
-            pointer-events: none;
+            line-height: 1.6;
+            transition: all 0.3s ease;
         }
 
         .container {
             max-width: 1600px;
             margin: 0 auto;
-            padding: 20px;
-            position: relative;
-            z-index: 1;
+            padding: 24px;
         }
 
-        /* Header */
+        /* Header Professional */
         .header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 50px 30px;
-            background: var(--section-bg);
-            border-radius: 30px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            background: var(--card-bg);
+            padding: 48px 32px;
+            border-radius: 16px;
+            margin-bottom: 32px;
+            box-shadow: var(--shadow-md);
             border: 1px solid var(--border-color);
-            backdrop-filter: blur(20px);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05), transparent);
-            transform: rotate(45deg);
-            animation: shimmer 3s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+            text-align: center;
         }
 
         .header h1 {
-            font-family: 'Orbitron', monospace;
-            font-size: 4em;
-            font-weight: 900;
-            margin-bottom: 15px;
-            background: linear-gradient(45deg, var(--secondary-color), var(--accent-color));
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gradientShift 4s ease-in-out infinite;
-            position: relative;
-            z-index: 1;
-        }
-
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
         }
 
         .header p {
-            font-size: 1.4em;
-            font-weight: 300;
-            opacity: 0.85;
-            color: var(--text-color);
-            position: relative;
-            z-index: 1;
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            font-weight: 400;
         }
 
-        /* Theme Selector */
+        /* Theme Selector Professional */
         .theme-selector {
             position: fixed;
-            top: 30px;
-            right: 30px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
+            top: 24px;
+            right: 24px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            background: var(--card-bg);
+            padding: 12px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
             z-index: 1000;
-            max-width: 300px;
         }
 
         .theme-btn {
-            width: 50px;
-            height: 50px;
+            width: 44px;
+            height: 44px;
             border: 2px solid var(--border-color);
-            border-radius: 50%;
+            border-radius: 8px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 20px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            transition: all 0.2s ease;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 18px;
+            background: var(--card-bg);
         }
 
         .theme-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--accent-blue);
         }
 
         .theme-btn.active {
+            border-color: var(--accent-blue);
             border-width: 3px;
-            border-color: var(--success-color);
+            background: var(--accent-blue-light);
         }
 
-        .theme-btn.dark {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-        }
-
-        .theme-btn.light {
-            background: linear-gradient(135deg, #fef3c7, #fde68a);
-        }
-
-        .theme-btn.classic {
-            background: linear-gradient(135deg, #475569, #64748b);
-        }
-
-        .theme-btn.neon {
-            background: linear-gradient(135deg, #0f172a, #1e293b);
-        }
-
-        .theme-btn.ocean {
-            background: linear-gradient(135deg, #0ea5e9, #06b6d4);
-        }
-
-        .theme-btn.sunset {
-            background: linear-gradient(135deg, #fb923c, #f97316);
-        }
-
-        /* Minimize All Button */
-        .minimize-all-btn {
+        /* Control Buttons */
+        .control-panel {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background: var(--accent-color);
+            bottom: 24px;
+            right: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 999;
+        }
+
+        .control-btn {
+            width: 56px;
+            height: 56px;
+            background: var(--accent-blue);
+            color: white;
             border: none;
             border-radius: 50%;
             cursor: pointer;
             font-size: 24px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
-            z-index: 999;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.2s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--text-color);
         }
 
-        .minimize-all-btn:hover {
+        .control-btn:hover {
             transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: var(--shadow-xl);
         }
 
-        /* Dashboard Analytics */
-        .analytics-dashboard {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-
-        .analytics-main {
-            background: var(--section-bg);
-            border-radius: 25px;
-            padding: 30px;
+        /* Section Styling */
+        .section {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-md);
             border: 1px solid var(--border-color);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(15px);
+            transition: all 0.2s ease;
         }
 
-        .analytics-side {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+        .section:hover {
+            box-shadow: var(--shadow-lg);
         }
 
-        .chart-container {
-            background: rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            border-radius: 15px;
-            margin-top: 20px;
-        }
-
-        .frequency-chart {
-            display: grid;
-            grid-template-columns: repeat(10, 1fr);
-            gap: 8px;
-            margin: 15px 0;
-        }
-
-        .freq-bar {
-            background: linear-gradient(to top, var(--secondary-color), var(--accent-color));
-            border-radius: 6px;
-            min-height: 20px;
-            display: flex;
-            align-items: end;
-            justify-content: center;
-            font-size: 0.7em;
-            font-weight: bold;
-            color: white;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .freq-bar:hover {
-            transform: scale(1.1);
-            box-shadow: 0 4px 12px var(--accent-color);
-        }
-
-        /* Status Algoritmi */
-        .algorithm-status-panel {
-            background: var(--section-bg);
-            border-radius: 25px;
-            padding: 30px;
-            margin-bottom: 30px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(15px);
-        }
-
-        .algorithm-status-header {
+        .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
-            gap: 15px;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--border-color);
         }
 
-        .algorithm-status-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.8em;
-            font-weight: 700;
-            color: var(--accent-color);
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .algorithm-controls {
+        .section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            cursor: pointer;
             display: flex;
-            gap: 10px;
             align-items: center;
+            gap: 12px;
+            user-select: none;
         }
 
-        .active-counter {
-            background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
-            padding: 10px 18px;
-            border-radius: 20px;
-            font-weight: 700;
-            color: white;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        .section-title::after {
+            content: '▼';
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            transition: transform 0.3s ease;
         }
 
-        .algorithms-live-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            transition: all 0.5s ease;
+        .section-title.collapsed::after {
+            transform: rotate(-90deg);
         }
 
-        .algorithms-live-grid.hidden {
+        .section-content {
+            max-height: 5000px;
+            overflow: hidden;
+            opacity: 1;
+            transition: all 0.4s ease;
+        }
+
+        .section-content.collapsed {
             max-height: 0;
             opacity: 0;
-            overflow: hidden;
-            margin: 0;
             padding: 0;
+            margin: 0;
         }
 
-        .algo-live-card {
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .metric-card {
             background: var(--card-bg);
-            border-radius: 20px;
-            padding: 20px;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
             border: 1px solid var(--border-color);
-            transition: all 0.4s ease;
+            transition: all 0.2s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .metric-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .metric-value {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            line-height: 1;
+        }
+
+        .metric-icon {
+            font-size: 2rem;
+            opacity: 0.6;
+            margin-bottom: 8px;
+        }
+
+        /* Algorithms Grid */
+        .algorithms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .algorithms-grid.hidden {
+            display: none;
+        }
+
+        .algo-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            border: 2px solid var(--border-color);
+            transition: all 0.2s ease;
             position: relative;
             overflow: hidden;
         }
 
-        .algo-live-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
-            transition: left 0.6s ease;
+        .algo-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--accent-blue-light);
         }
 
-        .algo-live-card:hover::before {
-            left: 100%;
+        .algo-card.active {
+            border-color: var(--success);
+            background: linear-gradient(135deg, var(--card-bg) 0%, rgba(16, 185, 129, 0.05) 100%);
         }
 
-        .algo-live-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-color);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-        }
-
-        .algo-live-card.active {
-            border-color: var(--success-color);
-            box-shadow: 0 8px 20px rgba(110, 231, 183, 0.2);
-        }
-
-        .algo-live-card.inactive {
+        .algo-card.inactive {
             opacity: 0.5;
-            border-color: var(--error-color);
+            border-color: var(--error);
         }
 
-        .algo-live-card.learning {
-            border-color: var(--warning-color);
-            box-shadow: 0 8px 20px rgba(251, 191, 36, 0.25);
+        .algo-card.learning {
+            border-color: var(--warning);
+            background: linear-gradient(135deg, var(--card-bg) 0%, rgba(245, 158, 11, 0.05) 100%);
             animation: learningPulse 2s infinite;
         }
 
@@ -446,406 +407,233 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 16px;
         }
 
         .algo-name {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             font-weight: 600;
-            font-size: 1.1em;
-            color: var(--text-color);
+            font-size: 1rem;
+            color: var(--text-primary);
         }
 
         .algo-emoji {
-            font-size: 1.6em;
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+            font-size: 1.5rem;
         }
 
         .algo-toggle {
-            width: 60px;
-            height: 30px;
-            background: var(--error-color);
-            border-radius: 15px;
+            width: 52px;
+            height: 28px;
+            background: var(--error-light);
+            border-radius: 14px;
             position: relative;
             cursor: pointer;
             transition: all 0.3s ease;
         }
 
         .algo-toggle.active {
-            background: linear-gradient(135deg, var(--success-color), var(--accent-color));
+            background: var(--success);
         }
 
         .algo-toggle::after {
             content: '';
-            width: 26px;
-            height: 26px;
+            width: 24px;
+            height: 24px;
             background: white;
             border-radius: 50%;
             position: absolute;
             top: 2px;
             left: 2px;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            box-shadow: var(--shadow-sm);
         }
 
         .algo-toggle.active::after {
-            left: 32px;
+            left: 26px;
         }
 
-        .algo-metrics {
-            display: flex;
-            justify-content: space-between;
+        .algo-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
             margin-bottom: 12px;
-            font-size: 0.95em;
         }
 
-        .algo-accuracy {
-            color: var(--success-color);
-            font-weight: 600;
+        .algo-stat {
+            text-align: center;
         }
 
-        .algo-weight {
-            color: var(--warning-color);
-            font-weight: 600;
+        .algo-stat-value {
+            font-weight: 700;
+            font-size: 1.125rem;
+            color: var(--accent-blue);
         }
 
-        .algo-specialty {
-            color: var(--secondary-color);
-            font-weight: 600;
+        .algo-stat-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
         }
 
         .algo-progress {
-            height: 8px;
-            background: rgba(0, 0, 0, 0.15);
-            border-radius: 4px;
+            height: 6px;
+            background: var(--section-bg);
+            border-radius: 3px;
             overflow: hidden;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .algo-progress-bar {
             height: 100%;
-            background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
-            border-radius: 4px;
-            transition: width 0.6s ease;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+            border-radius: 3px;
+            transition: width 0.5s ease;
         }
 
         .algo-description {
-            font-size: 0.85em;
-            opacity: 0.75;
-            color: var(--text-color);
-            font-style: italic;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
         }
 
-        .algo-learning-indicator {
-            font-size: 0.8em;
-            color: var(--warning-color);
-            font-weight: bold;
-            margin-top: 5px;
-        }
-
-        /* Metriche Ensemble */
-        .ensemble-metrics {
-            background: var(--section-bg);
-            padding: 35px;
-            border-radius: 25px;
-            margin-bottom: 30px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(15px);
-        }
-
-        .ensemble-metrics h2 {
-            font-family: 'Orbitron', monospace;
-            color: var(--warning-color);
-            border-bottom: 2px solid var(--warning-color);
-            margin-bottom: 25px;
-            font-size: 1.8em;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 25px;
-        }
-
-        .metric-card {
-            text-align: center;
-            padding: 25px 20px;
-            background: var(--card-bg);
-            border-radius: 20px;
-            border: 1px solid var(--border-color);
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
-
-        .metric-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-        }
-
-        .metric-value {
-            font-family: 'Orbitron', monospace;
-            font-size: 3em;
-            font-weight: 900;
-            color: var(--warning-color);
-            display: block;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .metric-label {
-            font-size: 1em;
+        /* Buttons Professional */
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9375rem;
             font-weight: 600;
-            color: var(--text-color);
-            margin-top: 10px;
-            opacity: 0.85;
-        }
-
-        /* Countdown timer */
-        .prediction-timer {
-            background: var(--section-bg);
-            padding: 25px;
-            border-radius: 20px;
-            margin: 20px 0;
-            text-align: center;
-            border: 2px solid var(--warning-color);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .timer-display {
-            font-family: 'Orbitron', monospace;
-            font-size: 3em;
-            color: var(--warning-color);
-            font-weight: 900;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-            margin-bottom: 10px;
-        }
-
-        .timer-label {
-            color: var(--text-color);
-            font-size: 1.2em;
-            opacity: 0.85;
-            margin-bottom: 10px;
-        }
-
-        .timer-progress {
-            width: 100%;
-            height: 8px;
-            background: rgba(0, 0, 0, 0.15);
-            border-radius: 4px;
-            overflow: hidden;
-            margin-top: 15px;
-        }
-
-        .timer-progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--warning-color), var(--secondary-color));
-            border-radius: 4px;
-            transition: width 0.1s linear;
-        }
-
-        /* Sezioni principali */
-        .section {
-            background: var(--section-bg);
-            padding: 35px;
-            border-radius: 25px;
-            margin-bottom: 30px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(15px);
-        }
-
-        .section h2 {
-            font-family: 'Orbitron', monospace;
-            margin-bottom: 30px;
-            color: var(--accent-color);
-            border-bottom: 3px solid var(--accent-color);
-            padding-bottom: 15px;
-            font-size: 1.8em;
-            font-weight: 700;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-            position: relative;
-        }
-
-        .collapsible {
             cursor: pointer;
-            user-select: none;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: none;
+            letter-spacing: 0;
         }
 
-        .collapsible:hover {
-            opacity: 0.8;
+        .btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
         }
 
-        .collapsible::after {
-            content: '▼';
-            float: right;
-            transition: transform 0.3s;
-            font-size: 1.2em;
-            color: var(--accent-color);
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
 
-        .collapsible.collapsed::after {
-            transform: rotate(-90deg);
+        .btn-primary {
+            background: var(--accent-blue);
+            color: white;
         }
 
-        .collapsible-content {
-            max-height: 5000px;
-            overflow: hidden;
-            opacity: 1;
-            transition: all 0.5s ease;
+        .btn-primary:hover:not(:disabled) {
+            background: var(--accent-blue-light);
         }
 
-        .collapsible-content.collapsed {
-            max-height: 0;
-            opacity: 0;
-            margin: 0;
+        .btn-secondary {
+            background: var(--text-muted);
+            color: white;
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-warning {
+            background: var(--warning);
+            color: white;
+        }
+
+        .btn-danger {
+            background: var(--error);
+            color: white;
+        }
+
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 0.875rem;
+        }
+
+        .btn-icon {
+            width: 36px;
+            height: 36px;
             padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
         }
 
-        /* Input e bottoni */
+        /* Input Fields */
         .input-group {
             display: flex;
-            gap: 20px;
-            margin-bottom: 25px;
+            gap: 16px;
+            margin-bottom: 20px;
             flex-wrap: wrap;
         }
 
         .input-row {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 15px;
-            margin-bottom: 20px;
+            gap: 12px;
+            margin-bottom: 16px;
         }
 
         .stars-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 25px;
+            gap: 12px;
+            margin-bottom: 20px;
         }
 
         input[type="number"], input[type="date"], input[type="text"], select {
-            padding: 15px 20px;
+            padding: 12px 16px;
             border: 2px solid var(--border-color);
-            border-radius: 15px;
+            border-radius: 8px;
             background: var(--card-bg);
-            color: var(--text-color);
-            font-size: 16px;
+            color: var(--text-primary);
+            font-size: 0.9375rem;
             font-weight: 500;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
         }
 
-        input[type="number"]:focus, input[type="date"]:focus, input[type="text"]:focus, select:focus {
+        input:focus, select:focus {
             outline: none;
-            border-color: var(--accent-color);
-            box-shadow: 0 0 15px rgba(129, 201, 247, 0.3);
-            background: var(--card-bg);
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
 
         input::placeholder {
-            color: var(--text-color);
-            opacity: 0.5;
+            color: var(--text-muted);
         }
 
-        button {
-            padding: 15px 25px;
-            border: none;
-            border-radius: 15px;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            backdrop-filter: blur(10px);
-            position: relative;
-            overflow: hidden;
-        }
-
-        button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.6s ease;
-        }
-
-        button:hover:not(:disabled)::before {
-            left: 100%;
-        }
-
-        button:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--success-color), var(--accent-color));
-            color: white;
-            box-shadow: 0 6px 15px rgba(110, 231, 183, 0.3);
-        }
-
-        .btn-secondary {
-            background: linear-gradient(135deg, #9ca3af, #6b7280);
-            color: white;
-            box-shadow: 0 6px 15px rgba(156, 163, 175, 0.3);
-        }
-
-        .btn-danger {
-            background: linear-gradient(135deg, var(--error-color), var(--secondary-color));
-            color: white;
-            box-shadow: 0 6px 15px rgba(248, 113, 113, 0.3);
-        }
-
-        .btn-gold {
-            background: linear-gradient(135deg, var(--warning-color), #f59e0b);
-            color: white;
-            box-shadow: 0 6px 15px rgba(251, 191, 36, 0.3);
-        }
-
-        .btn-toggle {
-            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
-            color: white;
-            box-shadow: 0 6px 15px rgba(129, 201, 247, 0.3);
-            font-size: 14px;
-            padding: 10px 18px;
-        }
-
-        /* Numeri */
+        /* Numbers Display */
         .prediction-numbers {
             display: flex;
-            gap: 20px;
+            gap: 16px;
             justify-content: center;
             flex-wrap: wrap;
-            margin: 30px 0;
+            margin: 32px 0;
         }
 
         .number {
-            width: 60px;
-            height: 60px;
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: 'Orbitron', monospace;
-            font-weight: 900;
-            font-size: 1.4em;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.25rem;
             color: white;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
+            box-shadow: var(--shadow-md);
+            transition: all 0.2s ease;
         }
 
         .number:hover {
@@ -853,192 +641,127 @@
         }
 
         .number.main {
-            background: linear-gradient(135deg, #3b82f6, var(--accent-color));
-            border: 3px solid #60a5fa;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-blue-light));
         }
 
         .number.star {
-            background: linear-gradient(135deg, var(--warning-color), #f59e0b);
-            border: 3px solid #fcd34d;
+            background: linear-gradient(135deg, var(--warning), var(--warning-light));
         }
 
         .number.matched {
-            background: linear-gradient(135deg, var(--success-color), #34d399);
-            border: 3px solid var(--success-color);
+            background: linear-gradient(135deg, var(--success), var(--success-light));
             animation: matchedGlow 2s infinite;
         }
 
         @keyframes matchedGlow {
-            0%, 100% { 
-                box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2), 0 0 20px rgba(110, 231, 183, 0.6);
-            }
-            50% { 
-                box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2), 0 0 30px rgba(110, 231, 183, 1);
-            }
+            0%, 100% { box-shadow: 0 0 20px rgba(16, 185, 129, 0.5); }
+            50% { box-shadow: 0 0 30px rgba(16, 185, 129, 0.8); }
         }
 
-        /* Storico predizioni */
-        .predictions-history {
-            background: rgba(0, 0, 0, 0.1);
-            padding: 25px;
-            border-radius: 20px;
-            margin-top: 25px;
-        }
-
+        /* Predictions History */
         .prediction-item {
             background: var(--card-bg);
+            border-radius: 12px;
             padding: 20px;
-            border-radius: 15px;
-            margin: 15px 0;
-            border-left: 4px solid var(--accent-color);
-            transition: all 0.3s ease;
+            margin-bottom: 16px;
+            border: 2px solid var(--border-color);
+            transition: all 0.2s ease;
+            position: relative;
         }
 
         .prediction-item:hover {
-            transform: translateX(5px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            transform: translateX(4px);
+            box-shadow: var(--shadow-md);
         }
 
         .prediction-item.has-matches {
-            border-left-color: var(--success-color);
-            background: rgba(110, 231, 183, 0.08);
+            border-color: var(--success);
+            background: linear-gradient(135deg, var(--card-bg) 0%, rgba(16, 185, 129, 0.05) 100%);
         }
 
         .prediction-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 12px;
         }
 
         .prediction-date {
-            font-family: 'Orbitron', monospace;
-            color: var(--accent-color);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            color: var(--accent-blue);
+        }
+
+        .prediction-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .prediction-badge {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.875rem;
             font-weight: 600;
         }
 
-        .prediction-accuracy {
-            color: var(--success-color);
-            font-weight: 700;
+        .badge-success {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
         }
 
-        .prediction-matches {
-            background: rgba(110, 231, 183, 0.2);
-            padding: 5px 10px;
-            border-radius: 10px;
-            font-size: 0.9em;
-            font-weight: bold;
-            color: var(--success-color);
+        .badge-info {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--accent-blue);
         }
 
-        .learning-info {
-            background: rgba(251, 191, 36, 0.1);
-            padding: 10px;
-            border-radius: 8px;
-            margin-top: 10px;
-            font-size: 0.9em;
-            color: var(--warning-color);
-            border-left: 3px solid var(--warning-color);
+        .badge-warning {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
         }
 
-        /* Tabella */
+        /* Table */
         table {
             width: 100%;
             border-collapse: separate;
             border-spacing: 0;
             background: var(--card-bg);
-            border-radius: 20px;
+            border-radius: 12px;
             overflow: hidden;
-            margin-top: 25px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-sm);
         }
 
         th, td {
-            padding: 18px 15px;
+            padding: 16px;
             text-align: center;
             border-bottom: 1px solid var(--border-color);
-            color: var(--text-color);
         }
 
         th {
-            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
-            color: white;
-            font-family: 'Orbitron', monospace;
-            font-weight: 700;
-            font-size: 1.1em;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        tr:nth-child(even) {
-            background: rgba(0, 0, 0, 0.03);
-        }
-
-        tr:hover {
-            background: var(--card-bg);
-            transform: scale(1.01);
-        }
-
-        /* Processing steps */
-        .prediction-process {
-            background: rgba(0, 0, 0, 0.1);
-            padding: 25px;
-            border-radius: 20px;
-            margin: 25px 0;
-        }
-
-        .processing-step {
-            background: var(--card-bg);
-            padding: 18px 25px;
-            border-radius: 15px;
-            margin: 15px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-left: 4px solid #9ca3af;
-            transition: all 0.3s ease;
-            color: var(--text-color);
-        }
-
-        .processing-step.active {
-            background: rgba(251, 191, 36, 0.12);
-            border-left-color: var(--warning-color);
-            animation: pulse 2s infinite;
-        }
-
-        .processing-step.completed {
-            background: rgba(110, 231, 183, 0.12);
-            border-left-color: var(--success-color);
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.85; }
-        }
-
-        .spinner {
-            width: 28px;
-            height: 28px;
-            border: 3px solid rgba(129, 201, 247, 0.3);
-            border-radius: 50%;
-            border-top-color: var(--accent-color);
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Messaggi */
-        .message {
-            padding: 20px 25px;
-            border-radius: 15px;
-            margin: 20px 0;
+            background: var(--section-bg);
+            color: var(--text-primary);
             font-weight: 600;
-            font-size: 1.1em;
-            backdrop-filter: blur(10px);
-            border-left: 5px solid;
-            animation: slideIn 0.5s ease-out;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        tr:hover td {
+            background: var(--card-hover);
+        }
+
+        /* Messages */
+        .message {
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin: 16px 0;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideIn 0.3s ease-out;
+            border-left: 4px solid;
         }
 
         @keyframes slideIn {
@@ -1047,67 +770,185 @@
         }
 
         .message.success {
-            background: rgba(110, 231, 183, 0.15);
-            border-left-color: var(--success-color);
-            color: var(--success-color);
+            background: rgba(16, 185, 129, 0.1);
+            border-color: var(--success);
+            color: var(--success);
         }
 
         .message.error {
-            background: rgba(248, 113, 113, 0.15);
-            border-left-color: var(--error-color);
-            color: var(--error-color);
+            background: rgba(239, 68, 68, 0.1);
+            border-color: var(--error);
+            color: var(--error);
         }
 
         .message.info {
-            background: rgba(129, 201, 247, 0.15);
-            border-left-color: var(--accent-color);
-            color: var(--accent-color);
+            background: rgba(59, 130, 246, 0.1);
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
         }
 
-        .message.learning {
-            background: rgba(251, 191, 36, 0.15);
-            border-left-color: var(--warning-color);
-            color: var(--warning-color);
+        .message.warning {
+            background: rgba(245, 158, 11, 0.1);
+            border-color: var(--warning);
+            color: var(--warning);
+        }
+
+        /* Chart Container */
+        .chart-container {
+            background: var(--section-bg);
+            padding: 24px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+
+        .frequency-chart {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 8px;
+            margin: 16px 0;
+        }
+
+        .freq-bar {
+            background: linear-gradient(to top, var(--accent-blue), var(--accent-blue-light));
+            border-radius: 4px;
+            min-height: 20px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .freq-bar:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Timer */
+        .prediction-timer {
+            background: var(--section-bg);
+            padding: 24px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 24px 0;
+            border: 2px solid var(--warning);
+        }
+
+        .timer-display {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--warning);
+            margin-bottom: 8px;
+        }
+
+        .timer-label {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 16px;
+        }
+
+        .timer-progress {
+            width: 100%;
+            height: 6px;
+            background: var(--border-color);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .timer-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--warning), var(--warning-light));
+            transition: width 0.1s linear;
+        }
+
+        /* Processing Steps */
+        .processing-step {
+            background: var(--card-bg);
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin: 12px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 4px solid var(--border-color);
+            transition: all 0.2s ease;
+        }
+
+        .processing-step.active {
+            background: rgba(245, 158, 11, 0.05);
+            border-color: var(--warning);
+        }
+
+        .processing-step.completed {
+            background: rgba(16, 185, 129, 0.05);
+            border-color: var(--success);
+        }
+
+        .spinner {
+            width: 24px;
+            height: 24px;
+            border: 3px solid var(--border-color);
+            border-radius: 50%;
+            border-top-color: var(--accent-blue);
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
 
         /* Responsive */
         @media (max-width: 1024px) {
-            .analytics-dashboard {
-                grid-template-columns: 1fr;
-            }
             .theme-selector {
-                top: 10px;
-                right: 10px;
-                max-width: 120px;
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
         @media (max-width: 768px) {
-            .container { padding: 15px; }
-            .header h1 { font-size: 2.5em; }
+            .container { padding: 16px; }
+            .header h1 { font-size: 2rem; }
             .input-row { grid-template-columns: repeat(2, 1fr); }
-            .algorithms-live-grid { grid-template-columns: 1fr; }
-            .prediction-numbers { gap: 15px; }
-            .number { width: 50px; height: 50px; font-size: 1.2em; }
+            .algorithms-grid { grid-template-columns: 1fr; }
+            .prediction-numbers { gap: 12px; }
+            .number { width: 48px; height: 48px; font-size: 1.125rem; }
             .frequency-chart { grid-template-columns: repeat(5, 1fr); }
+            .theme-selector {
+                top: 12px;
+                right: 12px;
+                padding: 8px;
+            }
+            .control-panel {
+                bottom: 12px;
+                right: 12px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Theme Selector con 6 Varianti -->
+    <!-- Theme Selector -->
     <div class="theme-selector">
-        <button class="theme-btn dark active" onclick="setTheme('dark')" title="Dark Theme">🌙</button>
-        <button class="theme-btn light" onclick="setTheme('light')" title="Light Theme">☀️</button>
-        <button class="theme-btn classic" onclick="setTheme('classic')" title="Classic Theme">🎭</button>
-        <button class="theme-btn neon" onclick="setTheme('neon')" title="Neon Theme">⚡</button>
-        <button class="theme-btn ocean" onclick="setTheme('ocean')" title="Ocean Theme">🌊</button>
-        <button class="theme-btn sunset" onclick="setTheme('sunset')" title="Sunset Theme">🌅</button>
+        <button class="theme-btn active" onclick="setTheme('default')" title="Default">💼</button>
+        <button class="theme-btn" onclick="setTheme('dark')" title="Dark">🌙</button>
+        <button class="theme-btn" onclick="setTheme('light')" title="Light">☀️</button>
+        <button class="theme-btn" onclick="setTheme('ocean')" title="Ocean">🌊</button>
+        <button class="theme-btn" onclick="setTheme('sunset')" title="Sunset">🌅</button>
+        <button class="theme-btn" onclick="setTheme('forest')" title="Forest">🌲</button>
+        <button class="theme-btn" onclick="setTheme('lavender')" title="Lavender">💜</button>
     </div>
 
-    <!-- Pulsante Minimizza Tutto -->
-    <button class="minimize-all-btn" onclick="toggleAllSections()" id="minimizeAllBtn" title="Minimizza/Espandi Tutto">
-        ⬇️
-    </button>
+    <!-- Control Panel -->
+    <div class="control-panel">
+        <button class="control-btn" onclick="toggleAllSections()" id="minimizeAllBtn" title="Espandi/Minimizza Tutto">
+            ⬇️
+        </button>
+        <button class="control-btn" onclick="scrollToTop()" title="Torna Su">
+            ⬆️
+        </button>
+    </div>
 
     <div class="container">
         <!-- Header -->
@@ -1116,72 +957,70 @@
             <p>Sistema Predittivo Evolutivo con Auto-Apprendimento e Analytics</p>
         </div>
 
-        <!-- Dashboard Analytics -->
-        <div class="analytics-dashboard section-wrapper">
-            <div class="analytics-main">
-                <h2 class="collapsible" style="color: var(--accent-color); margin-bottom: 20px; font-family: 'Orbitron', monospace; cursor: pointer;">📊 Analytics Dashboard</h2>
-                <div class="collapsible-content">
-                    <div class="chart-container">
-                        <h3 style="color: var(--warning-color); margin-bottom: 15px;">Frequenza Numeri (1-50)</h3>
-                        <div class="frequency-chart" id="numberFrequencyChart"></div>
-                    </div>
-                    
-                    <div class="chart-container">
-                        <h3 style="color: var(--warning-color); margin-bottom: 15px;">Frequenza Stelle (1-12)</h3>
-                        <div class="frequency-chart" id="starFrequencyChart" style="grid-template-columns: repeat(6, 1fr);"></div>
-                    </div>
-                </div>
+        <!-- Dashboard Metrics -->
+        <div class="dashboard-grid">
+            <div class="metric-card">
+                <div class="metric-icon">🎯</div>
+                <div class="metric-label">Accuratezza Ensemble</div>
+                <div class="metric-value" id="ensembleAccuracy">0%</div>
             </div>
-
-            <div class="analytics-side">
-                <div class="ensemble-metrics">
-                    <h2 class="collapsible" style="cursor: pointer;">📊 Metriche Live</h2>
-                    <div class="collapsible-content">
-                        <div class="metrics-grid" style="grid-template-columns: 1fr;">
-                            <div class="metric-card">
-                                <span class="metric-value" id="ensembleAccuracy">0%</span>
-                                <div class="metric-label">Accuratezza Combinata</div>
-                            </div>
-                            <div class="metric-card">
-                                <span class="metric-value" id="activeAlgorithms">13</span>
-                                <div class="metric-label">Algoritmi Operativi</div>
-                            </div>
-                            <div class="metric-card">
-                                <span class="metric-value" id="totalPredictions">0</span>
-                                <div class="metric-label">Predizioni Generate</div>
-                            </div>
-                            <div class="metric-card">
-                                <span class="metric-value" id="learningRate">0%</span>
-                                <div class="metric-label">Tasso Apprendimento</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="metric-card">
+                <div class="metric-icon">🤖</div>
+                <div class="metric-label">Algoritmi Attivi</div>
+                <div class="metric-value" id="activeAlgorithms">13</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon">📊</div>
+                <div class="metric-label">Predizioni Totali</div>
+                <div class="metric-value" id="totalPredictions">0</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon">🧠</div>
+                <div class="metric-label">Tasso Apprendimento</div>
+                <div class="metric-value" id="learningRate">0%</div>
             </div>
         </div>
 
-        <!-- Status Algoritmi -->
-        <div class="algorithm-status-panel">
-            <div class="algorithm-status-header">
-                <div class="algorithm-status-title collapsible" style="cursor: pointer;">🤖 Algoritmi AI con Auto-Apprendimento</div>
-                <div class="algorithm-controls">
-                    <div class="active-counter" id="liveCounter">13/13 Attivi</div>
-                    <button class="btn-toggle" onclick="toggleAlgorithmsVisibility()" id="toggleAlgorithmsBtn">
-                        👁️ Nascondi
-                    </button>
-                </div>
-            </div>
-            
-            <div class="algorithms-live-grid collapsible-content" id="algorithmLiveGrid"></div>
-        </div>
-
-        <!-- Inserimento Estrazioni -->
+        <!-- Analytics Dashboard -->
         <div class="section">
-            <h2 class="collapsible">➕ Inserimento Dati Storici</h2>
-            <div class="collapsible-content">
+            <div class="section-header">
+                <h2 class="section-title">📊 Analytics Dashboard</h2>
+            </div>
+            <div class="section-content">
+                <div class="chart-container">
+                    <h3 style="color: var(--text-primary); margin-bottom: 16px; font-size: 1.125rem;">Frequenza Numeri (1-50)</h3>
+                    <div class="frequency-chart" id="numberFrequencyChart"></div>
+                </div>
+                
+                <div class="chart-container">
+                    <h3 style="color: var(--text-primary); margin-bottom: 16px; font-size: 1.125rem;">Frequenza Stelle (1-12)</h3>
+                    <div class="frequency-chart" id="starFrequencyChart" style="grid-template-columns: repeat(6, 1fr);"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Algorithms Status -->
+        <div class="section">
+            <div class="section-header">
+                <h2 class="section-title">🤖 Algoritmi AI con Auto-Apprendimento</h2>
+                <button class="btn btn-secondary btn-sm" onclick="toggleAlgorithmsVisibility()" id="toggleAlgorithmsBtn">
+                    👁️ Nascondi
+                </button>
+            </div>
+            <div class="section-content">
+                <div class="algorithms-grid" id="algorithmLiveGrid"></div>
+            </div>
+        </div>
+
+        <!-- Data Input -->
+        <div class="section">
+            <div class="section-header">
+                <h2 class="section-title">➕ Inserimento Dati Storici</h2>
+            </div>
+            <div class="section-content">
                 <div class="input-group">
                     <input type="date" id="extractionDate" required>
-                    <button class="btn-gold" onclick="fetchLastExtraction()">🔄 Auto-Import</button>
+                    <button class="btn btn-warning" onclick="fetchLastExtraction()">🔄 Auto-Import</button>
                 </div>
                 <div class="input-row">
                     <input type="number" min="1" max="50" placeholder="N1" id="num1" required>
@@ -1191,68 +1030,77 @@
                     <input type="number" min="1" max="50" placeholder="N5" id="num5" required>
                 </div>
                 <div class="stars-row">
-                    <input type="number" min="1" max="12" placeholder="⭐ S1" id="star1" required>
-                    <input type="number" min="1" max="12" placeholder="⭐ S2" id="star2" required>
+                    <input type="number" min="1" max="12" placeholder="⭐ Stella 1" id="star1" required>
+                    <input type="number" min="1" max="12" placeholder="⭐ Stella 2" id="star2" required>
                 </div>
-                <button class="btn-primary" onclick="addExtraction()">Aggiungi Estrazione</button>
-                <button class="btn-secondary" onclick="clearForm()">Pulisci Form</button>
-                <button class="btn-gold" onclick="addSampleData()">Carica Dati Demo</button>
+                <div class="input-group">
+                    <button class="btn btn-primary" onclick="addExtraction()">✅ Aggiungi Estrazione</button>
+                    <button class="btn btn-secondary" onclick="clearForm()">🔄 Pulisci Form</button>
+                    <button class="btn btn-warning" onclick="addSampleData()">📦 Carica Dati Demo</button>
+                </div>
             </div>
         </div>
 
-        <!-- Predizioni AI Ensemble -->
+        <!-- Predictions Control -->
         <div class="section">
-            <h2 class="collapsible">🚀 Centro di Controllo Predizioni</h2>
-            <div class="collapsible-content">
+            <div class="section-header">
+                <h2 class="section-title">🚀 Centro di Controllo Predizioni</h2>
+            </div>
+            <div class="section-content">
                 <div class="input-group">
-                    <button class="btn-primary" id="generateBtn" onclick="generateEnsemblePrediction()">
+                    <button class="btn btn-primary" id="generateBtn" onclick="generateEnsemblePrediction()">
                         🎯 Avvia Predizione Ensemble
                     </button>
-                    <button class="btn-secondary" onclick="toggleAllAlgorithms()">
-                        ⚡ Toggle Tutti
+                    <button class="btn btn-secondary" onclick="toggleAllAlgorithms()">
+                        ⚡ Toggle Tutti gli Algoritmi
                     </button>
-                    <button class="btn-gold" onclick="resetAlgorithmWeights()">
-                        🔄 Reset Config
+                    <button class="btn btn-warning" onclick="resetAlgorithmWeights()">
+                        🔄 Reset Configurazione
                     </button>
                 </div>
                 
                 <div class="prediction-timer" id="predictionTimer" style="display: none;">
                     <div class="timer-display" id="timerDisplay">05:00</div>
-                    <div class="timer-label">Countdown Elaborazione</div>
+                    <div class="timer-label">Countdown Elaborazione Predizione</div>
                     <div class="timer-progress">
                         <div class="timer-progress-bar" id="timerProgressBar" style="width: 100%;"></div>
                     </div>
                 </div>
                 
-                <div class="prediction-process" id="predictionProcess" style="display: none;">
-                    <h3 style="color: var(--warning-color); margin-bottom: 20px;">🔄 Elaborazione Multi-Algoritmo...</h3>
+                <div id="predictionProcess" style="display: none; margin-top: 24px;">
+                    <h3 style="color: var(--warning); margin-bottom: 16px;">🔄 Elaborazione Multi-Algoritmo...</h3>
                     <div id="processingSteps"></div>
                 </div>
                 
-                <div class="prediction-results" id="predictionResults" style="display: none;">
-                    <h3 style="color: var(--success-color); margin-bottom: 20px;">🎯 Risultato Predizione Ensemble</h3>
+                <div id="predictionResults" style="display: none; margin-top: 24px;">
+                    <h3 style="color: var(--success); margin-bottom: 16px;">🎯 Risultato Predizione Ensemble</h3>
                     <div class="prediction-numbers" id="finalNumbers"></div>
                     
-                    <div style="background: rgba(0, 0, 0, 0.1); padding: 25px; border-radius: 20px; margin-top: 25px;">
-                        <h4 style="color: var(--accent-color); margin-bottom: 20px;">📋 Contributo Algoritmi</h4>
+                    <div style="background: var(--section-bg); padding: 24px; border-radius: 12px; margin-top: 24px;">
+                        <h4 style="color: var(--text-primary); margin-bottom: 16px;">📋 Contributo Algoritmi</h4>
                         <div id="algorithmContributions"></div>
                     </div>
                 </div>
 
-                <div class="predictions-history" id="predictionsHistory" style="display: none;">
-                    <h4 style="color: var(--warning-color); margin-bottom: 20px;">📈 Storico Predizioni</h4>
+                <div id="predictionsHistory" style="display: none; margin-top: 32px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h4 style="color: var(--text-primary); font-size: 1.25rem;">📈 Storico Predizioni con Auto-Apprendimento</h4>
+                        <button class="btn btn-danger btn-sm" onclick="clearAllPredictions()">🗑️ Cancella Tutte le Predizioni</button>
+                    </div>
                     <div id="predictionsHistoryList"></div>
                 </div>
             </div>
         </div>
 
-        <!-- Storico Estrazioni -->
+        <!-- Extractions History -->
         <div class="section">
-            <h2 class="collapsible">📋 Database Estrazioni Storiche</h2>
-            <div class="collapsible-content">
+            <div class="section-header">
+                <h2 class="section-title">📋 Database Estrazioni Storiche</h2>
+            </div>
+            <div class="section-content">
                 <div class="input-group">
-                    <input type="text" placeholder="🔍 Ricerca..." id="searchInput" oninput="filterExtractions()">
-                    <button class="btn-secondary" onclick="clearSearch()">Pulisci</button>
+                    <input type="text" placeholder="🔍 Ricerca per data..." id="searchInput" oninput="filterExtractions()" style="flex: 1;">
+                    <button class="btn btn-secondary" onclick="clearSearch()">✖️ Pulisci</button>
                 </div>
                 
                 <table id="extractionsTable">
@@ -1274,32 +1122,32 @@
             </div>
         </div>
 
-        <!-- Configurazione Algoritmi -->
+        <!-- Algorithm Configuration -->
         <div class="section">
-            <h2 class="collapsible collapsed">⚙️ Configurazione Avanzata Algoritmi</h2>
-            <div class="collapsible-content collapsed">
-                <p style="margin-bottom: 25px; color: var(--text-color); opacity: 0.75;">Personalizza i parametri:</p>
-                <div id="algorithmWeights" style="background: rgba(0, 0, 0, 0.1); padding: 20px; border-radius: 15px;"></div>
-                <div class="input-group" style="margin-top: 25px;">
-                    <button class="btn-primary" onclick="saveAlgorithmConfig()">💾 Salva</button>
-                    <button class="btn-secondary" onclick="loadDefaultConfig()">🔄 Default</button>
-                    <button class="btn-gold" onclick="optimizeWeights()">🎯 Ottimizza</button>
+            <div class="section-header">
+                <h2 class="section-title collapsed">⚙️ Configurazione Avanzata Algoritmi</h2>
+            </div>
+            <div class="section-content collapsed">
+                <p style="margin-bottom: 20px; color: var(--text-secondary);">Personalizza i parametri di ogni algoritmo per ottimizzare le predizioni:</p>
+                <div id="algorithmWeights" style="background: var(--section-bg); padding: 20px; border-radius: 12px;"></div>
+                <div class="input-group" style="margin-top: 24px;">
+                    <button class="btn btn-primary" onclick="saveAlgorithmConfig()">💾 Salva Configurazione</button>
+                    <button class="btn btn-secondary" onclick="loadDefaultConfig()">🔄 Ripristina Default</button>
+                    <button class="btn btn-warning" onclick="optimizeWeights()">🎯 Auto-Ottimizza</button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // [TUTTO IL JAVASCRIPT DELLA VERSIONE PRECEDENTE RIMANE INVARIATO]
-        // Aggiungo solo le nuove funzioni per minimizzare tutto e gestire i temi
-
+        // Global variables
         let extractions = [];
         let predictions = [];
         let countdownTimer = null;
         let countdownTime = 300;
         let totalCountdownTime = 300;
         let algorithmsVisible = true;
-        let currentTheme = 'dark';
+        let currentTheme = 'default';
         let allSectionsExpanded = true;
         let learningData = {
             totalMatches: 0,
@@ -1308,19 +1156,19 @@
         };
         
         let algorithms = [
-            {name: "LSTM Neural Network",emoji: "🧠",weight: 1.15,accuracy: 58,specialty:"Temporal Patterns",active:true,description:"Reti neurali ricorrenti per pattern temporali complessi",learningRate:.1,successRate:0,totalPredictions:0},
-            {name: "Random Forest",emoji:"🌳",weight:.95,accuracy:52,specialty:"Feature Correlation",active:true,description:"Ensemble di alberi decisionali per correlazioni multiple",learningRate:.08,successRate:0,totalPredictions:0},
-            {name: "Gradient Boosting",emoji:"📈",weight:1.05,accuracy:55,specialty:"Error Correction",active:true,description:"Correzione iterativa degli errori predittivi",learningRate:.12,successRate:0,totalPredictions:0},
-            {name: "Deep Neural Network",emoji:"🔮",weight:.85,accuracy:48,specialty:"Complex Patterns",active:true,description:"Reti profonde per pattern non-lineari",learningRate:.09,successRate:0,totalPredictions:0},
-            {name: "Analisi Bayesiana",emoji:"📊",weight:.9,accuracy:50,specialty:"Probability Chains",active:true,description:"Calcolo probabilistico basato su evidenze storiche",learningRate:.07,successRate:0,totalPredictions:0},
-            {name: "Pattern Recognition",emoji:"🔍",weight:.75,accuracy:44,specialty:"Sequence Detection",active:true,description:"Riconoscimento automatico di sequenze ricorrenti",learningRate:.11,successRate:0,totalPredictions:0},
-            {name: "Time Series ARIMA",emoji:"📉",weight:.8,accuracy:46,specialty:"Trend Analysis",active:true,description:"Analisi autoregressiva per trend temporali",learningRate:.06,successRate:0,totalPredictions:0},
-            {name: "Quantum-Inspired",emoji:"⚛️",weight:.65,accuracy:38,specialty:"Superposition States",active:true,description:"Algoritmi ispirati alla meccanica quantistica",learningRate:.15,successRate:0,totalPredictions:0},
-            {name: "Ensemble Meta-Learning",emoji:"🎯",weight:1.25,accuracy:62,specialty:"Algorithm Selection",active:true,description:"Meta-apprendimento per selezione dinamica algoritmi",learningRate:.13,successRate:0,totalPredictions:0},
-            {name: "Reinforcement Learning",emoji:"🏆",weight:.88,accuracy:49,specialty:"Reward Optimization",active:true,description:"Apprendimento per rinforzo con ottimizzazione reward",learningRate:.14,successRate:0,totalPredictions:0},
-            {name: "Algoritmo Oracolo",emoji:"🔮",weight:1.35,accuracy:65,specialty:"Mystical Vision",active:true,description:"Fusione di intuizione mistica e analisi matematica",learningRate:0.05,successRate:0,totalPredictions:0},
-            {name: "Entropic MaxEnt",emoji:"📉",weight:1.12,accuracy:57,specialty:"Entropy Minimization",active:true,description:"Minimizzazione entropica per massima informazione",learningRate:.1,successRate:0,totalPredictions:0},
-            {name: "Entropic MutualInfo",emoji:"📊",weight:1.08,accuracy:54,specialty:"Information Gain",active:true,description:"Massimizzazione informazione mutua tra variabili",learningRate:.09,successRate:0,totalPredictions:0}
+            {name: "LSTM Neural Network",emoji: "🧠",weight: 1.15,accuracy: 58,specialty:"Temporal",active:true,description:"Reti neurali ricorrenti per pattern temporali",learningRate:.1,successRate:0,totalPredictions:0},
+            {name: "Random Forest",emoji:"🌳",weight:.95,accuracy:52,specialty:"Correlation",active:true,description:"Ensemble di alberi decisionali",learningRate:.08,successRate:0,totalPredictions:0},
+            {name: "Gradient Boosting",emoji:"📈",weight:1.05,accuracy:55,specialty:"Correction",active:true,description:"Correzione iterativa degli errori",learningRate:.12,successRate:0,totalPredictions:0},
+            {name: "Deep Neural Network",emoji:"🔮",weight:.85,accuracy:48,specialty:"Complex",active:true,description:"Reti profonde per pattern complessi",learningRate:.09,successRate:0,totalPredictions:0},
+            {name: "Analisi Bayesiana",emoji:"📊",weight:.9,accuracy:50,specialty:"Probability",active:true,description:"Calcolo probabilistico",learningRate:.07,successRate:0,totalPredictions:0},
+            {name: "Pattern Recognition",emoji:"🔍",weight:.75,accuracy:44,specialty:"Sequences",active:true,description:"Riconoscimento sequenze",learningRate:.11,successRate:0,totalPredictions:0},
+            {name: "Time Series ARIMA",emoji:"📉",weight:.8,accuracy:46,specialty:"Trends",active:true,description:"Analisi autoregressiva",learningRate:.06,successRate:0,totalPredictions:0},
+            {name: "Quantum-Inspired",emoji:"⚛️",weight:.65,accuracy:38,specialty:"Quantum",active:true,description:"Algoritmi quantistici",learningRate:.15,successRate:0,totalPredictions:0},
+            {name: "Ensemble Meta-Learning",emoji:"🎯",weight:1.25,accuracy:62,specialty:"Selection",active:true,description:"Meta-apprendimento",learningRate:.13,successRate:0,totalPredictions:0},
+            {name: "Reinforcement Learning",emoji:"🏆",weight:.88,accuracy:49,specialty:"Rewards",active:true,description:"Apprendimento per rinforzo",learningRate:.14,successRate:0,totalPredictions:0},
+            {name: "Algoritmo Oracolo",emoji:"🔮",weight:1.35,accuracy:65,specialty:"Mystical",active:true,description:"Intuizione mistica",learningRate:0.05,successRate:0,totalPredictions:0},
+            {name: "Entropic MaxEnt",emoji:"📉",weight:1.12,accuracy:57,specialty:"Entropy",active:true,description:"Minimizzazione entropica",learningRate:.1,successRate:0,totalPredictions:0},
+            {name: "Entropic MutualInfo",emoji:"📊",weight:1.08,accuracy:54,specialty:"Information",active:true,description:"Massimizzazione informazione",learningRate:.09,successRate:0,totalPredictions:0}
         ];
 
         // Initialize
@@ -1336,28 +1184,26 @@
             initializeCollapsibles();
             setCurrentDate();
             
-            showMessage('Sistema EuroJackpot AI caricato!', 'success');
+            showMessage('✅ Sistema EuroJackpot AI caricato con successo!', 'success');
             setTimeout(fetchLastExtraction, 3000);
         });
 
-        // Theme Management con 6 varianti
+        // Theme Management
         function setTheme(theme) {
-            document.body.className = '';
-            if (theme !== 'dark') {
-                document.body.classList.add(theme + '-theme');
-            }
+            document.body.className = theme === 'default' ? '' : theme + '-theme';
             currentTheme = theme;
             localStorage.setItem('EJ_THEME', theme);
             
             document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelector(`.theme-btn.${theme}`).classList.add('active');
+            event.target.classList.add('active');
             
             showMessage(`Tema ${theme} attivato!`, 'info');
         }
 
         function loadTheme() {
-            const savedTheme = localStorage.getItem('EJ_THEME') || 'dark';
-            setTheme(savedTheme);
+            const savedTheme = localStorage.getItem('EJ_THEME') || 'default';
+            const btn = document.querySelector(`[onclick="setTheme('${savedTheme}')"]`);
+            if (btn) btn.click();
         }
 
         // Toggle All Sections
@@ -1365,34 +1211,818 @@
             allSectionsExpanded = !allSectionsExpanded;
             const btn = document.getElementById('minimizeAllBtn');
             
-            document.querySelectorAll('.collapsible').forEach(collapsible => {
-                const content = collapsible.nextElementSibling;
+            document.querySelectorAll('.section-title').forEach(title => {
+                const content = title.parentElement.nextElementSibling;
                 if (allSectionsExpanded) {
-                    collapsible.classList.remove('collapsed');
+                    title.classList.remove('collapsed');
                     if (content) content.classList.remove('collapsed');
                     btn.textContent = '⬇️';
-                    btn.title = 'Minimizza Tutto';
                 } else {
-                    collapsible.classList.add('collapsed');
+                    title.classList.add('collapsed');
                     if (content) content.classList.add('collapsed');
                     btn.textContent = '⬆️';
-                    btn.title = 'Espandi Tutto';
                 }
             });
         }
 
-        // [TUTTO IL RESTO DEL JAVASCRIPT RIMANE IDENTICO ALLA VERSIONE PRECEDENTE]
-        // Includi tutte le funzioni: fetchLastExtraction, toggleAlgorithmsVisibility, loadData, saveData,
-        // startCountdownTimer, stopCountdownTimer, renderFrequencyCharts, checkPredictionMatches,
-        // analyzePredictionSuccess, renderLiveAlgorithms, generateEnsemblePrediction, addExtraction,
-        // renderExtractions, filterExtractions, toggleAllAlgorithms, etc.
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
-        // [PER BREVITÀ, INCOLLA QUI TUTTO IL JAVASCRIPT DELLA VERSIONE PRECEDENTE]
+        // Collapsibles
+        function initializeCollapsibles() {
+            document.querySelectorAll('.section-title').forEach(title => {
+                title.addEventListener('click', function() {
+                    this.classList.toggle('collapsed');
+                    const content = this.parentElement.nextElementSibling;
+                    if (content) content.classList.toggle('collapsed');
+                });
+            });
+        }
+
+        // Data Management
+        function loadData() {
+            try {
+                const stored = localStorage.getItem('eurojackpot_extractions');
+                if (stored) extractions = JSON.parse(stored);
+                
+                const storedPredictions = localStorage.getItem('eurojackpot_predictions');
+                if (storedPredictions) predictions = JSON.parse(storedPredictions);
+                
+                const storedAlgorithms = localStorage.getItem('eurojackpot_algorithms');
+                if (storedAlgorithms) {
+                    const saved = JSON.parse(storedAlgorithms);
+                    algorithms.forEach((alg, i) => {
+                        if (saved[i]) {
+                            Object.assign(alg, saved[i]);
+                        }
+                    });
+                }
+
+                const storedLearning = localStorage.getItem('eurojackpot_learning');
+                if (storedLearning) learningData = { ...learningData, ...JSON.parse(storedLearning) };
+            } catch (error) {
+                console.error('Error loading data:', error);
+            }
+        }
+
+        function saveData() {
+            try {
+                localStorage.setItem('eurojackpot_extractions', JSON.stringify(extractions));
+                localStorage.setItem('eurojackpot_predictions', JSON.stringify(predictions));
+                localStorage.setItem('eurojackpot_algorithms', JSON.stringify(algorithms));
+                localStorage.setItem('eurojackpot_learning', JSON.stringify(learningData));
+            } catch (error) {
+                console.error('Error saving data:', error);
+            }
+        }
+
+        // Auto-Import
+        async function fetchLastExtraction() {
+            try {
+                const simulatedData = {
+                    date: "2025-10-17",
+                    numbers: [3, 14, 22, 33, 39],
+                    stars: [7, 11]
+                };
+                
+                if (!extractions.some(e => e.date === simulatedData.date)) {
+                    extractions.unshift({
+                        id: Date.now(),
+                        date: simulatedData.date,
+                        numbers: simulatedData.numbers,
+                        stars: simulatedData.stars,
+                        timestamp: new Date().toISOString()
+                    });
+                    
+                    checkPredictionMatches(extractions[0]);
+                    saveData();
+                    renderExtractions();
+                    renderFrequencyCharts();
+                    updateEnsembleMetrics();
+                    
+                    showMessage('✅ Nuova estrazione importata!', 'success');
+                }
+            } catch (error) {
+                showMessage('⚠️ Errore import automatico', 'error');
+            }
+        }
+
+        // Algorithms
+        function toggleAlgorithmsVisibility() {
+            const grid = document.getElementById('algorithmLiveGrid');
+            const btn = document.getElementById('toggleAlgorithmsBtn');
+            
+            algorithmsVisible = !algorithmsVisible;
+            grid.classList.toggle('hidden');
+            btn.textContent = algorithmsVisible ? '👁️ Nascondi' : '👁️ Mostra';
+        }
+
+        function renderLiveAlgorithms() {
+            const grid = document.getElementById('algorithmLiveGrid');
+            grid.innerHTML = '';
+            
+            algorithms.forEach((alg, index) => {
+                const card = document.createElement('div');
+                card.className = `algo-card ${alg.active ? 'active' : 'inactive'} ${alg.successRate > 0 ? 'learning' : ''}`;
+                
+                card.innerHTML = `
+                    <div class="algo-header">
+                        <div class="algo-name">
+                            <span class="algo-emoji">${alg.emoji}</span>
+                            <span>${alg.name}</span>
+                        </div>
+                        <div class="algo-toggle ${alg.active ? 'active' : ''}" 
+                             onclick="toggleAlgorithm(${index})"></div>
+                    </div>
+                    <div class="algo-stats">
+                        <div class="algo-stat">
+                            <div class="algo-stat-value">${alg.accuracy.toFixed(0)}%</div>
+                            <div class="algo-stat-label">Accuracy</div>
+                        </div>
+                        <div class="algo-stat">
+                            <div class="algo-stat-value">${alg.weight.toFixed(2)}</div>
+                            <div class="algo-stat-label">Weight</div>
+                        </div>
+                        <div class="algo-stat">
+                            <div class="algo-stat-value">${alg.totalPredictions}</div>
+                            <div class="algo-stat-label">Predictions</div>
+                        </div>
+                    </div>
+                    <div class="algo-progress">
+                        <div class="algo-progress-bar" style="width: ${alg.accuracy}%"></div>
+                    </div>
+                    <div class="algo-description">${alg.description}</div>
+                    ${alg.successRate > 0 ? `<div style="margin-top: 12px; font-size: 0.875rem; color: var(--warning); font-weight: 600;">📚 Learning: ${(alg.successRate * 10).toFixed(1)}%</div>` : ''}
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function toggleAlgorithm(index) {
+            algorithms[index].active = !algorithms[index].active;
+            renderLiveAlgorithms();
+            updateEnsembleMetrics();
+            saveData();
+        }
+
+        function renderAlgorithmWeights() {
+            const container = document.getElementById('algorithmWeights');
+            container.innerHTML = '';
+            
+            algorithms.forEach((alg, index) => {
+                const div = document.createElement('div');
+                div.style.cssText = 'margin-bottom: 20px; background: var(--card-bg); padding: 16px; border-radius: 12px; border: 1px solid var(--border-color);';
+                
+                div.innerHTML = `
+                    <label style="display: flex; align-items: center; gap: 16px;">
+                        <span style="min-width: 200px; font-weight: 600; color: var(--text-primary);">
+                            ${alg.emoji} ${alg.name}
+                        </span>
+                        <input type="range" min="0.1" max="2.0" step="0.05" 
+                               value="${alg.weight}" 
+                               onchange="updateAlgorithmWeight(${index}, this.value)"
+                               style="flex: 1;">
+                        <span style="min-width: 60px; font-weight: 700; color: var(--accent-blue); font-family: Poppins;">
+                            ${alg.weight.toFixed(2)}
+                        </span>
+                    </label>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function updateAlgorithmWeight(index, value) {
+            algorithms[index].weight = parseFloat(value);
+            renderAlgorithmWeights();
+            updateEnsembleMetrics();
+            saveData();
+        }
+
+        function updateEnsembleMetrics() {
+            const activeAlgs = algorithms.filter(a => a.active);
+            const totalWeight = activeAlgs.reduce((sum, a) => sum + a.weight, 0);
+            const weightedAccuracy = activeAlgs.length > 0 ? 
+                activeAlgs.reduce((sum, a) => sum + (a.accuracy * a.weight), 0) / totalWeight : 0;
+            
+            const avgLearningRate = activeAlgs.length > 0 ? 
+                activeAlgs.reduce((sum, a) => sum + a.successRate, 0) / activeAlgs.length * 100 : 0;
+            
+            document.getElementById('activeAlgorithms').textContent = activeAlgs.length;
+            document.getElementById('ensembleAccuracy').textContent = weightedAccuracy.toFixed(1) + '%';
+            document.getElementById('totalPredictions').textContent = predictions.length;
+            document.getElementById('learningRate').textContent = avgLearningRate.toFixed(1) + '%';
+        }
+
+        // Countdown Timer
+        function startCountdownTimer() {
+            countdownTime = totalCountdownTime;
+            document.getElementById('predictionTimer').style.display = 'block';
+            
+            countdownTimer = setInterval(() => {
+                countdownTime--;
+                const minutes = Math.floor(countdownTime / 60);
+                const seconds = countdownTime % 60;
+                document.getElementById('timerDisplay').textContent = 
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                const progress = (countdownTime / totalCountdownTime) * 100;
+                document.getElementById('timerProgressBar').style.width = progress + '%';
+                
+                if (countdownTime <= 0) stopCountdownTimer();
+            }, 1000);
+        }
+
+        function stopCountdownTimer() {
+            if (countdownTimer) {
+                clearInterval(countdownTimer);
+                countdownTimer = null;
+            }
+            setTimeout(() => {
+                document.getElementById('predictionTimer').style.display = 'none';
+                document.getElementById('timerProgressBar').style.width = '100%';
+            }, 2000);
+        }
+
+        // Charts
+        function renderFrequencyCharts() {
+            renderNumberFrequencyChart();
+            renderStarFrequencyChart();
+        }
+
+        function renderNumberFrequencyChart() {
+            const container = document.getElementById('numberFrequencyChart');
+            container.innerHTML = '';
+            
+            if (extractions.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: var(--text-muted);">Nessun dato disponibile</p>';
+                return;
+            }
+            
+            const frequency = calculateNumberFrequency();
+            const maxFreq = Math.max(...frequency.slice(1));
+            
+            for (let i = 1; i <= 50; i++) {
+                const bar = document.createElement('div');
+                bar.className = 'freq-bar';
+                const height = maxFreq > 0 ? (frequency[i] / maxFreq) * 100 : 0;
+                bar.style.height = Math.max(20, height) + 'px';
+                bar.textContent = i;
+                bar.title = `Numero ${i}: ${frequency[i]} volte`;
+                container.appendChild(bar);
+            }
+        }
+
+        function renderStarFrequencyChart() {
+            const container = document.getElementById('starFrequencyChart');
+            container.innerHTML = '';
+            
+            if (extractions.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: var(--text-muted);">Nessun dato disponibile</p>';
+                return;
+            }
+            
+            const frequency = calculateStarFrequency();
+            const maxFreq = Math.max(...frequency.slice(1));
+            
+            for (let i = 1; i <= 12; i++) {
+                const bar = document.createElement('div');
+                bar.className = 'freq-bar';
+                const height = maxFreq > 0 ? (frequency[i] / maxFreq) * 100 : 0;
+                bar.style.height = Math.max(20, height) + 'px';
+                bar.textContent = i;
+                bar.title = `Stella ${i}: ${frequency[i]} volte`;
+                container.appendChild(bar);
+            }
+        }
+
+        function calculateNumberFrequency() {
+            const freq = Array(51).fill(0);
+            extractions.forEach(ext => ext.numbers.forEach(num => freq[num]++));
+            return freq;
+        }
+
+        function calculateStarFrequency() {
+            const freq = Array(13).fill(0);
+            extractions.forEach(ext => ext.stars.forEach(star => freq[star]++));
+            return freq;
+        }
+
+        // Learning System
+        function checkPredictionMatches(newExtraction) {
+            let hasMatches = false;
+            
+            predictions.forEach(prediction => {
+                if (!prediction.matchesChecked) {
+                    const matchedNumbers = prediction.numbers.filter(n => newExtraction.numbers.includes(n));
+                    const matchedStars = prediction.stars.filter(s => newExtraction.stars.includes(s));
+                    
+                    prediction.matchedNumbers = matchedNumbers;
+                    prediction.matchedStars = matchedStars;
+                    prediction.totalMatches = matchedNumbers.length + matchedStars.length;
+                    prediction.matchesChecked = true;
+                    
+                    if (prediction.totalMatches > 0) {
+                        hasMatches = true;
+                        updateAlgorithmLearning(prediction);
+                    }
+                }
+            });
+            
+            if (hasMatches) {
+                learningData.totalMatches++;
+                showMessage('🎯 Corrispondenze trovate! Sistema in apprendimento...', 'success');
+            }
+            
+            saveData();
+            renderPredictionsHistory();
+        }
+
+        function updateAlgorithmLearning(prediction) {
+            if (prediction.algorithmResults) {
+                Object.keys(prediction.algorithmResults).forEach(algName => {
+                    const algorithm = algorithms.find(a => a.name === algName);
+                    if (algorithm) {
+                        algorithm.successRate = Math.min(1, algorithm.successRate + 0.1);
+                        algorithm.totalPredictions++;
+                    }
+                });
+            }
+        }
+
+        // Predictions
+        async function generateEnsemblePrediction() {
+            if (extractions.length < 5) {
+                showMessage('⚠️ Servono almeno 5 estrazioni', 'error');
+                return;
+            }
+
+            const activeAlgorithms = algorithms.filter(a => a.active);
+            if (activeAlgorithms.length === 0) {
+                showMessage('⚠️ Attiva almeno un algoritmo', 'error');
+                return;
+            }
+
+            const btn = document.getElementById('generateBtn');
+            btn.disabled = true;
+            btn.innerHTML = '⏳ Elaborazione...';
+            
+            startCountdownTimer();
+            document.getElementById('predictionProcess').style.display = 'block';
+            document.getElementById('predictionResults').style.display = 'none';
+            
+            const steps = document.getElementById('processingSteps');
+            steps.innerHTML = '';
+            
+            const algorithmResults = {};
+            
+            for (const alg of activeAlgorithms) {
+                const step = document.createElement('div');
+                step.className = 'processing-step active';
+                step.innerHTML = `
+                    <span style="font-weight: 600;">${alg.emoji} ${alg.name}</span>
+                    <div class="spinner"></div>
+                `;
+                steps.appendChild(step);
+                
+                await new Promise(resolve => setTimeout(resolve, Math.random() * 1000 + 500));
+                
+                const prediction = generateAlgorithmPrediction(alg);
+                algorithmResults[alg.name] = prediction;
+                
+                step.className = 'processing-step completed';
+                step.innerHTML = `
+                    <span style="font-weight: 600;">${alg.emoji} ${alg.name}</span>
+                    <span style="color: var(--success); font-weight: 600;">✅ Completato</span>
+                `;
+            }
+            
+            const ensembleStep = document.createElement('div');
+            ensembleStep.className = 'processing-step active';
+            ensembleStep.innerHTML = `
+                <span style="font-weight: 600;">🎯 Combinazione Ensemble</span>
+                <div class="spinner"></div>
+            `;
+            steps.appendChild(ensembleStep);
+            
+            await new Promise(resolve => setTimeout(resolve, 800));
+            
+            const finalPrediction = combineResults(algorithmResults, activeAlgorithms);
+            
+            ensembleStep.className = 'processing-step completed';
+            ensembleStep.innerHTML = `
+                <span style="font-weight: 600;">🎯 Combinazione Ensemble</span>
+                <span style="color: var(--success); font-weight: 600;">✅ Completato</span>
+            `;
+            
+            stopCountdownTimer();
+            
+            const predictionData = {
+                id: Date.now(),
+                date: new Date().toISOString(),
+                numbers: finalPrediction.numbers,
+                stars: finalPrediction.stars,
+                algorithms: activeAlgorithms.map(a => a.name),
+                algorithmResults: algorithmResults,
+                accuracy: activeAlgorithms.reduce((sum, a) => sum + a.accuracy, 0) / activeAlgorithms.length,
+                matchesChecked: false
+            };
+            
+            predictions.push(predictionData);
+            saveData();
+            updateEnsembleMetrics();
+            
+            setTimeout(() => {
+                document.getElementById('predictionProcess').style.display = 'none';
+                document.getElementById('predictionResults').style.display = 'block';
+                
+                renderPredictionResults(finalPrediction, algorithmResults, activeAlgorithms);
+                renderPredictionsHistory();
+                
+                btn.disabled = false;
+                btn.innerHTML = '🎯 Avvia Predizione Ensemble';
+                
+                showMessage('✅ Predizione generata!', 'success');
+            }, 1000);
+        }
+
+        function generateAlgorithmPrediction(algorithm) {
+            const numberFreq = calculateNumberFrequency();
+            const starFreq = calculateStarFrequency();
+            
+            const numbers = Array.from({length: 50}, (_, i) => i + 1)
+                .sort((a, b) => numberFreq[b] - numberFreq[a])
+                .slice(0, 5)
+                .sort((a, b) => a - b);
+                
+            const stars = Array.from({length: 12}, (_, i) => i + 1)
+                .sort((a, b) => starFreq[b] - starFreq[a])
+                .slice(0, 2)
+                .sort((a, b) => a - b);
+            
+            return { numbers, stars, confidence: algorithm.accuracy };
+        }
+
+        function combineResults(results, activeAlgorithms) {
+            const numberVotes = {};
+            const starVotes = {};
+            
+            activeAlgorithms.forEach(alg => {
+                const result = results[alg.name];
+                const weight = alg.weight * (1 + alg.successRate);
+                
+                result.numbers.forEach(num => numberVotes[num] = (numberVotes[num] || 0) + weight);
+                result.stars.forEach(star => starVotes[star] = (starVotes[star] || 0) + weight);
+            });
+            
+            const finalNumbers = Object.entries(numberVotes)
+                .sort(([,a], [,b]) => b - a)
+                .slice(0, 5)
+                .map(([num]) => parseInt(num))
+                .sort((a, b) => a - b);
+                
+            const finalStars = Object.entries(starVotes)
+                .sort(([,a], [,b]) => b - a)
+                .slice(0, 2)
+                .map(([star]) => parseInt(star))
+                .sort((a, b) => a - b);
+            
+            return { numbers: finalNumbers, stars: finalStars };
+        }
+
+        function renderPredictionResults(prediction) {
+            const container = document.getElementById('finalNumbers');
+            container.innerHTML = 
+                prediction.numbers.map(n => `<span class="number main">${n}</span>`).join('') +
+                prediction.stars.map(s => `<span class="number star">${s}</span>`).join('');
+        }
+
+        function renderPredictionsHistory() {
+            const container = document.getElementById('predictionsHistory');
+            const list = document.getElementById('predictionsHistoryList');
+            
+            if (predictions.length === 0) {
+                container.style.display = 'none';
+                return;
+            }
+            
+            container.style.display = 'block';
+            list.innerHTML = '';
+            
+            predictions.slice(-10).reverse().forEach(pred => {
+                const item = document.createElement('div');
+                item.className = `prediction-item ${pred.totalMatches > 0 ? 'has-matches' : ''}`;
+                
+                const numbersHtml = pred.numbers.map(n => {
+                    const isMatched = pred.matchedNumbers?.includes(n);
+                    return `<span class="number ${isMatched ? 'matched' : 'main'}" style="width: 40px; height: 40px; font-size: 1rem;">${n}</span>`;
+                }).join('');
+                
+                const starsHtml = pred.stars.map(s => {
+                    const isMatched = pred.matchedStars?.includes(s);
+                    return `<span class="number ${isMatched ? 'matched' : 'star'}" style="width: 40px; height: 40px; font-size: 1rem;">${s}</span>`;
+                }).join('');
+                
+                item.innerHTML = `
+                    <div class="prediction-header">
+                        <span class="prediction-date">${formatDateTime(pred.date)}</span>
+                        <div class="prediction-actions">
+                            ${pred.totalMatches > 0 ? `<span class="prediction-badge badge-success">🎯 ${pred.totalMatches} match</span>` : ''}
+                            <span class="prediction-badge badge-info">${pred.accuracy.toFixed(1)}% Acc</span>
+                            <button class="btn btn-danger btn-sm btn-icon" onclick="deletePrediction(${pred.id})" title="Elimina Predizione">
+                                🗑️
+                            </button>
+                        </div>
+                    </div>
+                    <div class="prediction-numbers">${numbersHtml}${starsHtml}</div>
+                    <div style="font-size: 0.875rem; color: var(--text-muted); margin-top: 12px;">
+                        Algoritmi: ${pred.algorithms.length}
+                    </div>
+                `;
+                list.appendChild(item);
+            });
+        }
+
+        // Delete Predictions
+        function deletePrediction(id) {
+            if (confirm('🗑️ Eliminare questa predizione?')) {
+                predictions = predictions.filter(p => p.id !== id);
+                saveData();
+                renderPredictionsHistory();
+                updateEnsembleMetrics();
+                showMessage('🗑️ Predizione eliminata', 'info');
+            }
+        }
+
+        function clearAllPredictions() {
+            if (confirm('⚠️ Eliminare TUTTE le predizioni? Questa azione non può essere annullata.')) {
+                predictions = [];
+                saveData();
+                renderPredictionsHistory();
+                updateEnsembleMetrics();
+                showMessage('🗑️ Tutte le predizioni eliminate', 'info');
+            }
+        }
+
+        // Extractions
+        function addExtraction() {
+            const date = document.getElementById('extractionDate').value;
+            const numbers = [
+                parseInt(document.getElementById('num1').value),
+                parseInt(document.getElementById('num2').value),
+                parseInt(document.getElementById('num3').value),
+                parseInt(document.getElementById('num4').value),
+                parseInt(document.getElementById('num5').value)
+            ];
+            const stars = [
+                parseInt(document.getElementById('star1').value),
+                parseInt(document.getElementById('star2').value)
+            ];
+
+            if (!validateExtraction(date, numbers, stars)) return;
+
+            const extraction = {
+                id: Date.now(),
+                date: date,
+                numbers: numbers.sort((a, b) => a - b),
+                stars: stars.sort((a, b) => a - b),
+                timestamp: new Date().toISOString()
+            };
+
+            extractions.unshift(extraction);
+            checkPredictionMatches(extraction);
+            
+            saveData();
+            renderExtractions();
+            renderFrequencyCharts();
+            updateEnsembleMetrics();
+            clearForm();
+            
+            showMessage('✅ Estrazione aggiunta!', 'success');
+        }
+
+        function validateExtraction(date, numbers, stars) {
+            if (!date) {
+                showMessage('⚠️ Data mancante', 'error');
+                return false;
+            }
+            if (numbers.some(n => isNaN(n) || n < 1 || n > 50)) {
+                showMessage('⚠️ Numeri non validi (1-50)', 'error');
+                return false;
+            }
+            if (stars.some(s => isNaN(s) || s < 1 || s > 12)) {
+                showMessage('⚠️ Stelle non valide (1-12)', 'error');
+                return false;
+            }
+            if (new Set(numbers).size !== 5) {
+                showMessage('⚠️ Numeri duplicati', 'error');
+                return false;
+            }
+            if (new Set(stars).size !== 2) {
+                showMessage('⚠️ Stelle duplicate', 'error');
+                return false;
+            }
+            if (extractions.some(e => e.date === date)) {
+                showMessage('⚠️ Data già presente', 'error');
+                return false;
+            }
+            return true;
+        }
+
+        function clearForm() {
+            ['num1', 'num2', 'num3', 'num4', 'num5', 'star1', 'star2'].forEach(id => {
+                document.getElementById(id).value = '';
+            });
+            setCurrentDate();
+        }
+
+        function setCurrentDate() {
+            document.getElementById('extractionDate').value = new Date().toISOString().split('T')[0];
+        }
+
+        function deleteExtraction(id) {
+            if (confirm('🗑️ Eliminare questa estrazione?')) {
+                extractions = extractions.filter(e => e.id !== id);
+                saveData();
+                renderExtractions();
+                renderFrequencyCharts();
+                showMessage('🗑️ Estrazione eliminata', 'info');
+            }
+        }
+
+        function renderExtractions() {
+            const tbody = document.getElementById('extractionsBody');
+            tbody.innerHTML = '';
+            
+            if (extractions.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="9" style="padding: 30px; color: var(--text-muted);">Nessuna estrazione</td></tr>`;
+                return;
+            }
+            
+            extractions.slice(0, 20).forEach(ext => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td style="font-weight: 600;">${formatDate(ext.date)}</td>
+                    <td><span class="number main" style="width: 36px; height: 36px; font-size: 0.875rem;">${ext.numbers[0]}</span></td>
+                    <td><span class="number main" style="width: 36px; height: 36px; font-size: 0.875rem;">${ext.numbers[1]}</span></td>
+                    <td><span class="number main" style="width: 36px; height: 36px; font-size: 0.875rem;">${ext.numbers[2]}</span></td>
+                    <td><span class="number main" style="width: 36px; height: 36px; font-size: 0.875rem;">${ext.numbers[3]}</span></td>
+                    <td><span class="number main" style="width: 36px; height: 36px; font-size: 0.875rem;">${ext.numbers[4]}</span></td>
+                    <td><span class="number star" style="width: 36px; height: 36px; font-size: 0.875rem;">${ext.stars[0]}</span></td>
+                    <td><span class="number star" style="width: 36px; height: 36px; font-size: 0.875rem;">${ext.stars[1]}</span></td>
+                    <td><button class="btn btn-danger btn-sm btn-icon" onclick="deleteExtraction(${ext.id})">🗑️</button></td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function filterExtractions() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = extractions.filter(ext => ext.date.includes(searchTerm));
+            
+            const tbody = document.getElementById('extractionsBody');
+            tbody.innerHTML = '';
+            
+            if (filtered.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="9" style="padding: 20px; color: var(--text-muted);">Nessun risultato</td></tr>`;
+                return;
+            }
+            
+            filtered.slice(0, 20).forEach(ext => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td style="font-weight: 600;">${formatDate(ext.date)}</td>
+                    <td><span class="number main" style="width: 36px; height: 36px; font-size: 0.875rem;">${ext.numbers[0]}</span></td>
+                    <td><span class="number main" style="width: 36px; height: 36px; font-size: 0.875rem;">${ext.numbers[1]}</span></td>
+                    <td><span class="number main" style="width: 36px; height: 36px; font-size: 0.875rem;">${ext.numbers[2]}</span></td>
+                    <td><span class="number main" style="width: 36px; height: 36px; font-size: 0.875rem;">${ext.numbers[3]}</span></td>
+                    <td><span class="number main" style="width: 36px; height: 36px; font-size: 0.875rem;">${ext.numbers[4]}</span></td>
+                    <td><span class="number star" style="width: 36px; height: 36px; font-size: 0.875rem;">${ext.stars[0]}</span></td>
+                    <td><span class="number star" style="width: 36px; height: 36px; font-size: 0.875rem;">${ext.stars[1]}</span></td>
+                    <td><button class="btn btn-danger btn-sm btn-icon" onclick="deleteExtraction(${ext.id})">🗑️</button></td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            renderExtractions();
+        }
+
+        function addSampleData() {
+            const samples = [
+                {date: '2024-10-15', numbers: [5, 12, 23, 34, 45], stars: [3, 8]},
+                {date: '2024-10-12', numbers: [8, 17, 26, 41, 49], stars: [2, 11]},
+                {date: '2024-10-10', numbers: [1, 19, 28, 37, 44], stars: [5, 9]},
+                {date: '2024-10-08', numbers: [3, 15, 25, 39, 47], stars: [1, 12]},
+                {date: '2024-10-05', numbers: [7, 14, 22, 33, 48], stars: [4, 10]}
+            ];
+            
+            let added = 0;
+            samples.forEach(sample => {
+                if (!extractions.some(e => e.date === sample.date)) {
+                    extractions.push({
+                        id: Date.now() + added,
+                        ...sample,
+                        timestamp: new Date().toISOString()
+                    });
+                    added++;
+                }
+            });
+            
+            if (added > 0) {
+                extractions.sort((a, b) => new Date(b.date) - new Date(a.date));
+                saveData();
+                renderExtractions();
+                renderFrequencyCharts();
+                showMessage(`✅ ${added} estrazioni demo caricate!`, 'success');
+            } else {
+                showMessage('ℹ️ Dati demo già presenti', 'info');
+            }
+        }
+
+        // Utilities
+        function toggleAllAlgorithms() {
+            const allActive = algorithms.every(a => a.active);
+            algorithms.forEach(a => a.active = !allActive);
+            renderLiveAlgorithms();
+            updateEnsembleMetrics();
+            saveData();
+            showMessage(allActive ? '⏸️ Tutti disattivati' : '▶️ Tutti attivati', 'info');
+        }
+
+        function resetAlgorithmWeights() {
+            const originalWeights = [1.15, 0.95, 1.05, 0.85, 0.9, 0.75, 0.8, 0.65, 1.25, 0.88, 1.35, 1.12, 1.08];
+            algorithms.forEach((alg, i) => {
+                alg.weight = originalWeights[i];
+                alg.successRate = 0;
+                alg.totalPredictions = 0;
+            });
+            renderAlgorithmWeights();
+            renderLiveAlgorithms();
+            updateEnsembleMetrics();
+            saveData();
+            showMessage('🔄 Configurazione ripristinata', 'success');
+        }
+
+        function saveAlgorithmConfig() {
+            saveData();
+            showMessage('💾 Configurazione salvata!', 'success');
+        }
+
+        function loadDefaultConfig() {
+            resetAlgorithmWeights();
+            algorithms.forEach(a => a.active = true);
+            renderLiveAlgorithms();
+            renderAlgorithmWeights();
+            updateEnsembleMetrics();
+            saveData();
+            showMessage('🔄 Config default caricata!', 'success');
+        }
+
+        function optimizeWeights() {
+            algorithms.forEach(alg => {
+                const bonus = (alg.accuracy - 50) / 100 + alg.successRate * 0.5;
+                alg.weight = Math.max(0.1, Math.min(2.0, alg.weight + bonus * 0.15));
+                alg.weight = Math.round(alg.weight * 100) / 100;
+            });
+            renderAlgorithmWeights();
+            renderLiveAlgorithms();
+            updateEnsembleMetrics();
+            saveData();
+            showMessage('🎯 Pesi ottimizzati!', 'success');
+        }
+
+        function showMessage(message, type = 'info') {
+            const div = document.createElement('div');
+            div.className = `message ${type}`;
+            div.textContent = message;
+            
+            document.querySelector('.container').insertBefore(div, document.querySelector('.container').firstChild);
+            
+            setTimeout(() => {
+                if (div.parentNode) div.parentNode.removeChild(div);
+            }, 5000);
+            
+            div.addEventListener('click', () => {
+                if (div.parentNode) div.parentNode.removeChild(div);
+            });
+        }
+
+        function formatDate(dateString) {
+            return new Date(dateString).toLocaleDateString('it-IT');
+        }
+
+        function formatDateTime(isoString) {
+            return new Date(isoString).toLocaleString('it-IT', { 
+                dateStyle: 'short', 
+                timeStyle: 'short' 
+            });
+        }
     </script>
 </body>
 </html>
-
-
 
 
 
